@@ -7,6 +7,8 @@ const DEFAULT_SETTINGS = {
     mode: "session",
     apiKey: ""
   },
+  orderBy: "bug_id",
+  orderDirection: "DESC",
   criteria: {
     product: "",
     component: "",
@@ -130,8 +132,24 @@ async function buildQuery(settings, since) {
   } catch (e) {}
   if (since) params.set("creation_time", since);
   params.set("limit", "500");
-  params.set("order", "bug_id DESC");
+  params.set("order", buildOrder(settings));
   return params;
+}
+
+const ORDER_MAP = {
+  bug_id: "bug_id",
+  importance: "priority, bug_severity",
+  changeddate: "delta_ts",
+  creation_time: "creation_ts"
+};
+
+function buildOrder(settings) {
+  const direction = settings.orderDirection === "ASC" ? "ASC" : "DESC";
+  const base = ORDER_MAP[settings.orderBy] || "bug_id";
+  return base
+    .split(",")
+    .map((field) => field.trim() + " " + direction)
+    .join(", ");
 }
 
 async function searchBugs(settings, since) {
