@@ -1,11 +1,26 @@
 body {
   width: 340px;
+  max-height: 560px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
   font-family: -apple-system, Segoe UI, Roboto, sans-serif;
   font-size: 13px;
   margin: 0;
   padding: 12px;
   background: #f7f9fc;
   color: #222;
+}
+
+.header,
+.status-row,
+.stats,
+.btn,
+.section-title,
+.empty,
+.link {
+  flex: 0 0 auto;
 }
 
 .header {
@@ -164,6 +179,9 @@ body {
   list-style: none;
   margin: 0;
   padding: 0;
+  flex: 0 1 auto;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .list li {
