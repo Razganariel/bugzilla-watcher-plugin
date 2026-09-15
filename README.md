@@ -16,7 +16,8 @@
   - Product, component, status, severity, priority, resolution, assignee, creator, summary, version, target milestone, OS, platform, QA contact, whiteboard, keywords, tags, quick search;
   - **Advanced criteria** (field / operator / value) to use custom `cf_*` fields and change-history search;
   - **Raw REST parameters** (JSON) for any API parameter not covered above.
-- **Ordering (`order by`)**: sort results by bug ID, importance (priority/severity), last change date (`delta_ts`) or creation date (`creation_ts`), ascending or descending.
+- **Reorder (`order by`)**: sort results by bug ID, importance (priority/severity), last change date (`delta_ts`) or creation date (`creation_ts`), ascending or descending.
+- **Watch mode (new / modified)**: track only newly created tickets, or also detect changes to existing ones (status, comments…).
 - **Customizable popup**: set the maximum number of detected tickets displayed (up to 50, older ones are dropped); the list auto-scrolls to the most recent.
 - **Localized UI (FR / EN / DE / ES / IT / NL)**: the plugin automatically uses the Firefox interface language, or you can force one in the settings (Language).
 - **Retry with exponential backoff & visible errors**: on failure (unreachable instance, expired session…) the plugin retries with a growing delay from 30 s up to 15 min, pauses the normal cadence, and shows the last error (with timestamp) in the popup.
@@ -35,6 +36,7 @@
   - **Critères avancés** (champ / opérateur / valeur) pour utiliser les champs personnalisés `cf_*` et la recherche par historique ;
   - **Paramètres REST bruts** (JSON) pour tout paramètre de l'API non couvert ci-dessus.
 - **Tri (`order by`)** : résultats classés par ID du ticket, importance (priorité/sévérité), date de changement (`delta_ts`) ou date de création (`creation_ts`), croissant ou décroissant.
+- **Mode de surveillance (nouveaux / modifiés)** : suivre uniquement les nouveaux tickets, ou détecter aussi les modifications des tickets existants (statut, commentaires…).
 - **Popup personnalisable** : nombre max de tickets détectés affichés (jusqu'à 50, les plus anciens étant ignorés) ; la liste défile automatiquement vers les plus récents.
 - **Interface localisée (FR / EN / DE / ES / IT / NL)** : le plugin utilise automatiquement la langue de Firefox, ou vous pouvez en forcer une dans les paramètres (Langue).
 - **Réessai avec backoff exponentiel et erreurs visibles** : en cas d'échec (instance injoignable, session expirée…), le plugin réessaie avec un délai croissant de 30 s à 15 min, met la cadence normale en pause et affiche la dernière erreur (avec horodatage) dans le popup.

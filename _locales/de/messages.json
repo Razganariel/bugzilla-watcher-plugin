@@ -89,6 +89,18 @@
   "criteria_subtitle": {
     "message": "Die Kriterien werden mit logischem UND verknüpft. Trennen Sie mehrere Werte mit Kommas (logisches ODER)."
   },
+  "watch_label": {
+    "message": "Überwachungsmodus"
+  },
+  "watch_new": {
+    "message": "Nur neue Tickets"
+  },
+  "watch_all": {
+    "message": "Neue + geänderte Tickets"
+  },
+  "watch_hint": {
+    "message": "Im Modus „geänderte Tickets“ löst jede Änderung (Status, Kommentar usw.) eine Warnung aus, nicht nur Neuerstellungen."
+  },
   "orderby_label": {
     "message": "Sortierung (order by)"
   },
