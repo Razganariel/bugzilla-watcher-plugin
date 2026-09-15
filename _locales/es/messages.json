@@ -1,0 +1,338 @@
+{
+  "appTitle": {
+    "message": "Bugzilla Ticket Monitor"
+  },
+  "opts_subtitle": {
+    "message": "Configuración de detección de nuevos tickets"
+  },
+  "sec_connect": {
+    "message": "Conexión"
+  },
+  "url_label": {
+    "message": "URL de la instancia de Bugzilla"
+  },
+  "url_title": {
+    "message": "Dirección base de la instancia de Bugzilla (sin /rest)"
+  },
+  "url_placeholder": {
+    "message": "https://bugzilla.example.com"
+  },
+  "auth_title": {
+    "message": "Autenticación"
+  },
+  "auth_session": {
+    "message": "Sesión de una pestaña abierta"
+  },
+  "auth_apikey": {
+    "message": "Clave API"
+  },
+  "apikey_label": {
+    "message": "Clave API de Bugzilla"
+  },
+  "apikey_placeholder": {
+    "message": "su clave API de Bugzilla"
+  },
+  "apikey_hint": {
+    "message": "Su perfil de Bugzilla → API Keys. Más fiable que la sesión (no necesita mantener una pestaña abierta)."
+  },
+  "session_hint": {
+    "message": "Modo sesión: una pestaña conectada a Bugzilla debe permanecer abierta en este perfil. Las solicitudes se realizan desde el mismo origen a través de un script de contenido (sin problemas de CORS) y su sesión se reutiliza."
+  },
+  "sec_polling": {
+    "message": "Polling"
+  },
+  "poll_freq": {
+    "message": "Frecuencia (minutos)"
+  },
+  "maxtix_label": {
+    "message": "Número máx. de tickets mostrados en el popup"
+  },
+  "maxtix_hint": {
+    "message": "No exceder 50 tickets: por encima, los más antiguos se ignoran."
+  },
+  "baseline_label": {
+    "message": "No alertar sobre tickets existentes en el primer lanzamiento"
+  },
+  "sec_lang": {
+    "message": "Idioma"
+  },
+  "lang_label": {
+    "message": "Idioma de la interfaz"
+  },
+  "lang_auto": {
+    "message": "Automático (idioma de Firefox)"
+  },
+  "lang_fr": {
+    "message": "Français"
+  },
+  "lang_en": {
+    "message": "English"
+  },
+  "lang_de": {
+    "message": "Deutsch"
+  },
+  "lang_es": {
+    "message": "Español"
+  },
+  "lang_it": {
+    "message": "Italiano"
+  },
+  "lang_nl": {
+    "message": "Nederlands"
+  },
+  "lang_hint": {
+    "message": "Por defecto, el plugin detecta el idioma de Firefox."
+  },
+  "sec_criteria": {
+    "message": "Criterios de búsqueda (API REST)"
+  },
+  "criteria_subtitle": {
+    "message": "Los criterios se combinan con lógica AND. Separe varios valores con comas (lógica OR)."
+  },
+  "orderby_label": {
+    "message": "Orden (order by)"
+  },
+  "orderby_bugid": {
+    "message": "ID del ticket (bug_id)"
+  },
+  "orderby_importance": {
+    "message": "Importancia (prioridad / severidad)"
+  },
+  "orderby_changed": {
+    "message": "Fecha de cambio (delta_ts)"
+  },
+  "orderby_created": {
+    "message": "Fecha de creación (creation_ts)"
+  },
+  "orderdir_label": {
+    "message": "Dirección del orden"
+  },
+  "orderdir_desc": {
+    "message": "Descendente"
+  },
+  "orderdir_asc": {
+    "message": "Ascendente"
+  },
+  "sec_advanced": {
+    "message": "Criterios avanzados (búsqueda avanzada de Bugzilla)"
+  },
+  "advanced_subtitle": {
+    "message": "Campo / operador / valor: permite usar campos personalizados (cf_*) y la búsqueda por historial."
+  },
+  "btn_add_advanced": {
+    "message": "+ Añadir un criterio avanzado"
+  },
+  "sec_raw": {
+    "message": "Parámetros brutos (JSON, opcional)"
+  },
+  "raw_label": {
+    "message": "Parámetros REST adicionales enviados tal cual"
+  },
+  "raw_hint": {
+    "message": "Permite usar cualquier parámetro de la API REST no cubierto arriba."
+  },
+  "sec_notify": {
+    "message": "Notificaciones"
+  },
+  "notify_toast": {
+    "message": "Mostrar notificación emergente"
+  },
+  "notify_sound": {
+    "message": "Reproducir sonido"
+  },
+  "sound_url_label": {
+    "message": "URL de sonido personalizado (opcional, MP3/WAV/OGG)"
+  },
+  "sound_url_placeholder": {
+    "message": "https://example.com/sonido.mp3"
+  },
+  "btn_test": {
+    "message": "Probar búsqueda"
+  },
+  "btn_save": {
+    "message": "Guardar"
+  },
+  "btn_searching": {
+    "message": "Buscando…"
+  },
+  "help_summary": {
+    "message": "Guía rápida de campos"
+  },
+  "help_l1": {
+    "message": "product / component: nombre exacto del producto / componente de Bugzilla."
+  },
+  "help_l2": {
+    "message": "status: NEW, ASSIGNED, REOPENED, RESOLVED… por defecto, los estados abiertos."
+  },
+  "help_l3": {
+    "message": "severity / priority: bloqueante, mayor, normal… / --, P1…P5."
+  },
+  "help_l4": {
+    "message": "assigned_to / creator / qa_contact: identificador de usuario."
+  },
+  "help_l5": {
+    "message": "summary / whiteboard: subcadena (búsqueda de subcadena)."
+  },
+  "help_l6": {
+    "message": "keywords / tags: palabras clave o etiquetas de la entrada."
+  },
+  "help_l7": {
+    "message": "version / target_milestone: versión o hito objetivo."
+  },
+  "help_l8": {
+    "message": "quicksearch: sintaxis de búsqueda rápida de Bugzilla."
+  },
+  "help_l9": {
+    "message": "Criterios avanzados: p. ej. campo cf_periodic_check, operador equals, valor sí."
+  },
+  "ph_ignore": {
+    "message": "dejar vacío = ignorar"
+  },
+  "ph_value": {
+    "message": "valor"
+  },
+  "fld_product": {
+    "message": "Producto"
+  },
+  "fld_component": {
+    "message": "Componente"
+  },
+  "fld_status": {
+    "message": "Estado"
+  },
+  "fld_severity": {
+    "message": "Severidad"
+  },
+  "fld_priority": {
+    "message": "Prioridad"
+  },
+  "fld_resolution": {
+    "message": "Resolución"
+  },
+  "fld_assigned": {
+    "message": "Asignado a"
+  },
+  "fld_creator": {
+    "message": "Creado por"
+  },
+  "fld_qa": {
+    "message": "Contacto QA"
+  },
+  "fld_summary": {
+    "message": "Resumen (subcadena)"
+  },
+  "fld_version": {
+    "message": "Versión"
+  },
+  "fld_milestone": {
+    "message": "Hito objetivo"
+  },
+  "fld_opsys": {
+    "message": "Sistema operativo"
+  },
+  "fld_platform": {
+    "message": "Plataforma"
+  },
+  "fld_whiteboard": {
+    "message": "Whiteboard (subcadena)"
+  },
+  "fld_keywords": {
+    "message": "Palabras clave"
+  },
+  "fld_tags": {
+    "message": "Etiquetas"
+  },
+  "fld_quicksearch": {
+    "message": "Búsqueda rápida"
+  },
+  "msg_raw_invalid": {
+    "message": "Parámetros brutos no válidos: JSON incorrecto."
+  },
+  "msg_maxtix": {
+    "message": "El número máximo de tickets mostrados no puede exceder 50."
+  },
+  "msg_no_url": {
+    "message": "Por favor introduzca la URL de la instancia de Bugzilla."
+  },
+  "msg_no_apikey": {
+    "message": "Por favor introduzca su clave API o elija la sesión de una pestaña abierta."
+  },
+  "msg_saved": {
+    "message": "Configuración guardada. La monitorización está activa."
+  },
+  "msg_test_count": {
+    "message": "La búsqueda devuelve {0} ticket(s)."
+  },
+  "msg_test_samples": {
+    "message": "Ejemplos: {0}"
+  },
+  "msg_err": {
+    "message": "Error: {0}"
+  },
+  "msg_unknown": {
+    "message": "desconocida"
+  },
+  "popup_switch_title": {
+    "message": "Activar / desactivar la monitorización"
+  },
+  "stat_notconfigured": {
+    "message": "No configurado"
+  },
+  "stat_detected": {
+    "message": "Tickets detectados: {0} ({1})"
+  },
+  "stat_active": {
+    "message": "Monitorización activa"
+  },
+  "stat_waiting": {
+    "message": "Esperando la primera comprobación"
+  },
+  "btn_checking": {
+    "message": "Comprobando…"
+  },
+  "btn_check": {
+    "message": "Comprobar ahora"
+  },
+  "popup_init": {
+    "message": "Inicializando…"
+  },
+  "popup_lastcheck": {
+    "message": "Última comprobación"
+  },
+  "popup_detections": {
+    "message": "Detecciones"
+  },
+  "popup_lastsect": {
+    "message": "Últimos tickets detectados"
+  },
+  "popup_empty": {
+    "message": "No se detectó ningún ticket todavía."
+  },
+  "popup_options": {
+    "message": "Configuración de detección…"
+  },
+  "err_no_url": {
+    "message": "URL de Bugzilla no configurada"
+  },
+  "err_bugzilla": {
+    "message": "Error de Bugzilla"
+  },
+  "err_check_apikey": {
+    "message": " Compruebe su clave API."
+  },
+  "err_login_hint": {
+    "message": " Inicie sesión en Bugzilla en una pestaña de este perfil o configure una clave API."
+  },
+  "notif_title_single": {
+    "message": "Bug {0} [{1}] {2}"
+  },
+  "notif_title_multi": {
+    "message": "{0} nuevos tickets de Bugzilla"
+  },
+  "notif_msg_multi": {
+    "message": "Detección de {0} ticket(s) que coinciden con los criterios."
+  },
+  "err_http": {
+    "message": "HTTP {0}"
+  }
+}

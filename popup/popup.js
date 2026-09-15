@@ -18,7 +18,7 @@ function esc(text) {
 async function refresh() {
   const state = await browser.runtime.sendMessage({ action: "getState" });
   const { settings } = await browser.storage.local.get("settings");
-  $("url").textContent = settings && settings.bugzillaUrl ? settings.bugzillaUrl : "Non configuré";
+  $("url").textContent = settings && settings.bugzillaUrl ? settings.bugzillaUrl : I18N.t("stat_notconfigured");
 
   if (settings) $("enabled").checked = !!settings.enabled;
 
@@ -28,8 +28,8 @@ async function refresh() {
 
   const dot = $("statusDot");
   $("statusText").textContent = lastDetected.length > 0
-    ? "Tickets détectés : " + lastDetected[0].id + " (" + fmt(state.lastDetection) + ")"
-    : (state.lastPollTime ? "Monitoring actif" : "En attente de la première vérification");
+    ? I18N.t("stat_detected", [lastDetected[0].id, fmt(state.lastDetection)])
+    : (state.lastPollTime ? I18N.t("stat_active") : I18N.t("stat_waiting"));
   dot.className = "dot" + (state.lastPollTime ? " ok" : "");
 
   browser.browserAction.setBadgeText({ text: "" });
@@ -63,12 +63,12 @@ $("enabled").addEventListener("change", async (e) => {
 $("checkNow").addEventListener("click", async (e) => {
   const btn = e.target;
   btn.disabled = true;
-  btn.textContent = "Vérification…";
+  btn.textContent = I18N.t("btn_checking");
   await browser.runtime.sendMessage({ action: "poll" });
   setTimeout(async () => {
     await refresh();
     btn.disabled = false;
-    btn.textContent = "Vérifier maintenant";
+    btn.textContent = I18N.t("btn_check");
   }, 800);
 });
 
@@ -77,4 +77,8 @@ $("openOptions").addEventListener("click", (e) => {
   browser.runtime.openOptionsPage();
 });
 
-refresh();
+(async function init() {
+  await I18N.init();
+  I18N.applyPage();
+  await refresh();
+})();
