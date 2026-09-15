@@ -50,12 +50,16 @@
           </label>
         </div>
         <div class="col">
-          <label class="check">
-            <input type="checkbox" id="baselineFirstRun">
-            Ne pas alerter sur les tickets existants au premier lancement
+          <label>Nombre max de tickets affichés dans le popup
+            <input type="number" id="maxTickets" min="1" max="50" value="50">
           </label>
+          <div class="hint">Ne pas dépasser 50 tickets : au-delà, les plus anciens sont ignorés.</div>
         </div>
       </div>
+      <label class="check">
+        <input type="checkbox" id="baselineFirstRun">
+        Ne pas alerter sur les tickets existants au premier lancement
+      </label>
     </section>
 
     <section>

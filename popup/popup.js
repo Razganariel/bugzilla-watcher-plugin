@@ -51,6 +51,7 @@ async function refresh() {
     list.appendChild(li);
   });
   $("empty").style.display = lastDetected.length ? "none" : "block";
+  list.scrollTop = 0;
 }
 
 $("enabled").addEventListener("change", async (e) => {
