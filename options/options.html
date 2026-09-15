@@ -7,80 +7,92 @@
 <body>
   <div class="wrap">
     <h1>Bugzilla Ticket Monitor</h1>
-    <p class="subtitle">Paramètres de détection des nouveaux tickets</p>
+    <p class="subtitle" data-i18n="opts_subtitle"></p>
 
     <section>
-      <h2>Connexion</h2>
-      <label>URL de l'instance Bugzilla
-        <input type="text" id="bugzillaUrl" placeholder="https://bugzilla.example.com"
-          title="Adresse de base de l'instance Bugzilla (sans /rest)">
+      <h2 data-i18n="sec_connect"></h2>
+      <label><span data-i18n="url_label"></span>
+        <input type="text" id="bugzillaUrl" data-i18n-placeholder="url_placeholder"
+          data-i18n-title="url_title">
       </label>
 
-      <h3 class="small-h2">Authentification</h3>
+      <h3 class="small-h2" data-i18n="auth_title"></h3>
       <div class="row">
         <div class="col">
           <label class="check">
-            <input type="radio" name="authMode" value="session"> Session d'un onglet ouvert
+            <input type="radio" name="authMode" value="session"> <span data-i18n="auth_session"></span>
           </label>
         </div>
         <div class="col">
           <label class="check">
-            <input type="radio" name="authMode" value="apiKey"> Clé API
+            <input type="radio" name="authMode" value="apiKey"> <span data-i18n="auth_apikey"></span>
           </label>
         </div>
       </div>
       <div id="apiKeyBlock" class="hidden">
-        <label>Clé API Bugzilla
-          <input type="password" id="apiKey" autocomplete="off" placeholder="votre clé API Bugzilla">
+        <label><span data-i18n="apikey_label"></span>
+          <input type="password" id="apiKey" autocomplete="off" data-i18n-placeholder="apikey_placeholder">
         </label>
-        <div class="hint">Votre profil Bugzilla → API Keys. Plus fiable que la session (pas besoin de garder un onglet ouvert).</div>
+        <div class="hint" data-i18n="apikey_hint"></div>
       </div>
-      <div class="hint" id="sessionHint">
-        Mode session : un onglet Bugzilla connecté doit rester ouvert dans ce profil. Les requêtes sont faites en
-        même origine via un script de contenu (aucun problème de CORS) et votre session est réutilisée.
-      </div>
+      <div class="hint" id="sessionHint" data-i18n="session_hint"></div>
     </section>
 
     <section>
-      <h2>Polling</h2>
+      <h2 data-i18n="sec_polling"></h2>
       <div class="row">
         <div class="col">
-          <label>Fréquence (minutes)
+          <label><span data-i18n="poll_freq"></span>
             <input type="number" id="pollInterval" min="1" value="1">
           </label>
         </div>
         <div class="col">
-          <label>Nombre max de tickets affichés dans le popup
+          <label><span data-i18n="maxtix_label"></span>
             <input type="number" id="maxTickets" min="1" max="50" value="50">
           </label>
-          <div class="hint">Ne pas dépasser 50 tickets : au-delà, les plus anciens sont ignorés.</div>
+          <div class="hint" data-i18n="maxtix_hint"></div>
         </div>
       </div>
       <label class="check">
-        <input type="checkbox" id="baselineFirstRun">
-        Ne pas alerter sur les tickets existants au premier lancement
+        <input type="checkbox" id="baselineFirstRun"> <span data-i18n="baseline_label"></span>
       </label>
     </section>
 
     <section>
-      <h2>Critères de recherche (API REST)</h2>
-      <p class="subtitle">Les critères sont combinés en ET logique. Séparez plusieurs valeurs par des virgules (logique OU).</p>
+      <h2 data-i18n="sec_lang"></h2>
+      <label><span data-i18n="lang_label"></span>
+        <select id="lang">
+          <option value="auto" data-i18n="lang_auto"></option>
+          <option value="fr" data-i18n="lang_fr"></option>
+          <option value="en" data-i18n="lang_en"></option>
+          <option value="de" data-i18n="lang_de"></option>
+          <option value="es" data-i18n="lang_es"></option>
+          <option value="it" data-i18n="lang_it"></option>
+          <option value="nl" data-i18n="lang_nl"></option>
+        </select>
+      </label>
+      <div class="hint" data-i18n="lang_hint"></div>
+    </section>
+
+    <section>
+      <h2 data-i18n="sec_criteria"></h2>
+      <p class="subtitle" data-i18n="criteria_subtitle"></p>
       <div class="row">
         <div class="col">
-          <label>Tri (order by)
+          <label><span data-i18n="orderby_label"></span>
             <select id="orderBy">
-              <option value="bug_id">ID du ticket (bug_id)</option>
-              <option value="importance">Importance (priorité / sévérité)</option>
-              <option value="changeddate">Date de changement (delta_ts)</option>
-              <option value="creation_time">Date de création (creation_ts)</option>
+              <option value="bug_id" data-i18n="orderby_bugid"></option>
+              <option value="importance" data-i18n="orderby_importance"></option>
+              <option value="changeddate" data-i18n="orderby_changed"></option>
+              <option value="creation_time" data-i18n="orderby_created"></option>
             </select>
           </label>
         </div>
         <div class="col">
-          <label>Sens du tri
+          <label><span data-i18n="orderdir_label"></span>
             <select id="orderDirection">
-              <option value="DESC">Décroissant</option>
-              <option value="ASC">Croissant</option>
+              <option value="DESC" data-i18n="orderdir_desc"></option>
+              <option value="ASC" data-i18n="orderdir_asc"></option>
             </select>
           </label>
         </div>
@@ -89,61 +101,62 @@
     </section>
 
     <section>
-      <h2>Critères avancés (recherche avancée Bugzilla)</h2>
-      <p class="subtitle">Champ / opérateur / valeur : permet d'utiliser les champs personnalisés (cf_*) et la recherche par historique.</p>
+      <h2 data-i18n="sec_advanced"></h2>
+      <p class="subtitle" data-i18n="advanced_subtitle"></p>
       <div id="advancedRows"></div>
-      <button type="button" id="addAdvanced" class="btn-secondary">+ Ajouter un critère avancé</button>
+      <button type="button" id="addAdvanced" class="btn-secondary" data-i18n="btn_add_advanced"></button>
     </section>
 
     <section>
-      <h2>Paramètres bruts (JSON, optionnel)</h2>
-      <label>Paramètres REST supplémentaires envoyés tel quel
+      <h2 data-i18n="sec_raw"></h2>
+      <label><span data-i18n="raw_label"></span>
         <textarea id="rawParams" rows="3" placeholder='{"include_fields":"id,summary","limit":"100"}'></textarea>
       </label>
-      <div class="hint">Permet d'utiliser n'importe quel paramètre de l'API REST non couvert ci-dessus.</div>
+      <div class="hint" data-i18n="raw_hint"></div>
     </section>
 
     <section>
-      <h2>Notifications</h2>
+      <h2 data-i18n="sec_notify"></h2>
       <div class="row">
         <div class="col">
           <label class="check">
-            <input type="checkbox" id="notifyToast"> Afficher un toast (notification)
+            <input type="checkbox" id="notifyToast"> <span data-i18n="notify_toast"></span>
           </label>
         </div>
         <div class="col">
           <label class="check">
-            <input type="checkbox" id="notifySound"> Jouer un son
+            <input type="checkbox" id="notifySound"> <span data-i18n="notify_sound"></span>
           </label>
         </div>
       </div>
-      <label>URL du son personnalisé (optionnel, MP3/WAV/OGG)
-        <input type="text" id="soundUrl" placeholder="https://example.com/son.mp3">
+      <label><span data-i18n="sound_url_label"></span>
+        <input type="text" id="soundUrl" data-i18n-placeholder="sound_url_placeholder">
       </label>
     </section>
 
     <div class="actions">
-      <button id="test" class="btn-secondary">Tester la recherche</button>
-      <button id="save" class="btn-primary">Enregistrer</button>
+      <button id="test" class="btn-secondary" data-i18n="btn_test"></button>
+      <button id="save" class="btn-primary" data-i18n="btn_save"></button>
     </div>
     <div id="msg" class="msg"></div>
 
     <details class="help">
-      <summary>Guide rapide des champs</summary>
+      <summary data-i18n="help_summary"></summary>
       <ul>
-        <li><strong>produit / component</strong> : nom exact du produit / composant Bugzilla.</li>
-        <li><strong>status</strong> : NEW, ASSIGNED, REOPENED, RESOLVED… par défaut les statuts ouverts.</li>
-        <li><strong>severity / priority</strong> : blocant, majeur, normal… / --, P1…P5.</li>
-        <li><strong>assigned_to / creator / qa_contact</strong> : identifiant de connexion d'un utilisateur.</li>
-        <li><strong>summary / whiteboard</strong> : sous-chaîne (recherche de sous-chaîne).</li>
-        <li><strong>keywords / tags</strong> : mots-clés ou tags de l'entrée.</li>
-        <li><strong>version / target_milestone</strong> : version ou jalon cible.</li>
-        <li><strong>quicksearch</strong> : syntaxe de recherche rapide Bugzilla.</li>
-        <li><strong>Critères avancés</strong> : ex. champ <code>cf_periodic_check</code>, opérateur <code>equals</code>, valeur <code>oui</code>.</li>
+        <li data-i18n="help_l1"></li>
+        <li data-i18n="help_l2"></li>
+        <li data-i18n="help_l3"></li>
+        <li data-i18n="help_l4"></li>
+        <li data-i18n="help_l5"></li>
+        <li data-i18n="help_l6"></li>
+        <li data-i18n="help_l7"></li>
+        <li data-i18n="help_l8"></li>
+        <li data-i18n="help_l9"></li>
       </ul>
     </details>
   </div>
 
+  <script src="../i18n.js"></script>
   <script src="options.js"></script>
 </body>
 </html>
