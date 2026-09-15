@@ -26,6 +26,7 @@
   "lang_auto": { "message": "Automatic (Firefox language)" },
   "lang_fr": { "message": "Français" },
   "lang_en": { "message": "English" },
+  "lang_de": { "message": "Deutsch" },
   "lang_hint": { "message": "By default the plugin detects the Firefox language." },
 
   "sec_criteria": { "message": "Search criteria (REST API)" },
