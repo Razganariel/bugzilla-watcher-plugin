@@ -29,6 +29,7 @@
   "lang_de": { "message": "Deutsch" },
   "lang_es": { "message": "Español" },
   "lang_it": { "message": "Italiano" },
+  "lang_nl": { "message": "Nederlands" },
   "lang_hint": { "message": "Par défaut, le plugin détecte la langue de Firefox." },
 
   "sec_criteria": { "message": "Critères de recherche (API REST)" },
