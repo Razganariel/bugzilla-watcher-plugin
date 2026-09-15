@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="header">
+    <img src="../icons/icon.svg" alt="Bugzilla" class="logo">
+    <div class="title-block">
+      <div class="title">Bugzilla Ticket Monitor</div>
+      <div class="url" id="url"></div>
+    </div>
+    <label class="switch" title="Activer / désactiver le monitoring">
+      <input type="checkbox" id="enabled">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="status-row">
+    <span class="dot" id="statusDot"></span>
+    <span id="statusText">Initialisation…</span>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-value" id="lastChecked">—</div>
+      <div class="stat-label">Dernière vérification</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" id="detectedCount">0</div>
+      <div class="stat-label">Détections</div>
+    </div>
+  </div>
+
+  <button id="checkNow" class="btn">Vérifier maintenant</button>
+
+  <div class="section-title">Derniers tickets détectés</div>
+  <ul class="list" id="list"></ul>
+  <div class="empty" id="empty">Aucun ticket détecté pour le moment.</div>
+
+  <a href="#" id="openOptions" class="link">Paramètres de détection…</a>
+
+  <script src="popup.js"></script>
+</body>
+</html>
