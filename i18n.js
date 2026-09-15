@@ -1,5 +1,5 @@
 (function () {
-  const LOCALES = ["fr", "en"];
+  const LOCALES = ["fr", "en", "de"];
   const dicts = {};
 
   async function loadDict(locale) {
@@ -30,11 +30,14 @@
         ui = String(navigator.language || "");
       } catch (e) {}
     }
-    ui = ui.toLowerCase();
-    if (ui.indexOf("en") === 0) {
-      return "en";
-    }
-    return "fr";
+ui = ui.toLowerCase();
+  if (ui.indexOf("en") === 0) {
+    return "en";
+  }
+  if (ui.indexOf("de") === 0) {
+    return "de";
+  }
+  return "fr";
   }
 
   function resolveLang(lang) {
