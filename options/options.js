@@ -127,6 +127,7 @@ function collectSettings() {
     },
     orderBy: document.getElementById("orderBy").value,
     orderDirection: document.getElementById("orderDirection").value,
+    maxTickets: Math.min(50, Math.max(1, Number(document.getElementById("maxTickets").value) || 50)),
     criteria: {},
     advancedCriteria: readAdvancedRows(),
     rawParams: document.getElementById("rawParams").value.trim(),
@@ -148,6 +149,11 @@ async function doSave() {
     JSON.parse(settings.rawParams || "{}");
   } catch (e) {
     showMsg("Paramètres bruts invalides : JSON incorrect.", false);
+    return;
+  }
+  const maxTicketsInput = Number(document.getElementById("maxTickets").value);
+  if (maxTicketsInput > 50) {
+    showMsg("Le nombre max de tickets affichés ne peut pas dépasser 50.", false);
     return;
   }
   if (!settings.bugzillaUrl) {
@@ -235,6 +241,7 @@ async function load() {
 
   document.getElementById("orderBy").value = s.orderBy || "bug_id";
   document.getElementById("orderDirection").value = s.orderDirection || "DESC";
+  document.getElementById("maxTickets").value = Math.min(50, Math.max(1, Number(s.maxTickets) || 50));
 
   const criteria = s.criteria || {};
   document.querySelectorAll("#criteriaGrid input[data-field]").forEach((input) => {
