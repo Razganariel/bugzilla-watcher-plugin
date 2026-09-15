@@ -89,6 +89,18 @@
   "criteria_subtitle": {
     "message": "Les critères sont combinés en ET logique. Séparez plusieurs valeurs par des virgules (logique OU)."
   },
+  "watch_label": {
+    "message": "Mode de surveillance"
+  },
+  "watch_new": {
+    "message": "Nouveaux tickets uniquement"
+  },
+  "watch_all": {
+    "message": "Nouveaux + tickets modifiés"
+  },
+  "watch_hint": {
+    "message": "En mode « tickets modifiés », tout changement (statut, commentaire, etc.) déclenche une alerte, pas seulement les créations."
+  },
   "orderby_label": {
     "message": "Tri (order by)"
   },

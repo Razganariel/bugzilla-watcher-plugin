@@ -89,6 +89,18 @@
   "criteria_subtitle": {
     "message": "I criteri vengono combinati con logica AND. Separare più valori con virgole (logica OR)."
   },
+  "watch_label": {
+    "message": "Modalità di monitoraggio"
+  },
+  "watch_new": {
+    "message": "Solo nuovi ticket"
+  },
+  "watch_all": {
+    "message": "Nuovi + ticket modificati"
+  },
+  "watch_hint": {
+    "message": "In modalità «ticket modificati», qualsiasi modifica (stato, commento, ecc.) attiva un avviso, non solo le creazioni."
+  },
   "orderby_label": {
     "message": "Ordinamento (order by)"
   },
