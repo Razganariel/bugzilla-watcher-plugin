@@ -11,6 +11,7 @@ const DEFAULT_SETTINGS = {
   orderDirection: "DESC",
   maxTickets: 50,
   lang: "auto",
+  watchMode: "new",
   criteria: {
     product: "",
     component: "",
@@ -85,6 +86,26 @@ async function setState(state) {
   await browser.storage.local.set({ state });
 }
 
+function mergeSeen(seen, bugs) {
+  return [...new Set([...seen, ...bugs.filter((b) => b && b.id).map((b) => b.id)])].slice(-3000);
+}
+
+function mergeDelta(seenDelta, bugs) {
+  const out = Object.assign({}, seenDelta);
+  for (const b of bugs) {
+    if (b && b.id) {
+      out[b.id] = b.delta_ts || out[b.id];
+    }
+  }
+  const keys = Object.keys(out);
+  if (keys.length > 3000) {
+    for (let i = 0; i < keys.length - 3000; i++) {
+      delete out[keys[i]];
+    }
+  }
+  return out;
+}
+
 function splitList(str) {
   return String(str || "")
     .split(",")
@@ -109,7 +130,7 @@ async function buildQuery(settings, since) {
   const params = new URLSearchParams();
   params.set(
     "include_fields",
-    "id,summary,product,component,status,severity,priority,creation_time,assigned_to,creator"
+    "id,summary,product,component,status,severity,priority,creation_time,delta_ts,assigned_to,creator"
   );
   for (const key of Object.keys(settings.criteria)) {
     const value = settings.criteria[key];
@@ -135,7 +156,13 @@ async function buildQuery(settings, since) {
       for (const v of values) params.append(key, String(v));
     }
   } catch (e) {}
-  if (since) params.set("creation_time", since);
+  if (since) {
+    if (settings.watchMode === "all") {
+      params.set("last_change_time", since);
+    } else {
+      params.set("creation_time", since);
+    }
+  }
   params.set("limit", "500");
   params.set("order", buildOrder(settings));
   return params;
@@ -360,14 +387,22 @@ async function poll() {
     return;
   }
   const nowIso = isoNow();
+  const watchAll = settings.watchMode === "all";
   const seen = new Set(state.seen || []);
-  const fresh = bugs.filter((b) => b && !seen.has(b.id));
+  const seenDelta = state.seenDelta || {};
+  const fresh = bugs.filter((b) => {
+    if (!b || !b.id) return false;
+    if (!watchAll) return !seen.has(b.id);
+    const prev = seenDelta[b.id];
+    return !prev || (b.delta_ts && b.delta_ts > prev);
+  });
 
   if (!baselineDone) {
     await setState(
       Object.assign({}, state, {
         baselineDone: true,
-        seen: [...new Set([...seen, ...bugs.map((b) => b.id)])].slice(-3000),
+        seen: mergeSeen(seen, bugs),
+        seenDelta: mergeDelta(seenDelta, bugs),
         lastPollTime: nowIso
       })
     );
@@ -383,12 +418,13 @@ async function poll() {
       summary: String(b.summary || "").slice(0, 80),
       product: b.product || "",
       status: b.status || "",
-      time: now
+      time: b.delta_ts || now
     }));
     const maxTickets = Math.min(50, Number(settings.maxTickets) || 50);
     await setState(
       Object.assign({}, state, {
-        seen: [...new Set([...seen, ...fresh.map((b) => b.id)])].slice(-3000),
+        seen: mergeSeen(seen, bugs),
+        seenDelta: mergeDelta(seenDelta, bugs),
         lastPollTime: nowIso,
         lastDetection: now,
         lastDetected: [...detections, ...(state.lastDetected || [])].slice(0, maxTickets)
