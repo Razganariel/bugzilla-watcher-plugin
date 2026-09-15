@@ -16,6 +16,7 @@
   - Product, component, status, severity, priority, resolution, assignee, creator, summary, version, target milestone, OS, platform, QA contact, whiteboard, keywords, tags, quick search;
   - **Advanced criteria** (field / operator / value) to use custom `cf_*` fields and change-history search;
   - **Raw REST parameters** (JSON) for any API parameter not covered above.
+- **Ordering (`order by`)**: sort results by bug ID, importance (priority/severity), last change date (`delta_ts`) or creation date (`creation_ts`), ascending or descending.
 - **Two authentication modes**:
   - *Open tab session*: the request is made same-origin through a content script (no CORS issues) and your Bugzilla session is reused;
   - *API key*: the key (`api_key`) is sent in the request, without needing an open tab.
@@ -30,6 +31,7 @@
   - Produit, composant, statut, sévérité, priorité, résolution, assigné à, créé par, résumé, version, milestone cible, OS, plateforme, QA contact, whiteboard, mots-clés, tags, recherche rapide ;
   - **Critères avancés** (champ / opérateur / valeur) pour utiliser les champs personnalisés `cf_*` et la recherche par historique ;
   - **Paramètres REST bruts** (JSON) pour tout paramètre de l'API non couvert ci-dessus.
+- **Tri (`order by`)** : résultats classés par ID du ticket, importance (priorité/sévérité), date de changement (`delta_ts`) ou date de création (`creation_ts`), croissant ou décroissant.
 - **Deux modes d'authentification** :
   - *Session d'un onglet ouvert* : la requête est faite en même origine via un script de contenu (aucun problème de CORS) et votre session Bugzilla est réutilisée ;
   - *Clé API* : la clé (`api_key`) est envoyée dans la requête, sans avoir besoin d'un onglet ouvert.
