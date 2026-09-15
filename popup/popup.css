@@ -1,0 +1,219 @@
+body {
+  width: 340px;
+  font-family: -apple-system, Segoe UI, Roboto, sans-serif;
+  font-size: 13px;
+  margin: 0;
+  padding: 12px;
+  background: #f7f9fc;
+  color: #222;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.logo {
+  width: 36px;
+  height: 36px;
+}
+
+.title-block {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.url {
+  color: #666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background: #ccc;
+  border-radius: 22px;
+  transition: 0.2s;
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  top: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.2s;
+}
+
+.switch input:checked + .slider {
+  background: #2e7d32;
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(18px);
+}
+
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  border: 1px solid #e0e4ea;
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #bbb;
+  flex-shrink: 0;
+}
+
+.dot.ok {
+  background: #2e7d32;
+}
+
+.dot.err {
+  background: #d32f2f;
+}
+
+.stats {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.stat {
+  flex: 1;
+  background: #fff;
+  border: 1px solid #e0e4ea;
+  border-radius: 6px;
+  padding: 8px;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a3e6e;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: #888;
+}
+
+.btn {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  background: #1a3e6e;
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #16345c;
+}
+
+.btn:disabled {
+  background: #9aa8bd;
+  cursor: default;
+}
+
+.section-title {
+  margin: 12px 0 6px;
+  font-weight: 600;
+  font-size: 12px;
+  color: #555;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list li {
+  background: #fff;
+  border: 1px solid #e0e4ea;
+  border-radius: 6px;
+  padding: 6px 8px;
+  margin-bottom: 6px;
+}
+
+.issue-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.issue-id {
+  font-weight: 700;
+  color: #1a3e6e;
+}
+
+.issue-time {
+  font-size: 11px;
+  color: #999;
+  white-space: nowrap;
+}
+
+.issue-summary {
+  margin-top: 2px;
+  color: #444;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.empty {
+  color: #999;
+  text-align: center;
+  padding: 14px 0;
+  display: none;
+}
+
+.link {
+  display: block;
+  margin-top: 12px;
+  text-align: center;
+  color: #1a3e6e;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}

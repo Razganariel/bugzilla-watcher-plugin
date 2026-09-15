@@ -1,0 +1,36 @@
+{
+  "manifest_version": 2,
+  "name": "Bugzilla Ticket Monitor",
+  "version": "1.0.0",
+  "description": "Surveille Bugzilla et alerte (toast + son) dès qu'un nouveau ticket correspondant aux critères configurés est créé.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "bugzilla-ticket-monitor@capcir.local",
+      "strict_min_version": "91.0"
+    }
+  },
+  "icons": {
+    "48": "icons/icon.svg",
+    "96": "icons/icon.svg"
+  },
+  "permissions": [
+    "storage",
+    "alarms",
+    "notifications",
+    "<all_urls>"
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "browser_action": {
+    "default_title": "Bugzilla Ticket Monitor",
+    "default_popup": "popup/popup.html",
+    "default_icon": "icons/icon.svg"
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  }
+}
