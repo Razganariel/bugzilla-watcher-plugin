@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="wrap">
+    <h1>Bugzilla Ticket Monitor</h1>
+    <p class="subtitle">Paramètres de détection des nouveaux tickets</p>
+
+    <section>
+      <h2>Connexion</h2>
+      <label>URL de l'instance Bugzilla
+        <input type="text" id="bugzillaUrl" placeholder="https://bugzilla.example.com"
+          title="Adresse de base de l'instance Bugzilla (sans /rest)">
+      </label>
+
+      <h3 class="small-h2">Authentification</h3>
+      <div class="row">
+        <div class="col">
+          <label class="check">
+            <input type="radio" name="authMode" value="session"> Session d'un onglet ouvert
+          </label>
+        </div>
+        <div class="col">
+          <label class="check">
+            <input type="radio" name="authMode" value="apiKey"> Clé API
+          </label>
+        </div>
+      </div>
+      <div id="apiKeyBlock" class="hidden">
+        <label>Clé API Bugzilla
+          <input type="password" id="apiKey" autocomplete="off" placeholder="votre clé API Bugzilla">
+        </label>
+        <div class="hint">Votre profil Bugzilla → API Keys. Plus fiable que la session (pas besoin de garder un onglet ouvert).</div>
+      </div>
+      <div class="hint" id="sessionHint">
+        Mode session : un onglet Bugzilla connecté doit rester ouvert dans ce profil. Les requêtes sont faites en
+        même origine via un script de contenu (aucun problème de CORS) et votre session est réutilisée.
+      </div>
+    </section>
+
+    <section>
+      <h2>Polling</h2>
+      <div class="row">
+        <div class="col">
+          <label>Fréquence (minutes)
+            <input type="number" id="pollInterval" min="1" value="1">
+          </label>
+        </div>
+        <div class="col">
+          <label class="check">
+            <input type="checkbox" id="baselineFirstRun">
+            Ne pas alerter sur les tickets existants au premier lancement
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Critères de recherche (API REST)</h2>
+      <p class="subtitle">Les critères sont combinés en ET logique. Séparez plusieurs valeurs par des virgules (logique OU).</p>
+      <div class="grid" id="criteriaGrid"></div>
+    </section>
+
+    <section>
+      <h2>Critères avancés (recherche avancée Bugzilla)</h2>
+      <p class="subtitle">Champ / opérateur / valeur : permet d'utiliser les champs personnalisés (cf_*) et la recherche par historique.</p>
+      <div id="advancedRows"></div>
+      <button type="button" id="addAdvanced" class="btn-secondary">+ Ajouter un critère avancé</button>
+    </section>
+
+    <section>
+      <h2>Paramètres bruts (JSON, optionnel)</h2>
+      <label>Paramètres REST supplémentaires envoyés tel quel
+        <textarea id="rawParams" rows="3" placeholder='{"include_fields":"id,summary","limit":"100"}'></textarea>
+      </label>
+      <div class="hint">Permet d'utiliser n'importe quel paramètre de l'API REST non couvert ci-dessus.</div>
+    </section>
+
+    <section>
+      <h2>Notifications</h2>
+      <div class="row">
+        <div class="col">
+          <label class="check">
+            <input type="checkbox" id="notifyToast"> Afficher un toast (notification)
+          </label>
+        </div>
+        <div class="col">
+          <label class="check">
+            <input type="checkbox" id="notifySound"> Jouer un son
+          </label>
+        </div>
+      </div>
+      <label>URL du son personnalisé (optionnel, MP3/WAV/OGG)
+        <input type="text" id="soundUrl" placeholder="https://example.com/son.mp3">
+      </label>
+    </section>
+
+    <div class="actions">
+      <button id="test" class="btn-secondary">Tester la recherche</button>
+      <button id="save" class="btn-primary">Enregistrer</button>
+    </div>
+    <div id="msg" class="msg"></div>
+
+    <details class="help">
+      <summary>Guide rapide des champs</summary>
+      <ul>
+        <li><strong>produit / component</strong> : nom exact du produit / composant Bugzilla.</li>
+        <li><strong>status</strong> : NEW, ASSIGNED, REOPENED, RESOLVED… par défaut les statuts ouverts.</li>
+        <li><strong>severity / priority</strong> : blocant, majeur, normal… / --, P1…P5.</li>
+        <li><strong>assigned_to / creator / qa_contact</strong> : identifiant de connexion d'un utilisateur.</li>
+        <li><strong>summary / whiteboard</strong> : sous-chaîne (recherche de sous-chaîne).</li>
+        <li><strong>keywords / tags</strong> : mots-clés ou tags de l'entrée.</li>
+        <li><strong>version / target_milestone</strong> : version ou jalon cible.</li>
+        <li><strong>quicksearch</strong> : syntaxe de recherche rapide Bugzilla.</li>
+        <li><strong>Critères avancés</strong> : ex. champ <code>cf_periodic_check</code>, opérateur <code>equals</code>, valeur <code>oui</code>.</li>
+      </ul>
+    </details>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
