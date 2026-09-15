@@ -13,6 +13,7 @@
     "48": "icons/icon.svg",
     "96": "icons/icon.svg"
   },
+  "default_locale": "fr",
   "permissions": [
     "storage",
     "alarms",
@@ -21,6 +22,7 @@
   ],
   "background": {
     "scripts": [
+      "i18n.js",
       "background.js"
     ]
   },

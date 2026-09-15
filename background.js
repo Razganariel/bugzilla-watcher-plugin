@@ -10,6 +10,7 @@ const DEFAULT_SETTINGS = {
   orderBy: "bug_id",
   orderDirection: "DESC",
   maxTickets: 50,
+  lang: "auto",
   criteria: {
     product: "",
     component: "",
@@ -156,7 +157,7 @@ function buildOrder(settings) {
 async function searchBugs(settings, since) {
   const base = String(settings.bugzillaUrl || "").trim().replace(/\/+$/, "");
   if (!base) {
-    throw new Error("URL Bugzilla non configurée");
+    throw new Error(I18N.t("err_no_url"));
   }
   const origin = makeOriginPattern(base);
   const auth = settings.auth || DEFAULT_SETTINGS.auth;
@@ -185,14 +186,14 @@ async function searchBugs(settings, since) {
   const body = await res.json().catch(() => null);
   if (body && body.error) {
     throw new Error(
-      String(body.message || "Erreur Bugzilla") +
+      String(body.message || I18N.t("err_bugzilla")) +
         (useApiKey
-          ? " Vérifiez votre clé API."
-          : " Connectez-vous à Bugzilla dans un onglet de ce profil, ou configurez une clé API.")
+          ? I18N.t("err_check_apikey")
+          : I18N.t("err_login_hint"))
     );
   }
   if (!res.ok) {
-    throw new Error("HTTP " + res.status);
+    throw new Error(I18N.t("err_http", [res.status]));
   }
   return (body && body.bugs) || [];
 }
@@ -213,7 +214,7 @@ async function notifyNewBugs(bugs, settings) {
         await browser.notifications.create("bz-" + bug.id, {
           type: "basic",
           iconUrl: icon,
-          title: "Bug " + bug.id + " [" + (bug.status || "") + "] " + (bug.product || ""),
+          title: I18N.t("notif_title_single", [bug.id, bug.status || "", bug.product || ""]),
           message: String(bug.summary || "").slice(0, 120)
         });
       }
@@ -221,8 +222,8 @@ async function notifyNewBugs(bugs, settings) {
       await browser.notifications.create("bz-summary", {
         type: "basic",
         iconUrl: icon,
-        title: bugs.length + " nouveaux tickets Bugzilla",
-        message: "Détection de " + bugs.length + " tickets correspondant aux critères."
+        title: I18N.t("notif_title_multi", [bugs.length]),
+        message: I18N.t("notif_msg_multi", [bugs.length])
       });
     }
   }
@@ -367,7 +368,7 @@ async function testSearch() {
   const settings = await getSettings();
   const cleanUrl = String(settings.bugzillaUrl || "").trim();
   if (!cleanUrl) {
-    return { ok: false, error: "URL Bugzilla non configurée" };
+    return { ok: false, error: I18N.t("err_no_url") };
   }
   try {
     const bugs = await searchBugs(
@@ -407,10 +408,11 @@ browser.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name === "poll") poll();
 });
 
-browser.storage.onChanged.addListener((changes, area) => {
+browser.storage.onChanged.addListener(async (changes, area) => {
   if (area === "local" && changes.settings) {
     const newSettings = changes.settings.newValue || {};
     const full = mergeDeep(DEFAULT_SETTINGS, newSettings);
+    await I18N.setLang(full.lang || "auto");
     start(full);
   }
 });
@@ -434,6 +436,7 @@ browser.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 });
 
 async function init() {
+  await I18N.init();
   const { settings } = await browser.storage.local
     .get("settings")
     .catch(() => ({}));
