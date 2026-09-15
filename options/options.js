@@ -125,6 +125,8 @@ function collectSettings() {
       mode: document.querySelector('input[name="authMode"]:checked').value,
       apiKey: document.getElementById("apiKey").value.trim()
     },
+    orderBy: document.getElementById("orderBy").value,
+    orderDirection: document.getElementById("orderDirection").value,
     criteria: {},
     advancedCriteria: readAdvancedRows(),
     rawParams: document.getElementById("rawParams").value.trim(),
@@ -230,6 +232,9 @@ async function load() {
   if (radio) radio.checked = true;
   document.getElementById("apiKey").value = auth.apiKey || "";
   updateAuthUI();
+
+  document.getElementById("orderBy").value = s.orderBy || "bug_id";
+  document.getElementById("orderDirection").value = s.orderDirection || "DESC";
 
   const criteria = s.criteria || {};
   document.querySelectorAll("#criteriaGrid input[data-field]").forEach((input) => {
