@@ -131,6 +131,7 @@ function collectSettings() {
     orderDirection: document.getElementById("orderDirection").value,
     maxTickets: Math.min(50, Math.max(1, Number(document.getElementById("maxTickets").value) || 50)),
     lang: document.getElementById("lang").value || "auto",
+    watchMode: document.getElementById("watchMode").value || "new",
     criteria: {},
     advancedCriteria: readAdvancedRows(),
     rawParams: document.getElementById("rawParams").value.trim(),
@@ -251,6 +252,7 @@ async function load() {
   document.getElementById("maxTickets").value = Math.min(50, Math.max(1, Number(s.maxTickets) || 50));
   currentLang = s.lang || "auto";
   document.getElementById("lang").value = currentLang;
+  document.getElementById("watchMode").value = s.watchMode || "new";
 
   const criteria = s.criteria || {};
   document.querySelectorAll("#criteriaGrid input[data-field]").forEach((input) => {

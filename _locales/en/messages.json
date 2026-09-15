@@ -89,6 +89,18 @@
   "criteria_subtitle": {
     "message": "Criteria are combined with a logical AND. Separate several values with commas (logical OR)."
   },
+  "watch_label": {
+    "message": "Watch mode"
+  },
+  "watch_new": {
+    "message": "New tickets only"
+  },
+  "watch_all": {
+    "message": "New + modified tickets"
+  },
+  "watch_hint": {
+    "message": "In “modified tickets” mode, any change (status, comment, etc.) triggers an alert, not only creations."
+  },
   "orderby_label": {
     "message": "Sort (order by)"
   },

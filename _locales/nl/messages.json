@@ -89,6 +89,18 @@
   "criteria_subtitle": {
     "message": "Criteria worden gecombineerd met logische EN. Scheid meerdere waarden met komma's (logische OF)."
   },
+  "watch_label": {
+    "message": "Monitoringmodus"
+  },
+  "watch_new": {
+    "message": "Alleen nieuwe tickets"
+  },
+  "watch_all": {
+    "message": "Nieuwe + gewijzigde tickets"
+  },
+  "watch_hint": {
+    "message": "In de modus „gewijzigde tickets“ leidt elke wijziging (status, opmerking, enz.) tot een waarschuwing, niet alleen nieuwe aanmaak."
+  },
   "orderby_label": {
     "message": "Sortering (order by)"
   },
