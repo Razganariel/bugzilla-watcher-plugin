@@ -1,5 +1,5 @@
 (function () {
-  const LOCALES = ["fr", "en", "de", "es", "it"];
+  const LOCALES = ["fr", "en", "de", "es", "it", "nl"];
   const dicts = {};
 
   async function loadDict(locale) {
@@ -42,6 +42,9 @@ ui = ui.toLowerCase();
   }
   if (ui.indexOf("it") === 0) {
     return "it";
+  }
+  if (ui.indexOf("nl") === 0) {
+    return "nl";
   }
   return "fr";
   }
