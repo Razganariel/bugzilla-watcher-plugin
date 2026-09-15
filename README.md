@@ -18,6 +18,7 @@
   - **Raw REST parameters** (JSON) for any API parameter not covered above.
 - **Ordering (`order by`)**: sort results by bug ID, importance (priority/severity), last change date (`delta_ts`) or creation date (`creation_ts`), ascending or descending.
 - **Customizable popup**: set the maximum number of detected tickets displayed (up to 50, older ones are dropped); the list auto-scrolls to the most recent.
+- **Localized UI (FR / EN)**: the plugin automatically uses the Firefox interface language, or you can force one in the settings (Language).
 - **Two authentication modes**:
   - *Open tab session*: the request is made same-origin through a content script (no CORS issues) and your Bugzilla session is reused;
   - *API key*: the key (`api_key`) is sent in the request, without needing an open tab.
@@ -34,6 +35,7 @@
   - **Paramètres REST bruts** (JSON) pour tout paramètre de l'API non couvert ci-dessus.
 - **Tri (`order by`)** : résultats classés par ID du ticket, importance (priorité/sévérité), date de changement (`delta_ts`) ou date de création (`creation_ts`), croissant ou décroissant.
 - **Popup personnalisable** : nombre max de tickets détectés affichés (jusqu'à 50, les plus anciens étant ignorés) ; la liste défile automatiquement vers les plus récents.
+- **Interface localisée (FR / EN)** : le plugin utilise automatiquement la langue de Firefox, ou vous pouvez en forcer une dans les paramètres (Langue).
 - **Deux modes d'authentification** :
   - *Session d'un onglet ouvert* : la requête est faite en même origine via un script de contenu (aucun problème de CORS) et votre session Bugzilla est réutilisée ;
   - *Clé API* : la clé (`api_key`) est envoyée dans la requête, sans avoir besoin d'un onglet ouvert.
