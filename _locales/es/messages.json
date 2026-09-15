@@ -89,6 +89,18 @@
   "criteria_subtitle": {
     "message": "Los criterios se combinan con lógica AND. Separe varios valores con comas (lógica OR)."
   },
+  "watch_label": {
+    "message": "Modo de monitoreo"
+  },
+  "watch_new": {
+    "message": "Solo tickets nuevos"
+  },
+  "watch_all": {
+    "message": "Nuevos + tickets modificados"
+  },
+  "watch_hint": {
+    "message": "En el modo «tickets modificados», cualquier cambio (estado, comentario, etc.) activa una alerta, no solo las creaciones."
+  },
   "orderby_label": {
     "message": "Orden (order by)"
   },
