@@ -206,7 +206,7 @@ document.getElementById("test").addEventListener("click", async () => {
     }
     showMsg(lines, true);
   } else {
-    showMsg(I18N.t("msg_err", [String((res && res.error) || "")]), false);
+    showMsg(I18N.t("msg_err", [String((res && res.error) || I18N.t("msg_unknown"))]), false);
   }
   btn.disabled = false;
   btn.textContent = I18N.t("btn_test");
