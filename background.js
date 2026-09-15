@@ -40,6 +40,9 @@ const DEFAULT_SETTINGS = {
   }
 };
 
+const RETRY_BASE_MIN = 0.5;
+const RETRY_CAP_MIN = 15;
+
 function mergeDeep(base, override) {
   const out = Array.isArray(base) ? base.slice() : Object.assign({}, base);
   for (const key of Object.keys(override || {})) {
@@ -205,6 +208,38 @@ function setBadge(text) {
   } catch (e) {}
 }
 
+async function handlePollError(e, settings) {
+  const state = await getState();
+  const failCount = (state.failCount || 0) + 1;
+  const delay = Math.min(RETRY_CAP_MIN, RETRY_BASE_MIN * Math.pow(2, failCount - 1));
+  await setState(
+    Object.assign({}, state, {
+      failCount: failCount,
+      lastError: String((e && e.message) || e || ""),
+      lastErrorTime: isoNow()
+    })
+  );
+  try {
+    await browser.alarms.clear("poll");
+  } catch (err) {}
+  browser.alarms.create("retry", { delayInMinutes: delay });
+}
+
+async function handlePollSuccess(settings) {
+  const state = await getState();
+  try {
+    await browser.alarms.clear("retry");
+  } catch (err) {}
+  if (state.failCount || state.lastError) {
+    await setState(
+      Object.assign({}, state, { failCount: 0, lastError: null, lastErrorTime: null })
+    );
+  }
+  browser.alarms.create("poll", {
+    periodInMinutes: Math.max(1, Number(settings.pollInterval) || 1)
+  });
+}
+
 async function notifyNewBugs(bugs, settings) {
   const icon = browser.runtime.getURL("icons/icon.svg");
   const toast = settings.notify.toast;
@@ -321,6 +356,7 @@ async function poll() {
     );
   } catch (e) {
     setBadge("!");
+    await handlePollError(e, settings);
     return;
   }
   const nowIso = isoNow();
@@ -336,6 +372,7 @@ async function poll() {
       })
     );
     setBadge("");
+    await handlePollSuccess(settings);
     return;
   }
 
@@ -362,6 +399,7 @@ async function poll() {
   } else {
     await setState(Object.assign({}, state, { lastPollTime: nowIso }));
   }
+  await handlePollSuccess(settings);
 }
 
 async function testSearch() {
@@ -395,6 +433,9 @@ function schedulePolling(intervalMin) {
 
 async function start(settings) {
   await registerContentScript(settings);
+  try {
+    await browser.alarms.clear("retry");
+  } catch (e) {}
   if (settings.enabled) {
     schedulePolling(settings.pollInterval);
     poll();
@@ -405,7 +446,7 @@ async function start(settings) {
 }
 
 browser.alarms.onAlarm.addListener((alarm) => {
-  if (alarm.name === "poll") poll();
+  if (alarm.name === "poll" || alarm.name === "retry") poll();
 });
 
 browser.storage.onChanged.addListener(async (changes, area) => {
