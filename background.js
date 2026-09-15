@@ -9,6 +9,7 @@ const DEFAULT_SETTINGS = {
   },
   orderBy: "bug_id",
   orderDirection: "DESC",
+  maxTickets: 50,
   criteria: {
     product: "",
     component: "",
@@ -346,12 +347,13 @@ async function poll() {
       status: b.status || "",
       time: now
     }));
+    const maxTickets = Math.min(50, Number(settings.maxTickets) || 50);
     await setState(
       Object.assign({}, state, {
         seen: [...new Set([...seen, ...fresh.map((b) => b.id)])].slice(-3000),
         lastPollTime: nowIso,
         lastDetection: now,
-        lastDetected: [...detections, ...(state.lastDetected || [])].slice(0, 50)
+        lastDetected: [...detections, ...(state.lastDetected || [])].slice(0, maxTickets)
       })
     );
     await notifyNewBugs(fresh, settings);
