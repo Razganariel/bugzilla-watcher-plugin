@@ -27,10 +27,17 @@ async function refresh() {
   $("lastChecked").textContent = fmt(state.lastPollTime);
 
   const dot = $("statusDot");
-  $("statusText").textContent = lastDetected.length > 0
-    ? I18N.t("stat_detected", [lastDetected[0].id, fmt(state.lastDetection)])
-    : (state.lastPollTime ? I18N.t("stat_active") : I18N.t("stat_waiting"));
-  dot.className = "dot" + (state.lastPollTime ? " ok" : "");
+  if (state.lastError) {
+    $("statusText").textContent =
+      I18N.t("msg_err", [state.lastError]) +
+      (state.lastErrorTime ? " (" + fmt(state.lastErrorTime) + ")" : "");
+    dot.className = "dot err";
+  } else {
+    $("statusText").textContent = lastDetected.length > 0
+      ? I18N.t("stat_detected", [lastDetected[0].id, fmt(state.lastDetection)])
+      : (state.lastPollTime ? I18N.t("stat_active") : I18N.t("stat_waiting"));
+    dot.className = "dot" + (state.lastPollTime ? " ok" : "");
+  }
 
   browser.browserAction.setBadgeText({ text: "" });
 
