@@ -67,7 +67,10 @@ async function refresh() {
     dot.className = "dot" + (state.lastPollTime ? " ok" : "");
   }
 
-  browser.browserAction.setBadgeText({ text: "" });
+  const badge = browser.action || browser.browserAction;
+  if (badge) {
+    badge.setBadgeText({ text: "" });
+  }
 
   renderList(lastDetected, settings);
 }

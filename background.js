@@ -65,7 +65,37 @@ function mergeDeep(base, override) {
   return out;
 }
 
+const extAction = browser.action || browser.browserAction || null;
+
 const notificationUrls = new Map();
+
+function saveNotificationUrls() {
+  const obj = {};
+  for (const [key, value] of notificationUrls) {
+    obj[key] = value;
+  }
+  browser.storage.local.set({ notificationUrls: obj }).catch(() => {});
+}
+
+function setNotificationUrl(id, url) {
+  notificationUrls.set(id, url);
+  saveNotificationUrls();
+}
+
+function removeNotificationUrl(id) {
+  notificationUrls.delete(id);
+  saveNotificationUrls();
+}
+
+async function getNotificationUrl(id) {
+  if (notificationUrls.has(id)) {
+    return notificationUrls.get(id);
+  }
+  const { notificationUrls: stored } = await browser.storage.local
+    .get("notificationUrls")
+    .catch(() => ({}));
+  return stored ? stored[id] || null : null;
+}
 
 async function getSettings() {
   const { settings } = await browser.storage.local.get("settings");
@@ -232,9 +262,12 @@ async function searchBugs(settings, since) {
 }
 
 function setBadge(text) {
+  if (!extAction) {
+    return;
+  }
   try {
-    browser.browserAction.setBadgeText({ text });
-    browser.browserAction.setBadgeBackgroundColor({ color: "#d32f2f" });
+    extAction.setBadgeText({ text });
+    extAction.setBadgeBackgroundColor({ color: "#d32f2f" });
   } catch (e) {}
 }
 
@@ -278,7 +311,7 @@ async function notifyNewBugs(bugs, settings) {
     if (bugs.length <= 3) {
       for (const bug of bugs) {
         const nid = "bz-" + bug.id;
-        notificationUrls.set(nid, cleanUrl + "/show_bug.cgi?id=" + bug.id);
+        setNotificationUrl(nid, cleanUrl + "/show_bug.cgi?id=" + bug.id);
         await browser.notifications.create(nid, {
           type: "basic",
           iconUrl: icon,
@@ -288,7 +321,7 @@ async function notifyNewBugs(bugs, settings) {
       }
     } else {
       const nid = "bz-summary";
-      notificationUrls.set(
+      setNotificationUrl(
         nid,
         cleanUrl + "/buglist.cgi?bug_id=" + bugs.map((b) => b.id).join(",")
       );
@@ -383,7 +416,19 @@ async function registerContentScript(settings) {
   }
 }
 
-async function poll() {
+let polling = false;
+
+function poll() {
+  if (polling) {
+    return Promise.resolve();
+  }
+  polling = true;
+  return pollNow().finally(() => {
+    polling = false;
+  });
+}
+
+async function pollNow() {
   let settings;
   try {
     settings = await getSettings();
@@ -515,15 +560,15 @@ browser.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name === "poll" || alarm.name === "retry") poll();
 });
 
-browser.notifications.onClicked.addListener((id) => {
-  const url = notificationUrls.get(id);
-  notificationUrls.delete(id);
+browser.notifications.onClicked.addListener(async (id) => {
+  const url = await getNotificationUrl(id);
+  removeNotificationUrl(id);
   browser.notifications.clear(id).catch(() => {});
   if (url) openBugUrl(url);
 });
 
 browser.notifications.onClosed.addListener((id) => {
-  notificationUrls.delete(id);
+  removeNotificationUrl(id);
 });
 
 browser.storage.onChanged.addListener(async (changes, area) => {
