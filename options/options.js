@@ -203,7 +203,7 @@ document.getElementById("test").addEventListener("click", async () => {
   if (res && res.ok) {
     let lines = I18N.t("msg_test_count", [res.count]);
     if (res.sample && res.sample.length) {
-      lines += "\n" + I18N.t("msg_test_samples", [res.sample.map((s) => "#" + s.id + " (" + s.summary + ")").join(", ")]);
+      lines += "\n" + I18N.t("msg_test_samples", [res.sample.map((s) => "#" + s.id + " [" + (s.severity || "–") + "] " + s.summary).join(", ")]);
     }
     showMsg(lines, true);
   } else {

@@ -18,7 +18,7 @@
   - **Advanced criteria** (field / operator / value) to use custom `cf_*` fields and change-history search;
   - **Raw REST parameters** (JSON) for any API parameter not covered above.
 - **Reorder (`order by`)**: sort results by bug ID, importance (priority/severity), last change date (`delta_ts`) or creation date (`creation_ts`), ascending or descending.
-- **Watch mode (new / modified)**: track only newly created tickets, or also detect changes to existing ones (status, comments…).
+- **Watch mode (new / modified)**: track only newly created tickets, or also detect changes to existing ones (status, comments…). A **popup filter (All / New)** lets you show only new detections. The popup also shows a **counter per severity** (critical / major / normal / minor / enhancement).
 - **Customizable popup**: set the maximum number of detected tickets displayed (up to 50, older ones are dropped); the list auto-scrolls to the most recent.
 - **Localized UI (FR / EN / DE / ES / IT / NL)**: the plugin automatically uses the Firefox interface language, or you can force one in the settings (Language).
 - **Export / Import (JSON)**: save your whole configuration (criteria, auth, notification, language) to a JSON file and restore it on another machine.
@@ -39,7 +39,7 @@
   - **Critères avancés** (champ / opérateur / valeur) pour utiliser les champs personnalisés `cf_*` et la recherche par historique ;
   - **Paramètres REST bruts** (JSON) pour tout paramètre de l'API non couvert ci-dessus.
 - **Tri (`order by`)** : résultats classés par ID du ticket, importance (priorité/sévérité), date de changement (`delta_ts`) ou date de création (`creation_ts`), croissant ou décroissant.
-- **Mode de surveillance (nouveaux / modifiés)** : suivre uniquement les nouveaux tickets, ou détecter aussi les modifications des tickets existants (statut, commentaires…).
+- **Mode de surveillance (nouveaux / modifiés)** : suivre uniquement les nouveaux tickets, ou détecter aussi les modifications des tickets existants (statut, commentaires…). Un **filtre popup (Tous / Nouveaux)** permet de n'afficher que les nouvelles détections. Le popup affiche aussi un **compteur par sévérité** (critique / majeur / normal / mineur / amélioration).
 - **Popup personnalisable** : nombre max de tickets détectés affichés (jusqu'à 50, les plus anciens étant ignorés) ; la liste défile automatiquement vers les plus récents.
 - **Interface localisée (FR / EN / DE / ES / IT / NL)** : le plugin utilise automatiquement la langue de Firefox, ou vous pouvez en forcer une dans les paramètres (Langue).
 - **Export / Import (JSON)** : sauvegardez toute votre configuration (critères, authentification, notifications, langue) dans un fichier JSON et restaurez-la sur une autre machine.
