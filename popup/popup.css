@@ -124,6 +124,10 @@ body {
   background: #d32f2f;
 }
 
+.dot.offline {
+  background: #f9a825;
+}
+
 .stats {
   display: flex;
   gap: 10px;

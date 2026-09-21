@@ -380,6 +380,9 @@
   "stat_waiting": {
     "message": "Waiting for the first check"
   },
+  "stat_offline": {
+    "message": "Offline — monitoring paused"
+  },
   "btn_checking": {
     "message": "Checking…"
   },

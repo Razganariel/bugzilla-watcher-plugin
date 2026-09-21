@@ -24,6 +24,7 @@
 - **Export / Import (JSON)**: save your whole configuration (criteria, auth, notification, language, theme) to a JSON file and restore it on another machine.
 - **Dark theme**: choose Automatic (follows the system), Light or Dark for the popup and the settings page.
 - **Retry with exponential backoff & visible errors**: on failure (unreachable instance, expired session…) the plugin retries with a growing delay from 30 s up to 15 min, pauses the normal cadence, and shows the last error (with timestamp) in the popup.
+- **Offline auto-pause**: when the browser reports no network, polling is paused (no failed request, no backoff, no error badge) and an "Offline — monitoring paused" status is shown; monitoring resumes immediately when the connection comes back.
 - **Two authentication modes**:
   - *Open tab session*: the request is made same-origin through a content script (no CORS issues) and your Bugzilla session is reused;
   - *API key*: the key (`api_key`) is sent in the request, without needing an open tab.
@@ -46,6 +47,7 @@
 - **Export / Import (JSON)** : sauvegardez toute votre configuration (critères, authentification, notifications, langue, thème) dans un fichier JSON et restaurez-la sur une autre machine.
 - **Thème sombre** : choisissez Automatique (selon le système), Clair ou Sombre pour le popup et la page de paramètres.
 - **Réessai avec backoff exponentiel et erreurs visibles** : en cas d'échec (instance injoignable, session expirée…), le plugin réessaie avec un délai croissant de 30 s à 15 min, met la cadence normale en pause et affiche la dernière erreur (avec horodatage) dans le popup.
+- **Pause automatique hors ligne** : lorsque le navigateur n'a plus de réseau, le polling est mis en pause (aucune requête échouée, pas de backoff, pas de badge d'erreur) et le statut « Hors ligne — monitoring en pause » est affiché ; la surveillance reprend immédiatement au retour de la connexion.
 - **Deux modes d'authentification** :
   - *Session d'un onglet ouvert* : la requête est faite en même origine via un script de contenu (aucun problème de CORS) et votre session Bugzilla est réutilisée ;
   - *Clé API* : la clé (`api_key`) est envoyée dans la requête, sans avoir besoin d'un onglet ouvert.
