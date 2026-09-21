@@ -224,6 +224,21 @@
   "sev_autre": {
     "message": "Sonstige"
   },
+  "sec_theme": {
+    "message": "Darstellung"
+  },
+  "theme_label": {
+    "message": "Design"
+  },
+  "theme_auto": {
+    "message": "Automatisch (System)"
+  },
+  "theme_light": {
+    "message": "Hell"
+  },
+  "theme_dark": {
+    "message": "Dunkel"
+  },
   "help_summary": {
     "message": "Schnellübersicht der Felder"
   },
