@@ -21,6 +21,7 @@
 - **Watch mode (new / modified)**: track only newly created tickets, or also detect changes to existing ones (status, comments…).
 - **Customizable popup**: set the maximum number of detected tickets displayed (up to 50, older ones are dropped); the list auto-scrolls to the most recent.
 - **Localized UI (FR / EN / DE / ES / IT / NL)**: the plugin automatically uses the Firefox interface language, or you can force one in the settings (Language).
+- **Export / Import (JSON)**: save your whole configuration (criteria, auth, notification, language) to a JSON file and restore it on another machine.
 - **Retry with exponential backoff & visible errors**: on failure (unreachable instance, expired session…) the plugin retries with a growing delay from 30 s up to 15 min, pauses the normal cadence, and shows the last error (with timestamp) in the popup.
 - **Two authentication modes**:
   - *Open tab session*: the request is made same-origin through a content script (no CORS issues) and your Bugzilla session is reused;
@@ -41,6 +42,7 @@
 - **Mode de surveillance (nouveaux / modifiés)** : suivre uniquement les nouveaux tickets, ou détecter aussi les modifications des tickets existants (statut, commentaires…).
 - **Popup personnalisable** : nombre max de tickets détectés affichés (jusqu'à 50, les plus anciens étant ignorés) ; la liste défile automatiquement vers les plus récents.
 - **Interface localisée (FR / EN / DE / ES / IT / NL)** : le plugin utilise automatiquement la langue de Firefox, ou vous pouvez en forcer une dans les paramètres (Langue).
+- **Export / Import (JSON)** : sauvegardez toute votre configuration (critères, authentification, notifications, langue) dans un fichier JSON et restaurez-la sur une autre machine.
 - **Réessai avec backoff exponentiel et erreurs visibles** : en cas d'échec (instance injoignable, session expirée…), le plugin réessaie avec un délai croissant de 30 s à 15 min, met la cadence normale en pause et affiche la dernière erreur (avec horodatage) dans le popup.
 - **Deux modes d'authentification** :
   - *Session d'un onglet ouvert* : la requête est faite en même origine via un script de contenu (aucun problème de CORS) et votre session Bugzilla est réutilisée ;
