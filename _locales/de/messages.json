@@ -239,6 +239,15 @@
   "theme_dark": {
     "message": "Dunkel"
   },
+  "ext_name": {
+    "message": "Bugzilla Ticket Monitor"
+  },
+  "ext_desc": {
+    "message": "Überwacht Bugzilla und benachrichtigt (Toast + Ton), sobald ein neues Ticket erstellt wird, das den konfigurierten Kriterien entspricht."
+  },
+  "ext_title": {
+    "message": "Bugzilla-Ticket-Monitor"
+  },
   "help_summary": {
     "message": "Schnellübersicht der Felder"
   },

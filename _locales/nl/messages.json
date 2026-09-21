@@ -239,6 +239,15 @@
   "theme_dark": {
     "message": "Donker"
   },
+  "ext_name": {
+    "message": "Bugzilla Ticket Monitor"
+  },
+  "ext_desc": {
+    "message": "Bewaakt Bugzilla en waarschuwt (toast + geluid) zodra een nieuw ticket wordt aangemaakt dat aan de ingestelde criteria voldoet."
+  },
+  "ext_title": {
+    "message": "Bugzilla-ticketmonitor"
+  },
   "help_summary": {
     "message": "Sneloverzicht van velden"
   },

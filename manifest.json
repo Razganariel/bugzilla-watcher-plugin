@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "Bugzilla Ticket Monitor",
+  "name": "__MSG_ext_name__",
   "version": "1.0.0",
-  "description": "Surveille Bugzilla et alerte (toast + son) dès qu'un nouveau ticket correspondant aux critères configurés est créé.",
+  "description": "__MSG_ext_desc__",
   "browser_specific_settings": {
     "gecko": {
       "id": "bugzilla-ticket-monitor@capcir.local",
@@ -13,7 +13,7 @@
     "48": "icons/icon.svg",
     "96": "icons/icon.svg"
   },
-  "default_locale": "fr",
+  "default_locale": "en",
   "permissions": [
     "storage",
     "alarms",
@@ -27,7 +27,7 @@
     ]
   },
   "browser_action": {
-    "default_title": "Bugzilla Ticket Monitor",
+    "default_title": "__MSG_ext_title__",
     "default_popup": "popup/popup.html",
     "default_icon": "icons/icon.svg"
   },
