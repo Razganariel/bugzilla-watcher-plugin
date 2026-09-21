@@ -71,6 +71,8 @@ function renderList(lastDetected, settings) {
   const url = (settings && settings.bugzillaUrl || "").replace(/\/+$/, "");
   const items = filter === "new"
     ? lastDetected.filter((it) => it && it.kind === "new")
+        .slice()
+        .sort((a, b) => (Number(b.id) || 0) - (Number(a.id) || 0))
     : lastDetected;
 
   $("detectedCount").textContent = String(items.length);
