@@ -17,6 +17,19 @@ function esc(text) {
   return div.innerHTML;
 }
 
+const SEV_RANK = ["bloquant", "critique", "majeur", "normal", "mineur", "evolution", "autre"];
+
+function severityBucket(sev) {
+  const s = String(sev || "").toLowerCase();
+  if (s === "blocker") return "bloquant";
+  if (s === "critical") return "critique";
+  if (s === "major") return "majeur";
+  if (s === "normal") return "normal";
+  if (s === "minor" || s === "trivial") return "mineur";
+  if (s === "enhancement") return "evolution";
+  return "autre";
+}
+
 async function refresh() {
   const state = await browser.runtime.sendMessage({ action: "getState" });
   const { settings } = await browser.storage.local.get("settings");
@@ -82,6 +95,21 @@ function renderList(lastDetected, settings) {
   });
   $("empty").style.display = items.length ? "none" : "block";
   list.scrollTop = 0;
+
+  const counts = {};
+  items.forEach((it) => {
+    const b = severityBucket(it.severity);
+    counts[b] = (counts[b] || 0) + 1;
+  });
+  const sevRow = $("sevRow");
+  sevRow.innerHTML = "";
+  SEV_RANK.forEach((b) => {
+    const pill = document.createElement("span");
+    pill.className = "sev-pill sev-" + b;
+    pill.textContent = String(counts[b] || 0);
+    pill.title = I18N.t("sev_" + b);
+    sevRow.appendChild(pill);
+  });
 }
 
 function setFilter(next) {
