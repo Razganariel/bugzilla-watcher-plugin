@@ -167,6 +167,24 @@
   "btn_searching": {
     "message": "Buscando…"
   },
+  "sec_importexport": {
+    "message": "Exportar / Importar"
+  },
+  "btn_export": {
+    "message": "Exportar configuración"
+  },
+  "btn_import": {
+    "message": "Importar configuración"
+  },
+  "impexp_hint": {
+    "message": "La exportación incluye criterios, autenticación y la clave API: conserve este archivo JSON en un lugar seguro. La importación reemplaza la configuración actual y la guarda."
+  },
+  "imp_err_json": {
+    "message": "Archivo JSON no válido."
+  },
+  "imp_err_keys": {
+    "message": "Ningún parámetro reconocido en el archivo."
+  },
   "help_summary": {
     "message": "Guía rápida de campos"
   },

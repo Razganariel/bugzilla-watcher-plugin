@@ -110,6 +110,10 @@ select:focus {
   margin: -4px 0 10px;
 }
 
+#impexpSection .hint {
+  margin: 8px 0 10px;
+}
+
 .perm-msg {
   font-size: 12.5px;
   padding: 8px 10px;
