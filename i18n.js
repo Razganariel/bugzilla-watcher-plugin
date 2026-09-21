@@ -46,7 +46,7 @@ ui = ui.toLowerCase();
   if (ui.indexOf("nl") === 0) {
     return "nl";
   }
-  return "fr";
+  return "en";
   }
 
   function resolveLang(lang) {
@@ -57,7 +57,7 @@ ui = ui.toLowerCase();
   }
 
   window.I18N = {
-    activeLocale: "fr",
+    activeLocale: "en",
 
     async init() {
       let lang = "auto";
@@ -67,7 +67,7 @@ ui = ui.toLowerCase();
       } catch (e) {}
       this.activeLocale = resolveLang(lang) === "auto" ? detect() : lang;
       await loadDict(this.activeLocale);
-      loadDict(this.activeLocale === "fr" ? "en" : "fr");
+      loadDict(this.activeLocale === "en" ? "fr" : "en");
     },
 
     async setLang(lang) {
@@ -77,7 +77,8 @@ ui = ui.toLowerCase();
 
     t(key, subs) {
       const map = dicts[this.activeLocale];
-      let msg = (map && map[key]) || key;
+      const fallback = dicts.en || {};
+      let msg = (map && map[key]) || fallback[key] || key;
       if (subs) {
         msg = msg.replace(/\{(\d+)\}/g, (m, i) => {
           const v = subs[Number(i)];
