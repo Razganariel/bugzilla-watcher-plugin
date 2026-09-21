@@ -197,6 +197,12 @@
   "err_no_notify": {
     "message": "Le toast et le son sont désactivés : activez au moins un des deux."
   },
+  "popup_filter_all": {
+    "message": "Tous"
+  },
+  "popup_filter_new": {
+    "message": "Nouveaux"
+  },
   "help_summary": {
     "message": "Guide rapide des champs"
   },

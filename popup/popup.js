@@ -1,5 +1,7 @@
 const $ = (id) => document.getElementById(id);
 
+let filter = "all";
+
 function fmt(iso) {
   if (!iso) return "—";
   try {
@@ -22,8 +24,16 @@ async function refresh() {
 
   if (settings) $("enabled").checked = !!settings.enabled;
 
+  const watchAll = settings && settings.watchMode === "all";
+  $("filterRow").style.display = watchAll ? "flex" : "none";
+  if (!watchAll) {
+    if (filter !== "all") {
+      filter = "all";
+      browser.storage.local.set({ popupFilter: "all" });
+    }
+  }
+
   const lastDetected = state.lastDetected || [];
-  $("detectedCount").textContent = String(lastDetected.length);
   $("lastChecked").textContent = fmt(state.lastPollTime);
 
   const dot = $("statusDot");
@@ -41,11 +51,23 @@ async function refresh() {
 
   browser.browserAction.setBadgeText({ text: "" });
 
+  renderList(lastDetected, settings);
+}
+
+function renderList(lastDetected, settings) {
+  const url = (settings && settings.bugzillaUrl || "").replace(/\/+$/, "");
+  const items = filter === "new"
+    ? lastDetected.filter((it) => it && it.kind === "new")
+    : lastDetected;
+
+  $("detectedCount").textContent = String(items.length);
+  $("filterAll").classList.toggle("active", filter === "all");
+  $("filterNew").classList.toggle("active", filter === "new");
+
   const list = $("list");
   list.innerHTML = "";
-  lastDetected.forEach((item) => {
+  items.forEach((item) => {
     const li = document.createElement("li");
-    const url = (settings && settings.bugzillaUrl || "").replace(/\/+$/, "");
     li.innerHTML =
       '<div class="issue-top">' +
       '<span class="issue-id"><a href="' + esc(url + "/show_bug.cgi?id=" + item.id) + '" target="_blank" rel="noopener">#' + esc(item.id) + "</a></span>" +
@@ -58,9 +80,18 @@ async function refresh() {
     });
     list.appendChild(li);
   });
-  $("empty").style.display = lastDetected.length ? "none" : "block";
+  $("empty").style.display = items.length ? "none" : "block";
   list.scrollTop = 0;
 }
+
+function setFilter(next) {
+  filter = next;
+  browser.storage.local.set({ popupFilter: next });
+  refresh();
+}
+
+$("filterAll").addEventListener("click", () => setFilter("all"));
+$("filterNew").addEventListener("click", () => setFilter("new"));
 
 $("enabled").addEventListener("change", async (e) => {
   const { settings } = await browser.storage.local.get("settings");
@@ -88,5 +119,7 @@ $("openOptions").addEventListener("click", (e) => {
 (async function init() {
   await I18N.init();
   I18N.applyPage();
+  const { popupFilter } = await browser.storage.local.get("popupFilter");
+  if (popupFilter === "new") filter = "new";
   await refresh();
 })();
