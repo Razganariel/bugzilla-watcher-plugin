@@ -158,6 +158,7 @@ $("openOptions").addEventListener("click", (e) => {
 
 (async function init() {
   await I18N.init();
+  await Theme.init();
   I18N.applyPage();
   const { popupFilter } = await browser.storage.local.get("popupFilter");
   if (popupFilter === "new") filter = "new";

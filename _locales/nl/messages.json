@@ -224,6 +224,21 @@
   "sev_autre": {
     "message": "Overige"
   },
+  "sec_theme": {
+    "message": "Weergave"
+  },
+  "theme_label": {
+    "message": "Thema"
+  },
+  "theme_auto": {
+    "message": "Automatisch (systeem)"
+  },
+  "theme_light": {
+    "message": "Licht"
+  },
+  "theme_dark": {
+    "message": "Donker"
+  },
   "help_summary": {
     "message": "Sneloverzicht van velden"
   },

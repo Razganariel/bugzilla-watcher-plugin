@@ -131,6 +131,7 @@ function collectSettings() {
     orderDirection: document.getElementById("orderDirection").value,
     maxTickets: Math.min(50, Math.max(1, Number(document.getElementById("maxTickets").value) || 50)),
     lang: document.getElementById("lang").value || "auto",
+    theme: document.getElementById("theme").value || "auto",
     watchMode: document.getElementById("watchMode").value || "new",
     criteria: {},
     advancedCriteria: readAdvancedRows(),
@@ -230,7 +231,7 @@ document.querySelectorAll('input[name="authMode"]').forEach((radio) => {
 
 const IMPORT_KEYS = new Set([
   "enabled", "bugzillaUrl", "pollInterval", "baselineFirstRun",
-  "orderBy", "orderDirection", "maxTickets", "lang", "watchMode",
+  "orderBy", "orderDirection", "maxTickets", "lang", "theme", "watchMode",
   "criteria", "advancedCriteria", "rawParams", "auth", "notify"
 ]);
 
@@ -288,6 +289,7 @@ function fillForm(s) {
   document.getElementById("orderDirection").value = s.orderDirection || "DESC";
   document.getElementById("maxTickets").value = Math.min(50, Math.max(1, Number(s.maxTickets) || 50));
   document.getElementById("lang").value = s.lang || "auto";
+  document.getElementById("theme").value = s.theme || "auto";
   document.getElementById("watchMode").value = s.watchMode || "new";
 
   const criteria = s.criteria || {};
@@ -337,6 +339,7 @@ function applyImported(data) {
     return;
   }
   fillForm(norm);
+  Theme.set(norm.theme || "auto");
   currentLang = norm.lang || "auto";
   doSave();
   document.getElementById("save").scrollIntoView({ block: "nearest" });
@@ -387,8 +390,13 @@ document.getElementById("importBtn").addEventListener("click", () => {
   importInput.click();
 });
 
+document.getElementById("theme").addEventListener("change", (e) => {
+  Theme.set(e.target.value);
+});
+
 (async function () {
   await I18N.init();
+  await Theme.init();
   I18N.applyPage();
   buildCriteriaGrid();
   await load();
