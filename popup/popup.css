@@ -294,6 +294,14 @@ body {
   color: #1a3e6e;
 }
 
+.issue-id a {
+  color: inherit;
+}
+
+.issue-id a:visited {
+  color: #6a3fb5;
+}
+
 .sev-tag {
   font-size: 10px;
   padding: 0 5px;
@@ -335,3 +343,98 @@ body {
 .link:hover {
   text-decoration: underline;
 }
+[data-theme="dark"] body {
+  background: #1c1f24;
+  color: #e4e6ea;
+}
+
+[data-theme="dark"] .url { color: #9aa4b2; }
+
+[data-theme="dark"] .status-row,
+[data-theme="dark"] .stat {
+  background: #24282e;
+  border-color: #343a42;
+}
+
+[data-theme="dark"] .stat-value { color: #9ec5ff; }
+[data-theme="dark"] .stat-label { color: #9aa4b2; }
+
+[data-theme="dark"] .btn { background: #2f6fd0; }
+[data-theme="dark"] .btn:hover { background: #3f7fe0; }
+[data-theme="dark"] .btn:disabled { background: #4a515b; }
+
+[data-theme="dark"] .filter-btn {
+  background: #24282e;
+  border-color: #3a414a;
+  color: #c7ccd4;
+}
+
+[data-theme="dark"] .filter-btn.active {
+  background: #2f6fd0;
+  border-color: #2f6fd0;
+  color: #fff;
+}
+
+[data-theme="dark"] .section-title { color: #9aa4b2; }
+
+[data-theme="dark"] .list li {
+  background: #24282e;
+  border-color: #343a42;
+}
+
+[data-theme="dark"] .issue-id { color: #9ec5ff; }
+[data-theme="dark"] .issue-id a:visited { color: #d0a3e8; }
+[data-theme="dark"] .issue-summary { color: #c7ccd4; }
+[data-theme="dark"] .issue-time { color: #8a929e; }
+
+[data-theme="dark"] .sev-pill,
+[data-theme="dark"] .sev-tag {
+  background: #24282e;
+  border-color: #3a414a;
+  color: #c7ccd4;
+}
+
+[data-theme="dark"] .sev-pill.sev-bloquant,
+[data-theme="dark"] .sev-tag.sev-bloquant {
+  color: #ff8a80;
+  border-color: #b71c1c;
+  background: rgba(211, 47, 47, 0.18);
+}
+
+[data-theme="dark"] .sev-pill.sev-critique,
+[data-theme="dark"] .sev-tag.sev-critique {
+  color: #ff8a80;
+  border-color: #8e2f2f;
+}
+
+[data-theme="dark"] .sev-pill.sev-majeur,
+[data-theme="dark"] .sev-tag.sev-majeur {
+  color: #ffab91;
+  border-color: #8a4a30;
+}
+
+[data-theme="dark"] .sev-pill.sev-normal,
+[data-theme="dark"] .sev-tag.sev-normal {
+  color: #e4e6ea;
+  border-color: #9aa4b2;
+}
+
+[data-theme="dark"] .sev-pill.sev-mineur,
+[data-theme="dark"] .sev-tag.sev-mineur {
+  color: #b0b6c0;
+}
+
+[data-theme="dark"] .sev-pill.sev-evolution,
+[data-theme="dark"] .sev-tag.sev-evolution {
+  color: #80cbc4;
+  border-color: #2f6f68;
+}
+
+[data-theme="dark"] .sev-pill.sev-autre,
+[data-theme="dark"] .sev-tag.sev-autre {
+  color: #b0b6c0;
+  background: rgba(158, 158, 158, 0.18);
+}
+
+[data-theme="dark"] .empty { color: #8a929e; }
+[data-theme="dark"] .link { color: #9ec5ff; }

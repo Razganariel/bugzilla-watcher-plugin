@@ -224,6 +224,21 @@
   "sev_autre": {
     "message": "Otros"
   },
+  "sec_theme": {
+    "message": "Apariencia"
+  },
+  "theme_label": {
+    "message": "Tema"
+  },
+  "theme_auto": {
+    "message": "Automático (sistema)"
+  },
+  "theme_light": {
+    "message": "Claro"
+  },
+  "theme_dark": {
+    "message": "Oscuro"
+  },
   "help_summary": {
     "message": "Guía rápida de campos"
   },

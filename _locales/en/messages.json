@@ -224,6 +224,21 @@
   "sev_autre": {
     "message": "Other"
   },
+  "sec_theme": {
+    "message": "Appearance"
+  },
+  "theme_label": {
+    "message": "Theme"
+  },
+  "theme_auto": {
+    "message": "Automatic (system)"
+  },
+  "theme_light": {
+    "message": "Light"
+  },
+  "theme_dark": {
+    "message": "Dark"
+  },
   "help_summary": {
     "message": "Quick field guide"
   },
