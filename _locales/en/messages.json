@@ -197,6 +197,33 @@
   "err_no_notify": {
     "message": "Both toast and sound are disabled: enable at least one."
   },
+  "popup_filter_all": {
+    "message": "All"
+  },
+  "popup_filter_new": {
+    "message": "New"
+  },
+  "sev_bloquant": {
+    "message": "Blocker"
+  },
+  "sev_critique": {
+    "message": "Critical"
+  },
+  "sev_majeur": {
+    "message": "Major"
+  },
+  "sev_normal": {
+    "message": "Normal"
+  },
+  "sev_mineur": {
+    "message": "Minor"
+  },
+  "sev_evolution": {
+    "message": "Enhancements"
+  },
+  "sev_autre": {
+    "message": "Other"
+  },
   "help_summary": {
     "message": "Quick field guide"
   },

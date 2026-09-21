@@ -444,7 +444,9 @@ async function poll() {
       summary: String(b.summary || "").slice(0, 80),
       product: b.product || "",
       status: b.status || "",
-      time: b.delta_ts || now
+      severity: b.severity || "",
+      time: b.delta_ts || now,
+      kind: state.seenDelta && state.seenDelta[b.id] ? "updated" : "new"
     }));
     const maxTickets = Math.min(50, Number(settings.maxTickets) || 50);
     await setState(
@@ -480,6 +482,7 @@ async function testSearch() {
       count: bugs.length,
       sample: bugs.slice(0, 6).map((b) => ({
         id: b.id,
+        severity: String(b.severity || ""),
         summary: String(b.summary || "").slice(0, 80)
       }))
     };

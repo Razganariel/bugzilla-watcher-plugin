@@ -16,7 +16,9 @@ body {
 .header,
 .status-row,
 .stats,
+.sev-row,
 .btn,
+.filter-row,
 .section-title,
 .empty,
 .link {
@@ -130,6 +132,10 @@ body {
 
 .stat {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background: #fff;
   border: 1px solid #e0e4ea;
   border-radius: 6px;
@@ -146,6 +152,67 @@ body {
 .stat-label {
   font-size: 11px;
   color: #888;
+}
+
+.sev-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.sev-pill {
+  min-width: 26px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  font-size: 11px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #e0e4ea;
+  color: #4a4a4a;
+}
+
+.sev-pill.sev-bloquant,
+.sev-tag.sev-bloquant {
+  color: #7f0000;
+  border-color: #d32f2f;
+  background: rgba(211, 47, 47, 0.1);
+}
+
+.sev-pill.sev-critique,
+.sev-tag.sev-critique {
+  color: #b71c1c;
+  border-color: #e57373;
+}
+
+.sev-pill.sev-majeur,
+.sev-tag.sev-majeur {
+  color: #bf360c;
+  border-color: #ffab91;
+}
+
+.sev-pill.sev-normal,
+.sev-tag.sev-normal {
+  color: #000;
+  border-color: #000;
+}
+
+.sev-pill.sev-mineur,
+.sev-tag.sev-mineur {
+  color: #666;
+}
+
+.sev-pill.sev-evolution,
+.sev-tag.sev-evolution {
+  color: #00695c;
+  border-color: #80cbc4;
+}
+
+.sev-pill.sev-autre,
+.sev-tag.sev-autre {
+  color: #757575;
+  background: rgba(158, 158, 158, 0.1);
 }
 
 .btn {
@@ -166,6 +233,30 @@ body {
 .btn:disabled {
   background: #9aa8bd;
   cursor: default;
+}
+
+.filter-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  margin-bottom: 6px;
+}
+
+.filter-btn {
+  flex: 1;
+  padding: 5px;
+  border: 1px solid #c5cdd8;
+  border-radius: 6px;
+  background: #fff;
+  color: #555;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.filter-btn.active {
+  background: #1a3e6e;
+  border-color: #1a3e6e;
+  color: #fff;
 }
 
 .section-title {
@@ -201,6 +292,15 @@ body {
 .issue-id {
   font-weight: 700;
   color: #1a3e6e;
+}
+
+.sev-tag {
+  font-size: 10px;
+  padding: 0 5px;
+  border-radius: 999px;
+  border: 1px solid #e0e4ea;
+  background: #fff;
+  color: #666;
 }
 
 .issue-time {
