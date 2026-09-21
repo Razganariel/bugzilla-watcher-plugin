@@ -342,6 +342,25 @@ function applyImported(data) {
   document.getElementById("save").scrollIntoView({ block: "nearest" });
 }
 
+document.getElementById("testNotify").addEventListener("click", async () => {
+  const btn = document.getElementById("testNotify");
+  const notify = collectSettings().notify;
+  if (notify.toast === false && notify.sound === false) {
+    showMsg(I18N.t("msg_err", [I18N.t("err_no_notify")]), false);
+    return;
+  }
+  btn.disabled = true;
+  const saved = await browser.storage.local.get("settings");
+  if (!saved.settings) {
+    await browser.storage.local.set({ settings: collectSettings() });
+  }
+  try {
+    await browser.runtime.sendMessage({ action: "testNotify" });
+  } finally {
+    btn.disabled = false;
+  }
+});
+
 document.getElementById("exportBtn").addEventListener("click", exportSettings);
 
 const importInput = document.createElement("input");

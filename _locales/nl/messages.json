@@ -185,6 +185,18 @@
   "imp_err_keys": {
     "message": "Geen herkende instelling in het bestand."
   },
+  "btn_test_notify": {
+    "message": "Melding testen"
+  },
+  "notif_test_title": {
+    "message": "Testmelding"
+  },
+  "notif_test_msg": {
+    "message": "Zo ziet een waarschuwing (gedetecteerd ticket) eruit."
+  },
+  "err_no_notify": {
+    "message": "Toast en geluid zijn uitgeschakeld: schakel er minstens één in."
+  },
   "help_summary": {
     "message": "Sneloverzicht van velden"
   },

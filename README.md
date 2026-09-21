@@ -11,7 +11,7 @@
 **English**
 
 - **New ticket detection**: the extension polls the REST API (`GET /rest/bug`) at the configured frequency and only alerts you about tickets it has never seen.
-- **Toast + sound alerts**: native notification (toast) and a generated chime (or a custom MP3/WAV/OGG URL).
+- **Toast + sound alerts**: native notification (toast) and a generated chime (or a custom MP3/WAV/OGG URL). A **test notification button** is available in the settings.
 - **Click on notification**: opens the affected ticket directly in Bugzilla; an already-open Bugzilla tab is reused.
 - **Fully configurable criteria**:
   - Product, component, status, severity, priority, resolution, assignee, creator, summary, version, target milestone, OS, platform, QA contact, whiteboard, keywords, tags, quick search;
@@ -32,7 +32,7 @@
 **Français**
 
 - **Détection des nouveaux tickets** : l'extension interroge l'API REST (`GET /rest/bug`) selon la fréquence configurée et vous alerte uniquement pour les tickets qu'elle n'a jamais vus.
-- **Alertes toast + son** : notification native (toast) et carillon généré (ou URL MP3/WAV/OGG personnalisée).
+- **Alertes toast + son** : notification native (toast) et carillon généré (ou URL MP3/WAV/OGG personnalisée). Un **bouton de test de la notification** est disponible dans les paramètres.
 - **Clic sur la notification** : ouvre directement le ticket concerné dans Bugzilla ; un onglet Bugzilla déjà ouvert est réutilisé.
 - **Critères entièrement paramétrables** :
   - Produit, composant, statut, sévérité, priorité, résolution, assigné à, créé par, résumé, version, milestone cible, OS, plateforme, QA contact, whiteboard, mots-clés, tags, recherche rapide ;

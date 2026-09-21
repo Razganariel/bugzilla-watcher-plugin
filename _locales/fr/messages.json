@@ -185,6 +185,18 @@
   "imp_err_keys": {
     "message": "Aucun paramètre reconnu dans le fichier."
   },
+  "btn_test_notify": {
+    "message": "Tester la notification"
+  },
+  "notif_test_title": {
+    "message": "Test de notification"
+  },
+  "notif_test_msg": {
+    "message": "Voici à quoi ressemble une alerte (ticket détecté)."
+  },
+  "err_no_notify": {
+    "message": "Le toast et le son sont désactivés : activez au moins un des deux."
+  },
   "help_summary": {
     "message": "Guide rapide des champs"
   },
