@@ -17,6 +17,7 @@ body {
 .status-row,
 .stats,
 .btn,
+.filter-row,
 .section-title,
 .empty,
 .link {
@@ -166,6 +167,30 @@ body {
 .btn:disabled {
   background: #9aa8bd;
   cursor: default;
+}
+
+.filter-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  margin-bottom: 6px;
+}
+
+.filter-btn {
+  flex: 1;
+  padding: 5px;
+  border: 1px solid #c5cdd8;
+  border-radius: 6px;
+  background: #fff;
+  color: #555;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.filter-btn.active {
+  background: #1a3e6e;
+  border-color: #1a3e6e;
+  color: #fff;
 }
 
 .section-title {

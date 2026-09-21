@@ -197,6 +197,12 @@
   "err_no_notify": {
     "message": "Toast en geluid zijn uitgeschakeld: schakel er minstens één in."
   },
+  "popup_filter_all": {
+    "message": "Alle"
+  },
+  "popup_filter_new": {
+    "message": "Nieuwe"
+  },
   "help_summary": {
     "message": "Sneloverzicht van velden"
   },
