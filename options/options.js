@@ -228,9 +228,46 @@ document.querySelectorAll('input[name="authMode"]').forEach((radio) => {
   radio.addEventListener("change", updateAuthUI);
 });
 
-async function load() {
-  const { settings } = await browser.storage.local.get("settings");
-  const s = settings || {};
+const IMPORT_KEYS = new Set([
+  "enabled", "bugzillaUrl", "pollInterval", "baselineFirstRun",
+  "orderBy", "orderDirection", "maxTickets", "lang", "watchMode",
+  "criteria", "advancedCriteria", "rawParams", "auth", "notify"
+]);
+
+function normalizeImported(data) {
+  const out = {};
+  let any = false;
+  IMPORT_KEYS.forEach((k) => {
+    if (data[k] !== undefined) {
+      out[k] = data[k];
+      any = true;
+    }
+  });
+  if (!any) return null;
+
+  out.auth =
+    out.auth && typeof out.auth === "object" && !Array.isArray(out.auth)
+      ? { mode: out.auth.mode === "apiKey" ? "apiKey" : "session", apiKey: String(out.auth.apiKey || "") }
+      : { mode: "session", apiKey: "" };
+  out.notify =
+    out.notify && typeof out.notify === "object" && !Array.isArray(out.notify)
+      ? { toast: out.notify.toast !== false, sound: out.notify.sound !== false, soundUrl: String(out.notify.soundUrl || "") }
+      : { toast: true, sound: true, soundUrl: "" };
+  if (!out.criteria || typeof out.criteria !== "object" || Array.isArray(out.criteria)) {
+    out.criteria = {};
+  }
+  if (!Array.isArray(out.advancedCriteria)) {
+    out.advancedCriteria = [];
+  } else {
+    out.advancedCriteria = out.advancedCriteria.filter(
+      (r) => r && typeof r === "object" && r.field
+    );
+  }
+  return out;
+}
+
+function fillForm(s) {
+  s = s || {};
   document.getElementById("bugzillaUrl").value = s.bugzillaUrl || "";
   document.getElementById("pollInterval").value = s.pollInterval || 1;
   document.getElementById("baselineFirstRun").checked =
@@ -250,8 +287,7 @@ async function load() {
   document.getElementById("orderBy").value = s.orderBy || "bug_id";
   document.getElementById("orderDirection").value = s.orderDirection || "DESC";
   document.getElementById("maxTickets").value = Math.min(50, Math.max(1, Number(s.maxTickets) || 50));
-  currentLang = s.lang || "auto";
-  document.getElementById("lang").value = currentLang;
+  document.getElementById("lang").value = s.lang || "auto";
   document.getElementById("watchMode").value = s.watchMode || "new";
 
   const criteria = s.criteria || {};
@@ -259,6 +295,8 @@ async function load() {
     input.value = criteria[input.dataset.field] || "";
   });
 
+  const wrap = document.getElementById("advancedRows");
+  wrap.innerHTML = "";
   const adv = s.advancedCriteria || [];
   if (!adv.length) {
     createAdvancedRow({ field: ADV_FIELDS[0], op: "anyexact", value: "" }, 0);
@@ -266,6 +304,69 @@ async function load() {
     adv.forEach((row, i) => createAdvancedRow(row, i));
   }
 }
+
+async function load() {
+  const { settings } = await browser.storage.local.get("settings");
+  fillForm(settings || {});
+  currentLang = (settings && settings.lang) || "auto";
+}
+
+function exportSettings() {
+  const settings = collectSettings();
+  const blob = new Blob([JSON.stringify(settings, null, 2)], {
+    type: "application/json;charset=utf-8"
+  });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "bugzilla-monitor-settings.json";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+}
+
+function applyImported(data) {
+  if (!data || typeof data !== "object" || Array.isArray(data)) {
+    showMsg(I18N.t("imp_err_json"), false);
+    return;
+  }
+  const norm = normalizeImported(data);
+  if (!norm) {
+    showMsg(I18N.t("imp_err_keys"), false);
+    return;
+  }
+  fillForm(norm);
+  currentLang = norm.lang || "auto";
+  doSave();
+  document.getElementById("save").scrollIntoView({ block: "nearest" });
+}
+
+document.getElementById("exportBtn").addEventListener("click", exportSettings);
+
+const importInput = document.createElement("input");
+importInput.type = "file";
+importInput.accept = ".json,application/json";
+importInput.style.display = "none";
+document.body.appendChild(importInput);
+importInput.addEventListener("change", () => {
+  const file = importInput.files && importInput.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      applyImported(JSON.parse(reader.result));
+    } catch (e) {
+      showMsg(I18N.t("imp_err_json"), false);
+    }
+  };
+  reader.onerror = () => showMsg(I18N.t("imp_err_json"), false);
+  reader.readAsText(file);
+});
+document.getElementById("importBtn").addEventListener("click", () => {
+  importInput.value = "";
+  importInput.click();
+});
 
 (async function () {
   await I18N.init();

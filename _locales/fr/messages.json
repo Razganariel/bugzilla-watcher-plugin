@@ -167,6 +167,24 @@
   "btn_searching": {
     "message": "Recherche en cours…"
   },
+  "sec_importexport": {
+    "message": "Export / Import"
+  },
+  "btn_export": {
+    "message": "Exporter les paramètres"
+  },
+  "btn_import": {
+    "message": "Importer les paramètres"
+  },
+  "impexp_hint": {
+    "message": "L'export inclut les critères, l'authentification et la clé API : conservez ce fichier JSON en lieu sûr. L'import remplace la configuration actuelle puis enregistre."
+  },
+  "imp_err_json": {
+    "message": "Fichier JSON invalide."
+  },
+  "imp_err_keys": {
+    "message": "Aucun paramètre reconnu dans le fichier."
+  },
   "help_summary": {
     "message": "Guide rapide des champs"
   },
