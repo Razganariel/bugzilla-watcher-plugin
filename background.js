@@ -11,6 +11,7 @@ const DEFAULT_SETTINGS = {
   orderDirection: "DESC",
   maxTickets: 50,
   lang: "auto",
+  theme: "auto",
   watchMode: "new",
   criteria: {
     product: "",
@@ -581,8 +582,27 @@ function openBugUrl(url) {
     .then(done, done);
 }
 
+const systemThemeMq =
+  typeof window !== "undefined" && window.matchMedia
+    ? window.matchMedia("(prefers-color-scheme: dark)")
+    : null;
+
+function publishSystemTheme() {
+  if (!systemThemeMq) {
+    return;
+  }
+  browser.storage.local.set({
+    systemTheme: systemThemeMq.matches ? "dark" : "light"
+  });
+}
+
+if (systemThemeMq && systemThemeMq.addEventListener) {
+  systemThemeMq.addEventListener("change", publishSystemTheme);
+}
+
 async function init() {
   await I18N.init();
+  publishSystemTheme();
   const { settings } = await browser.storage.local
     .get("settings")
     .catch(() => ({}));
