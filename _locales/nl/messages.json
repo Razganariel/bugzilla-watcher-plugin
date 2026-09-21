@@ -203,6 +203,27 @@
   "popup_filter_new": {
     "message": "Nieuwe"
   },
+  "sev_bloquant": {
+    "message": "Blokkerend"
+  },
+  "sev_critique": {
+    "message": "Kritiek"
+  },
+  "sev_majeur": {
+    "message": "Groot"
+  },
+  "sev_normal": {
+    "message": "Normaal"
+  },
+  "sev_mineur": {
+    "message": "Klein"
+  },
+  "sev_evolution": {
+    "message": "Verbeteringen"
+  },
+  "sev_autre": {
+    "message": "Overige"
+  },
   "help_summary": {
     "message": "Sneloverzicht van velden"
   },

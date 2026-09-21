@@ -203,6 +203,27 @@
   "popup_filter_new": {
     "message": "New"
   },
+  "sev_bloquant": {
+    "message": "Blocker"
+  },
+  "sev_critique": {
+    "message": "Critical"
+  },
+  "sev_majeur": {
+    "message": "Major"
+  },
+  "sev_normal": {
+    "message": "Normal"
+  },
+  "sev_mineur": {
+    "message": "Minor"
+  },
+  "sev_evolution": {
+    "message": "Enhancements"
+  },
+  "sev_autre": {
+    "message": "Other"
+  },
   "help_summary": {
     "message": "Quick field guide"
   },

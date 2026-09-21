@@ -444,6 +444,7 @@ async function poll() {
       summary: String(b.summary || "").slice(0, 80),
       product: b.product || "",
       status: b.status || "",
+      severity: b.severity || "",
       time: b.delta_ts || now,
       kind: state.seenDelta && state.seenDelta[b.id] ? "updated" : "new"
     }));
