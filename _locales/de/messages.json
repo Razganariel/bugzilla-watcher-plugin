@@ -185,6 +185,18 @@
   "imp_err_keys": {
     "message": "Keine erkannte Einstellung in der Datei."
   },
+  "btn_test_notify": {
+    "message": "Benachrichtigung testen"
+  },
+  "notif_test_title": {
+    "message": "Test-Benachrichtigung"
+  },
+  "notif_test_msg": {
+    "message": "So sieht eine Warnung (erkanntes Ticket) aus."
+  },
+  "err_no_notify": {
+    "message": "Toast und Ton sind deaktiviert: aktivieren Sie mindestens eines davon."
+  },
   "help_summary": {
     "message": "Schnellübersicht der Felder"
   },
