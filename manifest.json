@@ -13,7 +13,7 @@
     "48": "icons/icon.svg",
     "96": "icons/icon.svg"
   },
-  "default_locale": "fr",
+  "default_locale": "en",
   "permissions": [
     "storage",
     "alarms",
