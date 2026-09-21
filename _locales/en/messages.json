@@ -197,6 +197,12 @@
   "err_no_notify": {
     "message": "Both toast and sound are disabled: enable at least one."
   },
+  "popup_filter_all": {
+    "message": "All"
+  },
+  "popup_filter_new": {
+    "message": "New"
+  },
   "help_summary": {
     "message": "Quick field guide"
   },

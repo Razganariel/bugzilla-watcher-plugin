@@ -444,7 +444,8 @@ async function poll() {
       summary: String(b.summary || "").slice(0, 80),
       product: b.product || "",
       status: b.status || "",
-      time: b.delta_ts || now
+      time: b.delta_ts || now,
+      kind: state.seenDelta && state.seenDelta[b.id] ? "updated" : "new"
     }));
     const maxTickets = Math.min(50, Number(settings.maxTickets) || 50);
     await setState(
