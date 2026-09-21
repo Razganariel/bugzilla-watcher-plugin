@@ -169,37 +169,44 @@ body {
   color: #4a4a4a;
 }
 
-.sev-bloquant {
+.sev-pill.sev-bloquant,
+.sev-tag.sev-bloquant {
   color: #7f0000;
   border-color: #d32f2f;
   background: rgba(211, 47, 47, 0.1);
 }
 
-.sev-critique {
+.sev-pill.sev-critique,
+.sev-tag.sev-critique {
   color: #b71c1c;
   border-color: #e57373;
 }
 
-.sev-majeur {
+.sev-pill.sev-majeur,
+.sev-tag.sev-majeur {
   color: #bf360c;
   border-color: #ffab91;
 }
 
-.sev-normal {
+.sev-pill.sev-normal,
+.sev-tag.sev-normal {
   color: #000;
   border-color: #000;
 }
 
-.sev-mineur {
+.sev-pill.sev-mineur,
+.sev-tag.sev-mineur {
   color: #666;
 }
 
-.sev-evolution {
+.sev-pill.sev-evolution,
+.sev-tag.sev-evolution {
   color: #00695c;
   border-color: #80cbc4;
 }
 
-.sev-autre {
+.sev-pill.sev-autre,
+.sev-tag.sev-autre {
   color: #757575;
   background: rgba(158, 158, 158, 0.1);
 }
