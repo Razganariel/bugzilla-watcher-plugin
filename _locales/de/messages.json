@@ -197,6 +197,33 @@
   "err_no_notify": {
     "message": "Toast und Ton sind deaktiviert: aktivieren Sie mindestens eines davon."
   },
+  "popup_filter_all": {
+    "message": "Alle"
+  },
+  "popup_filter_new": {
+    "message": "Neue"
+  },
+  "sev_bloquant": {
+    "message": "Blocker"
+  },
+  "sev_critique": {
+    "message": "Kritisch"
+  },
+  "sev_majeur": {
+    "message": "Schwer"
+  },
+  "sev_normal": {
+    "message": "Normal"
+  },
+  "sev_mineur": {
+    "message": "Gering"
+  },
+  "sev_evolution": {
+    "message": "Verbesserungen"
+  },
+  "sev_autre": {
+    "message": "Sonstige"
+  },
   "help_summary": {
     "message": "Schnellübersicht der Felder"
   },

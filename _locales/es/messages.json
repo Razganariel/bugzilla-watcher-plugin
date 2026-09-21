@@ -197,6 +197,33 @@
   "err_no_notify": {
     "message": "El toast y el sonido están desactivados: active al menos uno."
   },
+  "popup_filter_all": {
+    "message": "Todos"
+  },
+  "popup_filter_new": {
+    "message": "Nuevos"
+  },
+  "sev_bloquant": {
+    "message": "Bloqueantes"
+  },
+  "sev_critique": {
+    "message": "Críticos"
+  },
+  "sev_majeur": {
+    "message": "Mayores"
+  },
+  "sev_normal": {
+    "message": "Normales"
+  },
+  "sev_mineur": {
+    "message": "Menores"
+  },
+  "sev_evolution": {
+    "message": "Mejoras"
+  },
+  "sev_autre": {
+    "message": "Otros"
+  },
   "help_summary": {
     "message": "Guía rápida de campos"
   },
