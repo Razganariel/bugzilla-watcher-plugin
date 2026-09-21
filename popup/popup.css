@@ -283,6 +283,15 @@ body {
   color: #1a3e6e;
 }
 
+.sev-tag {
+  font-size: 10px;
+  padding: 0 5px;
+  border-radius: 999px;
+  border: 1px solid #e0e4ea;
+  background: #fff;
+  color: #666;
+}
+
 .issue-time {
   font-size: 11px;
   color: #999;
