@@ -185,6 +185,18 @@
   "imp_err_keys": {
     "message": "Nessuna impostazione riconosciuta nel file."
   },
+  "btn_test_notify": {
+    "message": "Prova notifica"
+  },
+  "notif_test_title": {
+    "message": "Notifica di prova"
+  },
+  "notif_test_msg": {
+    "message": "Ecco come appare un avviso (ticket rilevato)."
+  },
+  "err_no_notify": {
+    "message": "Toast e suono sono disattivati: attivane almeno uno."
+  },
   "help_summary": {
     "message": "Guida rapida dei campi"
   },

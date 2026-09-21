@@ -114,6 +114,10 @@ select:focus {
   margin: 8px 0 10px;
 }
 
+#testNotify {
+  margin-top: 12px;
+}
+
 .perm-msg {
   font-size: 12.5px;
   padding: 8px 10px;

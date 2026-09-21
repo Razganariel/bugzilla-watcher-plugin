@@ -304,6 +304,22 @@ async function notifyNewBugs(bugs, settings) {
   }
 }
 
+async function testNotification() {
+  const settings = await getSettings();
+  const icon = browser.runtime.getURL("icons/icon.svg");
+  if (settings.notify && settings.notify.toast !== false) {
+    await browser.notifications.create("bz-test", {
+      type: "basic",
+      iconUrl: icon,
+      title: I18N.t("notif_test_title"),
+      message: I18N.t("notif_test_msg")
+    });
+  }
+  if (settings.notify && settings.notify.sound !== false) {
+    playSound(settings);
+  }
+}
+
 function playSound(settings) {
   if (settings.notify.soundUrl) {
     try {
@@ -528,6 +544,12 @@ browser.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   }
   if (msg && msg.action === "test") {
     testSearch().then((r) => sendResponse(r));
+    return true;
+  }
+  if (msg && msg.action === "testNotify") {
+    testNotification()
+      .then(() => sendResponse({ ok: true }))
+      .catch((e) => sendResponse({ ok: false, error: String(e) }));
     return true;
   }
   return false;

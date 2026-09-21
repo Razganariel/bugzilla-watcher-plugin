@@ -185,6 +185,18 @@
   "imp_err_keys": {
     "message": "No recognized setting in the file."
   },
+  "btn_test_notify": {
+    "message": "Test notification"
+  },
+  "notif_test_title": {
+    "message": "Notification test"
+  },
+  "notif_test_msg": {
+    "message": "This is what an alert (detected ticket) looks like."
+  },
+  "err_no_notify": {
+    "message": "Both toast and sound are disabled: enable at least one."
+  },
   "help_summary": {
     "message": "Quick field guide"
   },
