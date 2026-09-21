@@ -482,6 +482,7 @@ async function testSearch() {
       count: bugs.length,
       sample: bugs.slice(0, 6).map((b) => ({
         id: b.id,
+        severity: String(b.severity || ""),
         summary: String(b.summary || "").slice(0, 80)
       }))
     };

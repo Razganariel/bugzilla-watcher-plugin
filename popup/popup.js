@@ -20,13 +20,18 @@ function esc(text) {
 const SEV_RANK = ["bloquant", "critique", "majeur", "normal", "mineur", "evolution", "autre"];
 
 function severityBucket(sev) {
-  const s = String(sev || "").toLowerCase();
-  if (s === "blocker") return "bloquant";
-  if (s === "critical") return "critique";
-  if (s === "major") return "majeur";
-  if (s === "normal") return "normal";
-  if (s === "minor" || s === "trivial") return "mineur";
-  if (s === "enhancement") return "evolution";
+  const s = String(sev || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+  if (!s) return "autre";
+  if (s.includes("bloqu") || s.includes("block")) return "bloquant";
+  if (s.includes("crit")) return "critique";
+  if (s.includes("major") || s.includes("majeur") || s.includes("elev")) return "majeur";
+  if (s.includes("normal")) return "normal";
+  if (s.includes("minor") || s.includes("mineur") || s.includes("trivial") || s.includes("faib")) return "mineur";
+  if (s.includes("enhanc") || s.includes("evol") || s.includes("amelior") || s.includes("feature")) return "evolution";
   return "autre";
 }
 
@@ -83,9 +88,14 @@ function renderList(lastDetected, settings) {
   list.innerHTML = "";
   items.forEach((item) => {
     const li = document.createElement("li");
+    const sevRaw = String(item.severity || "").slice(0, 12);
+    const sevTag = sevRaw
+      ? '<span class="sev-tag sev-' + severityBucket(sevRaw) + '" title="' + esc(sevRaw) + '">' + esc(sevRaw) + "</span> "
+      : "";
     li.innerHTML =
       '<div class="issue-top">' +
       '<span class="issue-id"><a href="' + esc(url + "/show_bug.cgi?id=" + item.id) + '" target="_blank" rel="noopener">#' + esc(item.id) + "</a></span>" +
+      sevTag +
       '<span class="issue-time">' + esc(fmt(item.time)) + "</span>" +
       "</div>" +
       '<div class="issue-summary">' + esc(item.summary) + "</div>";
