@@ -1,0 +1,431 @@
+{
+  "appTitle": {
+    "message": "Bugzilla Ticket Monitor"
+  },
+  "opts_subtitle": {
+    "message": "Paramètres de détection des nouveaux tickets"
+  },
+  "sec_connect": {
+    "message": "Connexion"
+  },
+  "url_label": {
+    "message": "URL de l'instance Bugzilla"
+  },
+  "url_title": {
+    "message": "Adresse de base de l'instance Bugzilla (sans /rest)"
+  },
+  "url_placeholder": {
+    "message": "https://bugzilla.example.com"
+  },
+  "auth_title": {
+    "message": "Authentification"
+  },
+  "auth_session": {
+    "message": "Session d'un onglet ouvert"
+  },
+  "auth_apikey": {
+    "message": "Clé API"
+  },
+  "apikey_label": {
+    "message": "Clé API Bugzilla"
+  },
+  "apikey_placeholder": {
+    "message": "votre clé API Bugzilla"
+  },
+  "apikey_hint": {
+    "message": "Votre profil Bugzilla → API Keys. Plus fiable que la session (pas besoin de garder un onglet ouvert)."
+  },
+  "session_hint": {
+    "message": "Mode session : un onglet Bugzilla connecté doit rester ouvert dans ce profil. Les requêtes sont faites en même origine via un script de contenu (aucun problème de CORS) et votre session est réutilisée."
+  },
+  "sec_polling": {
+    "message": "Polling"
+  },
+  "poll_freq": {
+    "message": "Fréquence (minutes)"
+  },
+  "maxtix_label": {
+    "message": "Nombre max de tickets affichés dans le popup"
+  },
+  "maxtix_hint": {
+    "message": "Ne pas dépasser 50 tickets : au-delà, les plus anciens sont ignorés."
+  },
+  "baseline_label": {
+    "message": "Ne pas alerter sur les tickets existants au premier lancement"
+  },
+  "sec_lang": {
+    "message": "Langue"
+  },
+  "lang_label": {
+    "message": "Langue de l'interface"
+  },
+  "lang_auto": {
+    "message": "Automatique (langue de Firefox)"
+  },
+  "lang_fr": {
+    "message": "Français"
+  },
+  "lang_en": {
+    "message": "English"
+  },
+  "lang_de": {
+    "message": "Deutsch"
+  },
+  "lang_es": {
+    "message": "Español"
+  },
+  "lang_it": {
+    "message": "Italiano"
+  },
+  "lang_nl": {
+    "message": "Nederlands"
+  },
+  "lang_hint": {
+    "message": "Par défaut, le plugin détecte la langue de Firefox."
+  },
+  "sec_criteria": {
+    "message": "Critères de recherche (API REST)"
+  },
+  "criteria_subtitle": {
+    "message": "Les critères sont combinés en ET logique. Séparez plusieurs valeurs par des virgules (logique OU)."
+  },
+  "watch_label": {
+    "message": "Mode de surveillance"
+  },
+  "watch_new": {
+    "message": "Nouveaux tickets uniquement"
+  },
+  "watch_all": {
+    "message": "Nouveaux + tickets modifiés"
+  },
+  "watch_hint": {
+    "message": "En mode « tickets modifiés », tout changement (statut, commentaire, etc.) déclenche une alerte, pas seulement les créations."
+  },
+  "orderby_label": {
+    "message": "Tri (order by)"
+  },
+  "orderby_bugid": {
+    "message": "ID du ticket (bug_id)"
+  },
+  "orderby_importance": {
+    "message": "Importance (priorité / sévérité)"
+  },
+  "orderby_changed": {
+    "message": "Date de changement (delta_ts)"
+  },
+  "orderby_created": {
+    "message": "Date de création (creation_ts)"
+  },
+  "orderdir_label": {
+    "message": "Sens du tri"
+  },
+  "orderdir_desc": {
+    "message": "Décroissant"
+  },
+  "orderdir_asc": {
+    "message": "Croissant"
+  },
+  "sec_advanced": {
+    "message": "Critères avancés (recherche avancée Bugzilla)"
+  },
+  "advanced_subtitle": {
+    "message": "Champ / opérateur / valeur : permet d'utiliser les champs personnalisés (cf_*) et la recherche par historique."
+  },
+  "btn_add_advanced": {
+    "message": "+ Ajouter un critère avancé"
+  },
+  "sec_raw": {
+    "message": "Paramètres bruts (JSON, optionnel)"
+  },
+  "raw_label": {
+    "message": "Paramètres REST supplémentaires envoyés tel quel"
+  },
+  "raw_hint": {
+    "message": "Permet d'utiliser n'importe quel paramètre de l'API REST non couvert ci-dessus."
+  },
+  "sec_notify": {
+    "message": "Notifications"
+  },
+  "notify_toast": {
+    "message": "Afficher un toast (notification)"
+  },
+  "notify_sound": {
+    "message": "Jouer un son"
+  },
+  "sound_url_label": {
+    "message": "URL du son personnalisé (optionnel, MP3/WAV/OGG)"
+  },
+  "sound_url_placeholder": {
+    "message": "https://example.com/son.mp3"
+  },
+  "btn_test": {
+    "message": "Tester la recherche"
+  },
+  "btn_save": {
+    "message": "Enregistrer"
+  },
+  "btn_searching": {
+    "message": "Recherche en cours…"
+  },
+  "sec_importexport": {
+    "message": "Export / Import"
+  },
+  "btn_export": {
+    "message": "Exporter les paramètres"
+  },
+  "btn_import": {
+    "message": "Importer les paramètres"
+  },
+  "impexp_hint": {
+    "message": "L'export inclut les critères, l'authentification et la clé API : conservez ce fichier JSON en lieu sûr. L'import remplace la configuration actuelle puis enregistre."
+  },
+  "imp_err_json": {
+    "message": "Fichier JSON invalide."
+  },
+  "imp_err_keys": {
+    "message": "Aucun paramètre reconnu dans le fichier."
+  },
+  "btn_test_notify": {
+    "message": "Tester la notification"
+  },
+  "notif_test_title": {
+    "message": "Test de notification"
+  },
+  "notif_test_msg": {
+    "message": "Voici à quoi ressemble une alerte (ticket détecté)."
+  },
+  "err_no_notify": {
+    "message": "Le toast et le son sont désactivés : activez au moins un des deux."
+  },
+  "popup_filter_all": {
+    "message": "Tous"
+  },
+  "popup_filter_new": {
+    "message": "Nouveaux"
+  },
+  "sev_bloquant": {
+    "message": "Bloquants"
+  },
+  "sev_critique": {
+    "message": "Critiques"
+  },
+  "sev_majeur": {
+    "message": "Majeurs"
+  },
+  "sev_normal": {
+    "message": "Normaux"
+  },
+  "sev_mineur": {
+    "message": "Mineurs"
+  },
+  "sev_evolution": {
+    "message": "Évolutions"
+  },
+  "sev_autre": {
+    "message": "Autres"
+  },
+  "sec_theme": {
+    "message": "Apparence"
+  },
+  "theme_label": {
+    "message": "Thème"
+  },
+  "theme_auto": {
+    "message": "Automatique (système)"
+  },
+  "theme_light": {
+    "message": "Clair"
+  },
+  "theme_dark": {
+    "message": "Sombre"
+  },
+  "ext_name": {
+    "message": "Bugzilla Ticket Monitor"
+  },
+  "ext_desc": {
+    "message": "Surveille Bugzilla et alerte (toast + son) dès qu'un nouveau ticket correspondant aux critères configurés est créé."
+  },
+  "ext_title": {
+    "message": "Moniteur de tickets Bugzilla"
+  },
+  "help_summary": {
+    "message": "Guide rapide des champs"
+  },
+  "help_l1": {
+    "message": "produit / component : nom exact du produit / composant Bugzilla."
+  },
+  "help_l2": {
+    "message": "status : NEW, ASSIGNED, REOPENED, RESOLVED… par défaut les statuts ouverts."
+  },
+  "help_l3": {
+    "message": "severity / priority : blocant, majeur, normal… / --, P1…P5."
+  },
+  "help_l4": {
+    "message": "assigned_to / creator / qa_contact : identifiant de connexion d'un utilisateur."
+  },
+  "help_l5": {
+    "message": "summary / whiteboard : sous-chaîne (recherche de sous-chaîne)."
+  },
+  "help_l6": {
+    "message": "keywords / tags : mots-clés ou tags de l'entrée."
+  },
+  "help_l7": {
+    "message": "version / target_milestone : version ou jalon cible."
+  },
+  "help_l8": {
+    "message": "quicksearch : syntaxe de recherche rapide Bugzilla."
+  },
+  "help_l9": {
+    "message": "Critères avancés : ex. champ cf_periodic_check, opérateur equals, valeur oui."
+  },
+  "ph_ignore": {
+    "message": "laisser vide = ignorer"
+  },
+  "ph_value": {
+    "message": "valeur"
+  },
+  "fld_product": {
+    "message": "Produit"
+  },
+  "fld_component": {
+    "message": "Composant"
+  },
+  "fld_status": {
+    "message": "Statut"
+  },
+  "fld_severity": {
+    "message": "Sévérité"
+  },
+  "fld_priority": {
+    "message": "Priorité"
+  },
+  "fld_resolution": {
+    "message": "Résolution"
+  },
+  "fld_assigned": {
+    "message": "Assigné à"
+  },
+  "fld_creator": {
+    "message": "Créé par"
+  },
+  "fld_qa": {
+    "message": "QA Contact"
+  },
+  "fld_summary": {
+    "message": "Résumé (sous-chaîne)"
+  },
+  "fld_version": {
+    "message": "Version"
+  },
+  "fld_milestone": {
+    "message": "Milestone cible"
+  },
+  "fld_opsys": {
+    "message": "Système d'exploitation"
+  },
+  "fld_platform": {
+    "message": "Plateforme"
+  },
+  "fld_whiteboard": {
+    "message": "Whiteboard (sous-chaîne)"
+  },
+  "fld_keywords": {
+    "message": "Mots-clés"
+  },
+  "fld_tags": {
+    "message": "Tags"
+  },
+  "fld_quicksearch": {
+    "message": "Recherche rapide (quicksearch)"
+  },
+  "msg_raw_invalid": {
+    "message": "Paramètres bruts invalides : JSON incorrect."
+  },
+  "msg_maxtix": {
+    "message": "Le nombre max de tickets affichés ne peut pas dépasser 50."
+  },
+  "msg_no_url": {
+    "message": "Veuillez saisir l'URL de l'instance Bugzilla."
+  },
+  "msg_no_apikey": {
+    "message": "Veuillez saisir votre clé API, ou choisir la session d'un onglet ouvert."
+  },
+  "msg_saved": {
+    "message": "Paramètres enregistrés. Le monitoring est actif."
+  },
+  "msg_test_count": {
+    "message": "La recherche renvoie {0} ticket(s)."
+  },
+  "msg_test_samples": {
+    "message": "Exemples : {0}"
+  },
+  "msg_err": {
+    "message": "Erreur : {0}"
+  },
+  "msg_unknown": {
+    "message": "inconnue"
+  },
+  "popup_switch_title": {
+    "message": "Activer / désactiver le monitoring"
+  },
+  "stat_notconfigured": {
+    "message": "Non configuré"
+  },
+  "stat_detected": {
+    "message": "Tickets détectés : {0} ({1})"
+  },
+  "stat_active": {
+    "message": "Monitoring actif"
+  },
+  "stat_waiting": {
+    "message": "En attente de la première vérification"
+  },
+  "btn_checking": {
+    "message": "Vérification…"
+  },
+  "btn_check": {
+    "message": "Vérifier maintenant"
+  },
+  "popup_init": {
+    "message": "Initialisation…"
+  },
+  "popup_lastcheck": {
+    "message": "Dernière vérification"
+  },
+  "popup_detections": {
+    "message": "Détections"
+  },
+  "popup_lastsect": {
+    "message": "Derniers tickets détectés"
+  },
+  "popup_empty": {
+    "message": "Aucun ticket détecté pour le moment."
+  },
+  "popup_options": {
+    "message": "Paramètres de détection…"
+  },
+  "err_no_url": {
+    "message": "URL Bugzilla non configurée"
+  },
+  "err_bugzilla": {
+    "message": "Erreur Bugzilla"
+  },
+  "err_check_apikey": {
+    "message": " Vérifiez votre clé API."
+  },
+  "err_login_hint": {
+    "message": " Connectez-vous à Bugzilla dans un onglet de ce profil, ou configurez une clé API."
+  },
+  "notif_title_single": {
+    "message": "Bug {0} [{1}] {2}"
+  },
+  "notif_title_multi": {
+    "message": "{0} nouveaux tickets Bugzilla"
+  },
+  "notif_msg_multi": {
+    "message": "Détection de {0} tickets correspondant aux critères."
+  },
+  "err_http": {
+    "message": "HTTP {0}"
+  }
+}

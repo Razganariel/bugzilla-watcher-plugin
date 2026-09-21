@@ -1,0 +1,431 @@
+{
+  "appTitle": {
+    "message": "Bugzilla Ticket Monitor"
+  },
+  "opts_subtitle": {
+    "message": "Instellingen voor het detecteren van nieuwe tickets"
+  },
+  "sec_connect": {
+    "message": "Verbinding"
+  },
+  "url_label": {
+    "message": "URL van het Bugzilla-instance"
+  },
+  "url_title": {
+    "message": "Basisadres van het Bugzilla-instance (zonder /rest)"
+  },
+  "url_placeholder": {
+    "message": "https://bugzilla.example.com"
+  },
+  "auth_title": {
+    "message": "Authenticatie"
+  },
+  "auth_session": {
+    "message": "Sessie van een geopend tabblad"
+  },
+  "auth_apikey": {
+    "message": "API-sleutel"
+  },
+  "apikey_label": {
+    "message": "Bugzilla API-sleutel"
+  },
+  "apikey_placeholder": {
+    "message": "uw Bugzilla API-sleutel"
+  },
+  "apikey_hint": {
+    "message": "Uw Bugzilla-profiel → API Keys. Betrouwbaarder dan een sessie (geen geopend tabblad nodig)."
+  },
+  "session_hint": {
+    "message": "Sessiemodus: een verbonden Bugzilla-tabblad moet geopend blijven in dit profiel. Verzoeken worden same-origin uitgevoerd via een contentscript (geen CORS-probleem) en uw sessie wordt hergebruikt."
+  },
+  "sec_polling": {
+    "message": "Polling"
+  },
+  "poll_freq": {
+    "message": "Frequentie (minuten)"
+  },
+  "maxtix_label": {
+    "message": "Max. aantal tickets weergegeven in de popup"
+  },
+  "maxtix_hint": {
+    "message": "Niet meer dan 50 tickets: daarboven worden oudere genegeerd."
+  },
+  "baseline_label": {
+    "message": "Bij eerste lancering niet waarschuwen over bestaande tickets"
+  },
+  "sec_lang": {
+    "message": "Taal"
+  },
+  "lang_label": {
+    "message": "Taal van de interface"
+  },
+  "lang_auto": {
+    "message": "Automatisch (Firefox-taal)"
+  },
+  "lang_fr": {
+    "message": "Français"
+  },
+  "lang_en": {
+    "message": "English"
+  },
+  "lang_de": {
+    "message": "Deutsch"
+  },
+  "lang_es": {
+    "message": "Español"
+  },
+  "lang_it": {
+    "message": "Italiano"
+  },
+  "lang_nl": {
+    "message": "Nederlands"
+  },
+  "lang_hint": {
+    "message": "Standaard detecteert de plugin de Firefox-taal."
+  },
+  "sec_criteria": {
+    "message": "Zoekcriteria (REST API)"
+  },
+  "criteria_subtitle": {
+    "message": "Criteria worden gecombineerd met logische EN. Scheid meerdere waarden met komma's (logische OF)."
+  },
+  "watch_label": {
+    "message": "Monitoringmodus"
+  },
+  "watch_new": {
+    "message": "Alleen nieuwe tickets"
+  },
+  "watch_all": {
+    "message": "Nieuwe + gewijzigde tickets"
+  },
+  "watch_hint": {
+    "message": "In de modus „gewijzigde tickets“ leidt elke wijziging (status, opmerking, enz.) tot een waarschuwing, niet alleen nieuwe aanmaak."
+  },
+  "orderby_label": {
+    "message": "Sortering (order by)"
+  },
+  "orderby_bugid": {
+    "message": "Ticket-ID (bug_id)"
+  },
+  "orderby_importance": {
+    "message": "Belangrijkheid (prioriteit / ernst)"
+  },
+  "orderby_changed": {
+    "message": "Wijzigingsdatum (delta_ts)"
+  },
+  "orderby_created": {
+    "message": "Aanmaakdatum (creation_ts)"
+  },
+  "orderdir_label": {
+    "message": "Sorteerrichting"
+  },
+  "orderdir_desc": {
+    "message": "Aflopend"
+  },
+  "orderdir_asc": {
+    "message": "Oplopend"
+  },
+  "sec_advanced": {
+    "message": "Geavanceerde criteria (geavanceerde Bugzilla-zoekopdracht)"
+  },
+  "advanced_subtitle": {
+    "message": "Veld / operator / waarde: maakt het gebruik van aangepaste velden (cf_*) en zoeken op geschiedenis mogelijk."
+  },
+  "btn_add_advanced": {
+    "message": "+ Geavanceerd criterium toevoegen"
+  },
+  "sec_raw": {
+    "message": "Ruwe parameters (JSON, optioneel)"
+  },
+  "raw_label": {
+    "message": "Aanvullende REST-parameters die ongewijzigd worden verzonden"
+  },
+  "raw_hint": {
+    "message": "Maakt het gebruik van elke REST API-parameter die hierboven niet is gedekt."
+  },
+  "sec_notify": {
+    "message": "Meldingen"
+  },
+  "notify_toast": {
+    "message": "Toast-melding weergeven"
+  },
+  "notify_sound": {
+    "message": "Geluid afspelen"
+  },
+  "sound_url_label": {
+    "message": "URL voor aangepast geluid (optioneel, MP3/WAV/OGG)"
+  },
+  "sound_url_placeholder": {
+    "message": "https://example.com/sound.mp3"
+  },
+  "btn_test": {
+    "message": "Zoekopdracht testen"
+  },
+  "btn_save": {
+    "message": "Opslaan"
+  },
+  "btn_searching": {
+    "message": "Zoeken…"
+  },
+  "sec_importexport": {
+    "message": "Exporteren / Importeren"
+  },
+  "btn_export": {
+    "message": "Instellingen exporteren"
+  },
+  "btn_import": {
+    "message": "Instellingen importeren"
+  },
+  "impexp_hint": {
+    "message": "De export omvat criteria, authenticatie en de API-sleutel: bewaar dit JSON-bestand op een veilige plaats. De import vervangt de huidige configuratie en slaat deze op."
+  },
+  "imp_err_json": {
+    "message": "Ongeldig JSON-bestand."
+  },
+  "imp_err_keys": {
+    "message": "Geen herkende instelling in het bestand."
+  },
+  "btn_test_notify": {
+    "message": "Melding testen"
+  },
+  "notif_test_title": {
+    "message": "Testmelding"
+  },
+  "notif_test_msg": {
+    "message": "Zo ziet een waarschuwing (gedetecteerd ticket) eruit."
+  },
+  "err_no_notify": {
+    "message": "Toast en geluid zijn uitgeschakeld: schakel er minstens één in."
+  },
+  "popup_filter_all": {
+    "message": "Alle"
+  },
+  "popup_filter_new": {
+    "message": "Nieuwe"
+  },
+  "sev_bloquant": {
+    "message": "Blokkerend"
+  },
+  "sev_critique": {
+    "message": "Kritiek"
+  },
+  "sev_majeur": {
+    "message": "Groot"
+  },
+  "sev_normal": {
+    "message": "Normaal"
+  },
+  "sev_mineur": {
+    "message": "Klein"
+  },
+  "sev_evolution": {
+    "message": "Verbeteringen"
+  },
+  "sev_autre": {
+    "message": "Overige"
+  },
+  "sec_theme": {
+    "message": "Weergave"
+  },
+  "theme_label": {
+    "message": "Thema"
+  },
+  "theme_auto": {
+    "message": "Automatisch (systeem)"
+  },
+  "theme_light": {
+    "message": "Licht"
+  },
+  "theme_dark": {
+    "message": "Donker"
+  },
+  "ext_name": {
+    "message": "Bugzilla Ticket Monitor"
+  },
+  "ext_desc": {
+    "message": "Bewaakt Bugzilla en waarschuwt (toast + geluid) zodra een nieuw ticket wordt aangemaakt dat aan de ingestelde criteria voldoet."
+  },
+  "ext_title": {
+    "message": "Bugzilla-ticketmonitor"
+  },
+  "help_summary": {
+    "message": "Sneloverzicht van velden"
+  },
+  "help_l1": {
+    "message": "product / component: exacte naam van het Bugzilla-product / de component."
+  },
+  "help_l2": {
+    "message": "status: NEW, ASSIGNED, REOPENED, RESOLVED… standaard open statussen."
+  },
+  "help_l3": {
+    "message": "severity / priority: blokkerend, ernstig, normaal… / --, P1…P5."
+  },
+  "help_l4": {
+    "message": "assigned_to / creator / qa_contact: gebruikersnaam van een gebruiker."
+  },
+  "help_l5": {
+    "message": "summary / whiteboard: tekenreeks (tekenreekszoeking)."
+  },
+  "help_l6": {
+    "message": "keywords / tags: trefwoorden of tags van het item."
+  },
+  "help_l7": {
+    "message": "version / target_milestone: versie of doel-milestone."
+  },
+  "help_l8": {
+    "message": "quicksearch: syntax voor snel zoeken in Bugzilla."
+  },
+  "help_l9": {
+    "message": "Geavanceerde criteria: bijv. veld cf_periodic_check, operator equals, waarde ja."
+  },
+  "ph_ignore": {
+    "message": "leeg laten = negeren"
+  },
+  "ph_value": {
+    "message": "waarde"
+  },
+  "fld_product": {
+    "message": "Product"
+  },
+  "fld_component": {
+    "message": "Component"
+  },
+  "fld_status": {
+    "message": "Status"
+  },
+  "fld_severity": {
+    "message": "Ernst"
+  },
+  "fld_priority": {
+    "message": "Prioriteit"
+  },
+  "fld_resolution": {
+    "message": "Resolutie"
+  },
+  "fld_assigned": {
+    "message": "Toegewezen aan"
+  },
+  "fld_creator": {
+    "message": "Aangemaakt door"
+  },
+  "fld_qa": {
+    "message": "QA-contact"
+  },
+  "fld_summary": {
+    "message": "Samenvatting (tekenreeks)"
+  },
+  "fld_version": {
+    "message": "Versie"
+  },
+  "fld_milestone": {
+    "message": "Doel-milestone"
+  },
+  "fld_opsys": {
+    "message": "Besturingssysteem"
+  },
+  "fld_platform": {
+    "message": "Platform"
+  },
+  "fld_whiteboard": {
+    "message": "Whiteboard (tekenreeks)"
+  },
+  "fld_keywords": {
+    "message": "Trefwoorden"
+  },
+  "fld_tags": {
+    "message": "Tags"
+  },
+  "fld_quicksearch": {
+    "message": "Snel zoeken"
+  },
+  "msg_raw_invalid": {
+    "message": "Ongeldige ruwe parameters: onjuiste JSON."
+  },
+  "msg_maxtix": {
+    "message": "Het maximaal aantal weergegeven tickets mag niet meer dan 50 zijn."
+  },
+  "msg_no_url": {
+    "message": "Voer de URL van het Bugzilla-instance in."
+  },
+  "msg_no_apikey": {
+    "message": "Voer uw API-sleutel in of kies de sessie van een geopend tabblad."
+  },
+  "msg_saved": {
+    "message": "Instellingen opgeslagen. De monitoring is actief."
+  },
+  "msg_test_count": {
+    "message": "De zoekopdracht geeft {0} ticket(s) terug."
+  },
+  "msg_test_samples": {
+    "message": "Voorbeelden: {0}"
+  },
+  "msg_err": {
+    "message": "Fout: {0}"
+  },
+  "msg_unknown": {
+    "message": "onbekend"
+  },
+  "popup_switch_title": {
+    "message": "Monitoring inschakelen / uitschakelen"
+  },
+  "stat_notconfigured": {
+    "message": "Niet geconfigureerd"
+  },
+  "stat_detected": {
+    "message": "Gedetecteerde tickets: {0} ({1})"
+  },
+  "stat_active": {
+    "message": "Monitoring actief"
+  },
+  "stat_waiting": {
+    "message": "Wachten op de eerste controle"
+  },
+  "btn_checking": {
+    "message": "Controleren…"
+  },
+  "btn_check": {
+    "message": "Nu controleren"
+  },
+  "popup_init": {
+    "message": "Initialisatie…"
+  },
+  "popup_lastcheck": {
+    "message": "Laatste controle"
+  },
+  "popup_detections": {
+    "message": "Detecties"
+  },
+  "popup_lastsect": {
+    "message": "Laatst gedetecteerde tickets"
+  },
+  "popup_empty": {
+    "message": "Er is nog geen ticket gedetecteerd."
+  },
+  "popup_options": {
+    "message": "Detectie-instellingen…"
+  },
+  "err_no_url": {
+    "message": "Bugzilla-URL niet geconfigureerd"
+  },
+  "err_bugzilla": {
+    "message": "Bugzilla-fout"
+  },
+  "err_check_apikey": {
+    "message": " Controleer uw API-sleutel."
+  },
+  "err_login_hint": {
+    "message": " Meld u aan bij Bugzilla in een tabblad van dit profiel of stel een API-sleutel in."
+  },
+  "notif_title_single": {
+    "message": "Bug {0} [{1}] {2}"
+  },
+  "notif_title_multi": {
+    "message": "{0} nieuwe Bugzilla-tickets"
+  },
+  "notif_msg_multi": {
+    "message": "Detectie van {0} ticket(s) die overeenkomen met de criteria."
+  },
+  "err_http": {
+    "message": "HTTP {0}"
+  }
+}

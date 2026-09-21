@@ -11,11 +11,19 @@
 **English**
 
 - **New ticket detection**: the extension polls the REST API (`GET /rest/bug`) at the configured frequency and only alerts you about tickets it has never seen.
-- **Toast + sound alerts**: native notification (toast) and a generated chime (or a custom MP3/WAV/OGG URL).
+- **Toast + sound alerts**: native notification (toast) and a generated chime (or a custom MP3/WAV/OGG URL). A **test notification button** is available in the settings.
+- **Click on notification**: opens the affected ticket directly in Bugzilla; an already-open Bugzilla tab is reused.
 - **Fully configurable criteria**:
   - Product, component, status, severity, priority, resolution, assignee, creator, summary, version, target milestone, OS, platform, QA contact, whiteboard, keywords, tags, quick search;
   - **Advanced criteria** (field / operator / value) to use custom `cf_*` fields and change-history search;
   - **Raw REST parameters** (JSON) for any API parameter not covered above.
+- **Reorder (`order by`)**: sort results by bug ID, importance (priority/severity), last change date (`delta_ts`) or creation date (`creation_ts`), ascending or descending.
+- **Watch mode (new / modified)**: track only newly created tickets, or also detect changes to existing ones (status, comments…). A **popup filter (All / New)** lets you show only new detections. The popup also shows a **counter per severity** (critical / major / normal / minor / enhancement).
+- **Customizable popup**: set the maximum number of detected tickets displayed (up to 50, older ones are dropped); the list auto-scrolls to the most recent.
+- **Localized UI (FR / EN / DE / ES / IT / NL)**: the plugin automatically uses the Firefox interface language, or you can force one in the settings (Language).
+- **Export / Import (JSON)**: save your whole configuration (criteria, auth, notification, language, theme) to a JSON file and restore it on another machine.
+- **Dark theme**: choose Automatic (follows the system), Light or Dark for the popup and the settings page.
+- **Retry with exponential backoff & visible errors**: on failure (unreachable instance, expired session…) the plugin retries with a growing delay from 30 s up to 15 min, pauses the normal cadence, and shows the last error (with timestamp) in the popup.
 - **Two authentication modes**:
   - *Open tab session*: the request is made same-origin through a content script (no CORS issues) and your Bugzilla session is reused;
   - *API key*: the key (`api_key`) is sent in the request, without needing an open tab.
@@ -25,11 +33,19 @@
 **Français**
 
 - **Détection des nouveaux tickets** : l'extension interroge l'API REST (`GET /rest/bug`) selon la fréquence configurée et vous alerte uniquement pour les tickets qu'elle n'a jamais vus.
-- **Alertes toast + son** : notification native (toast) et carillon généré (ou URL MP3/WAV/OGG personnalisée).
+- **Alertes toast + son** : notification native (toast) et carillon généré (ou URL MP3/WAV/OGG personnalisée). Un **bouton de test de la notification** est disponible dans les paramètres.
+- **Clic sur la notification** : ouvre directement le ticket concerné dans Bugzilla ; un onglet Bugzilla déjà ouvert est réutilisé.
 - **Critères entièrement paramétrables** :
   - Produit, composant, statut, sévérité, priorité, résolution, assigné à, créé par, résumé, version, milestone cible, OS, plateforme, QA contact, whiteboard, mots-clés, tags, recherche rapide ;
   - **Critères avancés** (champ / opérateur / valeur) pour utiliser les champs personnalisés `cf_*` et la recherche par historique ;
   - **Paramètres REST bruts** (JSON) pour tout paramètre de l'API non couvert ci-dessus.
+- **Tri (`order by`)** : résultats classés par ID du ticket, importance (priorité/sévérité), date de changement (`delta_ts`) ou date de création (`creation_ts`), croissant ou décroissant.
+- **Mode de surveillance (nouveaux / modifiés)** : suivre uniquement les nouveaux tickets, ou détecter aussi les modifications des tickets existants (statut, commentaires…). Un **filtre popup (Tous / Nouveaux)** permet de n'afficher que les nouvelles détections. Le popup affiche aussi un **compteur par sévérité** (critique / majeur / normal / mineur / amélioration).
+- **Popup personnalisable** : nombre max de tickets détectés affichés (jusqu'à 50, les plus anciens étant ignorés) ; la liste défile automatiquement vers les plus récents.
+- **Interface localisée (FR / EN / DE / ES / IT / NL)** : le plugin utilise automatiquement la langue de Firefox, ou vous pouvez en forcer une dans les paramètres (Langue).
+- **Export / Import (JSON)** : sauvegardez toute votre configuration (critères, authentification, notifications, langue, thème) dans un fichier JSON et restaurez-la sur une autre machine.
+- **Thème sombre** : choisissez Automatique (selon le système), Clair ou Sombre pour le popup et la page de paramètres.
+- **Réessai avec backoff exponentiel et erreurs visibles** : en cas d'échec (instance injoignable, session expirée…), le plugin réessaie avec un délai croissant de 30 s à 15 min, met la cadence normale en pause et affiche la dernière erreur (avec horodatage) dans le popup.
 - **Deux modes d'authentification** :
   - *Session d'un onglet ouvert* : la requête est faite en même origine via un script de contenu (aucun problème de CORS) et votre session Bugzilla est réutilisée ;
   - *Clé API* : la clé (`api_key`) est envoyée dans la requête, sans avoir besoin d'un onglet ouvert.
