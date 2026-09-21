@@ -167,6 +167,24 @@
   "btn_searching": {
     "message": "Searching…"
   },
+  "sec_importexport": {
+    "message": "Export / Import"
+  },
+  "btn_export": {
+    "message": "Export settings"
+  },
+  "btn_import": {
+    "message": "Import settings"
+  },
+  "impexp_hint": {
+    "message": "The export includes criteria, authentication and the API key: keep this JSON file safe. The import replaces the current configuration then saves."
+  },
+  "imp_err_json": {
+    "message": "Invalid JSON file."
+  },
+  "imp_err_keys": {
+    "message": "No recognized setting in the file."
+  },
   "help_summary": {
     "message": "Quick field guide"
   },

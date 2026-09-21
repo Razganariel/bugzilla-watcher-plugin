@@ -167,6 +167,24 @@
   "btn_searching": {
     "message": "Suche läuft…"
   },
+  "sec_importexport": {
+    "message": "Export / Import"
+  },
+  "btn_export": {
+    "message": "Einstellungen exportieren"
+  },
+  "btn_import": {
+    "message": "Einstellungen importieren"
+  },
+  "impexp_hint": {
+    "message": "Der Export umfasst Kriterien, Authentifizierung und den API-Schlüssel: bewahren Sie diese JSON-Datei sicher auf. Der Import ersetzt die aktuelle Konfiguration und speichert sie."
+  },
+  "imp_err_json": {
+    "message": "Ungültige JSON-Datei."
+  },
+  "imp_err_keys": {
+    "message": "Keine erkannte Einstellung in der Datei."
+  },
   "help_summary": {
     "message": "Schnellübersicht der Felder"
   },

@@ -167,6 +167,24 @@
   "btn_searching": {
     "message": "Ricerca in corso…"
   },
+  "sec_importexport": {
+    "message": "Esporta / Importa"
+  },
+  "btn_export": {
+    "message": "Esporta impostazioni"
+  },
+  "btn_import": {
+    "message": "Importa impostazioni"
+  },
+  "impexp_hint": {
+    "message": "L'esportazione include criteri, autenticazione e chiave API: conserva questo file JSON in un luogo sicuro. L'importazione sostituisce la configurazione corrente e la salva."
+  },
+  "imp_err_json": {
+    "message": "File JSON non valido."
+  },
+  "imp_err_keys": {
+    "message": "Nessuna impostazione riconosciuta nel file."
+  },
   "help_summary": {
     "message": "Guida rapida dei campi"
   },
