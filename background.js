@@ -64,6 +64,8 @@ function mergeDeep(base, override) {
   return out;
 }
 
+const notificationUrls = new Map();
+
 async function getSettings() {
   const { settings } = await browser.storage.local.get("settings");
   return mergeDeep(DEFAULT_SETTINGS, settings || {});
@@ -270,10 +272,13 @@ async function handlePollSuccess(settings) {
 async function notifyNewBugs(bugs, settings) {
   const icon = browser.runtime.getURL("icons/icon.svg");
   const toast = settings.notify.toast;
+  const cleanUrl = String(settings.bugzillaUrl || "").trim().replace(/\/+$/, "");
   if (toast) {
     if (bugs.length <= 3) {
       for (const bug of bugs) {
-        await browser.notifications.create("bz-" + bug.id, {
+        const nid = "bz-" + bug.id;
+        notificationUrls.set(nid, cleanUrl + "/show_bug.cgi?id=" + bug.id);
+        await browser.notifications.create(nid, {
           type: "basic",
           iconUrl: icon,
           title: I18N.t("notif_title_single", [bug.id, bug.status || "", bug.product || ""]),
@@ -281,7 +286,12 @@ async function notifyNewBugs(bugs, settings) {
         });
       }
     } else {
-      await browser.notifications.create("bz-summary", {
+      const nid = "bz-summary";
+      notificationUrls.set(
+        nid,
+        cleanUrl + "/buglist.cgi?bug_id=" + bugs.map((b) => b.id).join(",")
+      );
+      await browser.notifications.create(nid, {
         type: "basic",
         iconUrl: icon,
         title: I18N.t("notif_title_multi", [bugs.length]),
@@ -485,6 +495,17 @@ browser.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name === "poll" || alarm.name === "retry") poll();
 });
 
+browser.notifications.onClicked.addListener((id) => {
+  const url = notificationUrls.get(id);
+  notificationUrls.delete(id);
+  browser.notifications.clear(id).catch(() => {});
+  if (url) openBugUrl(url);
+});
+
+browser.notifications.onClosed.addListener((id) => {
+  notificationUrls.delete(id);
+});
+
 browser.storage.onChanged.addListener(async (changes, area) => {
   if (area === "local" && changes.settings) {
     const newSettings = changes.settings.newValue || {};
@@ -511,6 +532,29 @@ browser.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   }
   return false;
 });
+
+const openingUrls = new Set();
+
+function openBugUrl(url) {
+  if (openingUrls.has(url)) {
+    return Promise.resolve();
+  }
+  openingUrls.add(url);
+  const m = url.match(/^https?:\/\/[^/]+/);
+  const prefix = m ? m[0] : url;
+  const done = () => openingUrls.delete(url);
+  return browser.tabs
+    .query({ url: prefix + "/*" })
+    .then((tabs) => {
+      if (tabs && tabs.length > 0) {
+        return browser.tabs
+          .update(tabs[0].id, { active: true, url })
+          .then(() => browser.windows.update(tabs[0].windowId, { focused: true }));
+      }
+      return browser.tabs.create({ url });
+    })
+    .then(done, done);
+}
 
 async function init() {
   await I18N.init();
