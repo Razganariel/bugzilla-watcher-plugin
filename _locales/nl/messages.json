@@ -167,6 +167,24 @@
   "btn_searching": {
     "message": "Zoeken…"
   },
+  "sec_importexport": {
+    "message": "Exporteren / Importeren"
+  },
+  "btn_export": {
+    "message": "Instellingen exporteren"
+  },
+  "btn_import": {
+    "message": "Instellingen importeren"
+  },
+  "impexp_hint": {
+    "message": "De export omvat criteria, authenticatie en de API-sleutel: bewaar dit JSON-bestand op een veilige plaats. De import vervangt de huidige configuratie en slaat deze op."
+  },
+  "imp_err_json": {
+    "message": "Ongeldig JSON-bestand."
+  },
+  "imp_err_keys": {
+    "message": "Geen herkende instelling in het bestand."
+  },
   "help_summary": {
     "message": "Sneloverzicht van velden"
   },
