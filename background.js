@@ -45,6 +45,10 @@ const DEFAULT_SETTINGS = {
 const RETRY_BASE_MIN = 0.5;
 const RETRY_CAP_MIN = 15;
 
+function retryDelay(failCount) {
+  return Math.min(RETRY_CAP_MIN, RETRY_BASE_MIN * Math.pow(2, failCount - 1));
+}
+
 function mergeDeep(base, override) {
   const out = Array.isArray(base) ? base.slice() : Object.assign({}, base);
   for (const key of Object.keys(override || {})) {
@@ -274,7 +278,7 @@ function setBadge(text) {
 async function handlePollError(e, settings) {
   const state = await getState();
   const failCount = (state.failCount || 0) + 1;
-  const delay = Math.min(RETRY_CAP_MIN, RETRY_BASE_MIN * Math.pow(2, failCount - 1));
+  const delay = retryDelay(failCount);
   await setState(
     Object.assign({}, state, {
       failCount: failCount,

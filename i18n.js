@@ -67,7 +67,7 @@ ui = ui.toLowerCase();
       } catch (e) {}
       this.activeLocale = resolveLang(lang) === "auto" ? detect() : lang;
       await loadDict(this.activeLocale);
-      loadDict(this.activeLocale === "en" ? "fr" : "en");
+      await loadDict(this.activeLocale === "en" ? "fr" : "en");
     },
 
     async setLang(lang) {

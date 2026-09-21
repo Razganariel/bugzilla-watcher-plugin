@@ -127,6 +127,7 @@ bugzilla-watcher-plugin/
 ├── manifest.json          # Manifest V3 (MV3, primary), permissions, gecko ID
 ├── manifest.v2.json       # Manifest V2 (legacy)
 ├── build.js               # Generates dist/mv3 and dist/mv2 (shared code)
+├── test/run-tests.js      # Non-regression tests (node, zero-dependency)
 ├── background.js          # Polling (alarms), detection, notifications, sound
 ├── contentScript.js       # Same-origin requests to /rest (session mode)
 ├── i18n.js                # Localization loader (6 languages)
@@ -143,6 +144,7 @@ bugzilla-watcher-plugin/
 ├── manifest.json          # Manifest V3 (MV3, principal), permissions, ID gecko
 ├── manifest.v2.json       # Manifest V2 (héritage)
 ├── build.js               # Génère dist/mv3 et dist/mv2 (code partagé)
+├── test/run-tests.js      # Tests de non-régression (node, sans dépendance)
 ├── background.js          # Polling (alarms), détection, notifications, son
 ├── contentScript.js       # Requêtes même-origine vers /rest (mode session)
 ├── i18n.js                # Chargeur de localisation (6 langues)
@@ -150,6 +152,26 @@ bugzilla-watcher-plugin/
 ├── icons/                 # Icônes SVG
 ├── options/               # Page de configuration (critères, auth, notifications, thème)
 └── popup/                 # Popup de statut et d'actions
+```
+
+---
+
+## Tests
+
+**English**
+
+Zero-dependency non-regression tests load the real sources (`background.js`, `popup.js`, `i18n.js`) in a Node `vm` sandbox with stubs for `browser`/DOM, and check detection helpers, backoff, i18n parity/fallback and the MV2/MV3 manifests.
+
+```
+node test/run-tests.js
+```
+
+**Français**
+
+Les tests de non-régression, sans dépendance, chargent les vraies sources (`background.js`, `popup.js`, `i18n.js`) dans un bac à sable `vm` de Node avec des stubs `browser`/DOM, et vérifient les helpers de détection, le backoff, la parité/repli i18n et les manifestes MV2/MV3.
+
+```
+node test/run-tests.js
 ```
 
 ---
