@@ -52,7 +52,8 @@ async function refresh() {
       '<span class="issue-time">' + esc(fmt(item.time)) + "</span>" +
       "</div>" +
       '<div class="issue-summary">' + esc(item.summary) + "</div>";
-    li.addEventListener("click", () => {
+    li.addEventListener("click", (e) => {
+      e.preventDefault();
       browser.tabs.create({ url: url + "/show_bug.cgi?id=" + item.id });
     });
     list.appendChild(li);
