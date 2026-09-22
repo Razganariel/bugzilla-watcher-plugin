@@ -380,6 +380,9 @@
   "stat_waiting": {
     "message": "Esperando la primera comprobación"
   },
+  "stat_offline": {
+    "message": "Sin conexión — monitoreo en pausa"
+  },
   "btn_checking": {
     "message": "Comprobando…"
   },
@@ -427,5 +430,8 @@
   },
   "err_http": {
     "message": "HTTP {0}"
+  },
+  "kofi_label": {
+    "message": "Apoya en Ko-fi"
   }
 }

@@ -114,7 +114,8 @@ async function getState() {
       seen: [],
       lastPollTime: null,
       lastDetection: null,
-      lastDetected: []
+      lastDetected: [],
+      offline: false
     }
   );
 }
@@ -273,6 +274,31 @@ function setBadge(text) {
     extAction.setBadgeText({ text });
     extAction.setBadgeBackgroundColor({ color: "#d32f2f" });
   } catch (e) {}
+}
+
+function isOnline() {
+  try {
+    return typeof navigator === "undefined" || navigator.onLine !== false;
+  } catch (e) {
+    return true;
+  }
+}
+
+async function handleOffline(state, settings) {
+  await setState(
+    Object.assign({}, state, {
+      offline: true,
+      lastOfflineTime: isoNow(),
+      failCount: 0,
+      lastError: null,
+      lastErrorTime: null
+    })
+  );
+  try {
+    await browser.alarms.clear("retry");
+  } catch (e) {}
+  schedulePolling(settings.pollInterval);
+  setBadge("");
 }
 
 async function handlePollError(e, settings) {
@@ -449,6 +475,14 @@ async function pollNow() {
     return;
   }
   const state = await getState();
+  if (!isOnline()) {
+    await handleOffline(state, settings);
+    return;
+  }
+  if (state.offline) {
+    await setState(Object.assign({}, state, { offline: false, lastOfflineTime: null }));
+    state.offline = false;
+  }
   const baselineDone = state.baselineDone;
   const since = baselineDone ? state.lastPollTime : null;
   let bugs;
@@ -647,6 +681,15 @@ function publishSystemTheme() {
 
 if (systemThemeMq && systemThemeMq.addEventListener) {
   systemThemeMq.addEventListener("change", publishSystemTheme);
+}
+
+if (typeof window !== "undefined" && window.addEventListener) {
+  window.addEventListener("online", () => {
+    poll();
+  });
+  window.addEventListener("offline", () => {
+    setBadge("");
+  });
 }
 
 async function init() {

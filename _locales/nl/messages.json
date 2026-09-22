@@ -380,6 +380,9 @@
   "stat_waiting": {
     "message": "Wachten op de eerste controle"
   },
+  "stat_offline": {
+    "message": "Offline — monitoring gepauzeerd"
+  },
   "btn_checking": {
     "message": "Controleren…"
   },
@@ -427,5 +430,8 @@
   },
   "err_http": {
     "message": "HTTP {0}"
+  },
+  "kofi_label": {
+    "message": "Steun op Ko-fi"
   }
 }

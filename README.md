@@ -24,6 +24,7 @@
 - **Export / Import (JSON)**: save your whole configuration (criteria, auth, notification, language, theme) to a JSON file and restore it on another machine.
 - **Dark theme**: choose Automatic (follows the system), Light or Dark for the popup and the settings page.
 - **Retry with exponential backoff & visible errors**: on failure (unreachable instance, expired session…) the plugin retries with a growing delay from 30 s up to 15 min, pauses the normal cadence, and shows the last error (with timestamp) in the popup.
+- **Offline auto-pause**: when the browser reports no network, polling is paused (no failed request, no backoff, no error badge) and an "Offline — monitoring paused" status is shown; monitoring resumes immediately when the connection comes back.
 - **Two authentication modes**:
   - *Open tab session*: the request is made same-origin through a content script (no CORS issues) and your Bugzilla session is reused;
   - *API key*: the key (`api_key`) is sent in the request, without needing an open tab.
@@ -46,6 +47,7 @@
 - **Export / Import (JSON)** : sauvegardez toute votre configuration (critères, authentification, notifications, langue, thème) dans un fichier JSON et restaurez-la sur une autre machine.
 - **Thème sombre** : choisissez Automatique (selon le système), Clair ou Sombre pour le popup et la page de paramètres.
 - **Réessai avec backoff exponentiel et erreurs visibles** : en cas d'échec (instance injoignable, session expirée…), le plugin réessaie avec un délai croissant de 30 s à 15 min, met la cadence normale en pause et affiche la dernière erreur (avec horodatage) dans le popup.
+- **Pause automatique hors ligne** : lorsque le navigateur n'a plus de réseau, le polling est mis en pause (aucune requête échouée, pas de backoff, pas de badge d'erreur) et le statut « Hors ligne — monitoring en pause » est affiché ; la surveillance reprend immédiatement au retour de la connexion.
 - **Deux modes d'authentification** :
   - *Session d'un onglet ouvert* : la requête est faite en même origine via un script de contenu (aucun problème de CORS) et votre session Bugzilla est réutilisée ;
   - *Clé API* : la clé (`api_key`) est envoyée dans la requête, sans avoir besoin d'un onglet ouvert.
@@ -74,15 +76,11 @@
 
 **English**
 
-1. The source ships **two manifests**: `manifest.json` (**Manifest V3**, primary, Firefox 109+) and `manifest.v2.json` (**Manifest V2**, Firefox 91+). Both share the same code.
-2. Run `node build.js` to generate the ready-to-load / ready-to-package folders: `dist/mv3/` and `dist/mv2/` (each contains a single `manifest.json`).
-3. To distribute, package one of these folders as a ZIP and submit it to [AMO](https://addons.mozilla.org/) for signing (the `gecko` ID is defined in `browser_specific_settings`).
+The extension's validation is currently in progress with Firefox: it is being reviewed on [AMO](https://addons.mozilla.org/). It therefore cannot be installed permanently yet. In the meantime, use the temporary installation above. The link to the store listing will be added here once validation is complete.
 
 **Français**
 
-1. La source fournit **deux manifestes** : `manifest.json` (**Manifest V3**, principal, Firefox 109+) et `manifest.v2.json` (**Manifest V2**, Firefox 91+). Les deux partagent le même code.
-2. Lancez `node build.js` pour générer les dossiers prêts à charger / empaqueter : `dist/mv3/` et `dist/mv2/` (chacun contient un seul `manifest.json`).
-3. Pour distribuer, empaquetez l'un de ces dossiers en ZIP et soumettez-le sur [AMO](https://addons.mozilla.org/) pour signature (l'ID `gecko` est défini dans `browser_specific_settings`).
+La validation du plugin est en cours auprès de Firefox : l'extension est actuellement en cours de révision sur [AMO](https://addons.mozilla.org/). Elle n'est donc pas encore installable de manière permanente. En attendant, utilisez le chargement à la volée ci-dessus. Le lien vers la fiche du store sera ajouté ici à l'issue de la validation.
 
 ---
 
