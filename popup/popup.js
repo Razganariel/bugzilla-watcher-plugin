@@ -55,7 +55,12 @@ async function refresh() {
   $("lastChecked").textContent = fmt(state.lastPollTime);
 
   const dot = $("statusDot");
-  if (state.lastError) {
+  if (state.offline) {
+    $("statusText").textContent =
+      I18N.t("stat_offline") +
+      (state.lastOfflineTime ? " (" + fmt(state.lastOfflineTime) + ")" : "");
+    dot.className = "dot offline";
+  } else if (state.lastError) {
     $("statusText").textContent =
       I18N.t("msg_err", [state.lastError]) +
       (state.lastErrorTime ? " (" + fmt(state.lastErrorTime) + ")" : "");
@@ -67,7 +72,10 @@ async function refresh() {
     dot.className = "dot" + (state.lastPollTime ? " ok" : "");
   }
 
-  browser.browserAction.setBadgeText({ text: "" });
+  const badge = browser.action || browser.browserAction;
+  if (badge) {
+    badge.setBadgeText({ text: "" });
+  }
 
   renderList(lastDetected, settings);
 }

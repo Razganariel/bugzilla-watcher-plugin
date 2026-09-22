@@ -1,12 +1,12 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 2,
   "name": "__MSG_ext_name__",
   "version": "1.0.0",
   "description": "__MSG_ext_desc__",
   "browser_specific_settings": {
     "gecko": {
       "id": "bugzilla-ticket-monitor@capcir.local",
-      "strict_min_version": "109.0"
+      "strict_min_version": "91.0"
     }
   },
   "icons": {
@@ -17,9 +17,7 @@
   "permissions": [
     "storage",
     "alarms",
-    "notifications"
-  ],
-  "host_permissions": [
+    "notifications",
     "<all_urls>"
   ],
   "background": {
@@ -28,7 +26,7 @@
       "background.js"
     ]
   },
-  "action": {
+  "browser_action": {
     "default_title": "__MSG_ext_title__",
     "default_popup": "popup/popup.html",
     "default_icon": "icons/icon.svg"

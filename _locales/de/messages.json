@@ -380,6 +380,9 @@
   "stat_waiting": {
     "message": "Warten auf die erste Prüfung"
   },
+  "stat_offline": {
+    "message": "Offline — Überwachung pausiert"
+  },
   "btn_checking": {
     "message": "Prüfung…"
   },
