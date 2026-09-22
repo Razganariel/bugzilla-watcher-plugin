@@ -524,6 +524,28 @@ section("i18n : parité et résolution");
     eq("clés identiques (" + l + ")", Object.keys(dicts[l]).sort(), enKeys);
   }
 
+  const CHECK_KEYS = [
+    "stat_offline",
+    "kofi_label",
+    "stat_waiting",
+    "stat_active",
+    "sev_bloquant",
+    "sev_critique",
+    "sev_majeur",
+    "sev_normal",
+    "sev_mineur",
+    "sev_evolution",
+    "sev_autre",
+    "ext_name",
+    "ext_desc",
+    "ext_title"
+  ];
+  for (const l of LOCALES) {
+    for (const key of CHECK_KEYS) {
+      ok("clé " + key + " présente (" + l + ")", key in dicts[l]);
+    }
+  }
+
   (async () => {
     const b = makeBrowser({ settings: { lang: "de" } });
     const fetchStub = makeFetch((url, json) => {
