@@ -430,5 +430,8 @@
   },
   "err_http": {
     "message": "HTTP {0}"
+  },
+  "kofi_label": {
+    "message": "Soutenir sur Ko-fi"
   }
 }

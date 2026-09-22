@@ -347,6 +347,34 @@ body {
 .link:hover {
   text-decoration: underline;
 }
+
+.kofi {
+  flex: 0 0 auto;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #e0e4ea;
+  text-align: center;
+}
+
+.kofi-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #666;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.kofi-link:hover {
+  color: #ff5e5b;
+}
+
+.kofi-icon {
+  width: 16px;
+  height: 16px;
+  color: #ff5e5b;
+  flex-shrink: 0;
+}
 [data-theme="dark"] body {
   background: #1c1f24;
   color: #e4e6ea;
@@ -442,3 +470,5 @@ body {
 
 [data-theme="dark"] .empty { color: #8a929e; }
 [data-theme="dark"] .link { color: #9ec5ff; }
+[data-theme="dark"] .kofi { border-top-color: #343a42; }
+[data-theme="dark"] .kofi-link { color: #9aa4b2; }
