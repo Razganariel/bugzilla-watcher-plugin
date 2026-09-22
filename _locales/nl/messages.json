@@ -380,6 +380,9 @@
   "stat_waiting": {
     "message": "Wachten op de eerste controle"
   },
+  "stat_offline": {
+    "message": "Offline — monitoring gepauzeerd"
+  },
   "btn_checking": {
     "message": "Controleren…"
   },

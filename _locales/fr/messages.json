@@ -380,6 +380,9 @@
   "stat_waiting": {
     "message": "En attente de la première vérification"
   },
+  "stat_offline": {
+    "message": "Hors ligne — monitoring en pause"
+  },
   "btn_checking": {
     "message": "Vérification…"
   },
