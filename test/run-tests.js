@@ -211,7 +211,7 @@ function makeContext(browser, opts) {
     URLSearchParams,
     TextEncoder,
     TextDecoder,
-    navigator: { language: "en-US" },
+    navigator: opts.navigator || { language: "en-US" },
     document: makeDom(),
     browser,
     fetch: opts.fetch || makeFetch(),
@@ -397,6 +397,89 @@ async function testPollHandlers() {
   );
 }
 
+// ---- mode hors ligne ------------------------------------------------------
+async function testOffline() {
+  section("mode hors ligne");
+  const on = loadInto(makeContext(makeBrowser(), { navigator: { onLine: true } }), ["i18n.js", "background.js"], ["isOnline"]);
+  ok("navigator.onLine=true → en ligne", on.isOnline() === true);
+  const off = loadInto(makeContext(makeBrowser(), { navigator: { onLine: false } }), ["i18n.js", "background.js"], ["isOnline"]);
+  ok("navigator.onLine=false → hors ligne", off.isOnline() === false);
+
+  const b = makeBrowser({
+    settings: { enabled: true, pollInterval: 7 },
+    state: { failCount: 2, lastError: "HTTP 500", offline: false }
+  });
+  const bg = loadInto(makeContext(b), ["i18n.js", "background.js"], [
+    "handleOffline",
+    "getState",
+    "mergeDeep",
+    "DEFAULT_SETTINGS"
+  ]);
+  await bg.handleOffline(await bg.getState(), bg.mergeDeep(bg.DEFAULT_SETTINGS, { pollInterval: 7 }));
+  const after = b._data.state;
+  ok("offline → état marqué hors ligne", after.offline === true);
+  ok("offline → failCount remis à zéro", after.failCount === 0);
+  ok("offline → lastError effacé", after.lastError === null);
+  ok("offline → alarme retry annulée", b._alarmsCleared.indexOf("retry") >= 0);
+  ok(
+    "offline → poll replanifié (periodInMinutes=7)",
+    b._alarmsCreated.some((a) => a.name === "poll" && a.info.periodInMinutes === 7)
+  );
+
+  let fetched = false;
+  const localeFetch = makeFetch();
+  const b2 = makeBrowser({
+    settings: { enabled: true, bugzillaUrl: "https://bz.example.com", pollInterval: 1 },
+    state: {}
+  });
+  const bg2 = loadInto(
+    makeContext(b2, {
+      navigator: { onLine: false },
+      fetch: async (url) => {
+        if (String(url).indexOf("_locales/") >= 0) return localeFetch(url);
+        fetched = true;
+        return { ok: true, json: async () => ({ bugs: [] }) };
+      }
+    }),
+    ["i18n.js", "background.js"],
+    ["pollNow", "getState"]
+  );
+  await bg2.pollNow();
+  ok("hors ligne → aucune requête réseau", fetched === false);
+  ok("hors ligne → état offline persisté", (await bg2.getState()).offline === true);
+
+  const b3 = makeBrowser({
+    settings: {
+      enabled: true,
+      bugzillaUrl: "https://bz.example.com",
+      pollInterval: 1,
+      watchMode: "new",
+      notify: { toast: false, sound: false }
+    },
+    state: {
+      baselineDone: true,
+      seen: [],
+      seenDelta: {},
+      lastPollTime: "2020-01-01T00:00:00",
+      offline: true,
+      failCount: 0
+    }
+  });
+  const bg3 = loadInto(
+    makeContext(b3, {
+      navigator: { onLine: true },
+      fetch: async (url) => {
+        if (String(url).indexOf("_locales/") >= 0) return localeFetch(url);
+        return { ok: true, json: async () => ({ bugs: [{ id: 1, summary: "x", delta_ts: "T" }] }) };
+      }
+    }),
+    ["i18n.js", "background.js"],
+    ["pollNow", "getState"]
+  );
+  await bg3.pollNow();
+  ok("retour en ligne → offline effacé", (await bg3.getState()).offline === false);
+}
+
 // ---- severityBucket / SEV_RANK -------------------------------------------
 section("severityBucket / SEV_RANK");
 {
@@ -441,6 +524,28 @@ section("i18n : parité et résolution");
     eq("clés identiques (" + l + ")", Object.keys(dicts[l]).sort(), enKeys);
   }
 
+  const CHECK_KEYS = [
+    "stat_offline",
+    "kofi_label",
+    "stat_waiting",
+    "stat_active",
+    "sev_bloquant",
+    "sev_critique",
+    "sev_majeur",
+    "sev_normal",
+    "sev_mineur",
+    "sev_evolution",
+    "sev_autre",
+    "ext_name",
+    "ext_desc",
+    "ext_title"
+  ];
+  for (const l of LOCALES) {
+    for (const key of CHECK_KEYS) {
+      ok("clé " + key + " présente (" + l + ")", key in dicts[l]);
+    }
+  }
+
   (async () => {
     const b = makeBrowser({ settings: { lang: "de" } });
     const fetchStub = makeFetch((url, json) => {
@@ -462,6 +567,7 @@ section("i18n : parité et résolution");
     await i18n2.I18N.init();
     eq("substitution {0}", i18n2.I18N.t("err_http", [500]), dicts.en.err_http.message.replace("{0}", "500"));
     await buildQueryTests;
+    await testOffline();
     await testPollHandlers();
     finish();
   })();
