@@ -421,28 +421,56 @@ function playSound(settings) {
   } catch (e) {}
 }
 
+const CONTENT_SCRIPT_ID = "bz-watcher";
 let registeredContentScript = null;
 
-async function registerContentScript(settings) {
-  if (registeredContentScript) {
-    try {
-      await registeredContentScript.unregister();
-    } catch (e) {}
-    registeredContentScript = null;
+async function unregisterContentScript() {
+  if (!registeredContentScript) {
+    return;
   }
-  const origin = makeOriginPattern(settings.bugzillaUrl);
-  if (!origin || !browser.contentScripts || !browser.contentScripts.register) {
+  const handle = registeredContentScript;
+  registeredContentScript = null;
+  if (handle.type === "scripting") {
+    try {
+      await browser.scripting.unregisterContentScripts({ ids: [CONTENT_SCRIPT_ID] });
+    } catch (e) {}
     return;
   }
   try {
-    registeredContentScript = await browser.contentScripts.register({
-      matches: [origin + "/*"],
-      js: [{ file: "contentScript.js" }],
-      runAt: "document_idle",
-      allFrames: false
-    });
-  } catch (e) {
-    registeredContentScript = null;
+    await handle.unregister();
+  } catch (e) {}
+}
+
+async function registerContentScript(settings) {
+  await unregisterContentScript();
+  const origin = makeOriginPattern(settings.bugzillaUrl);
+  if (!origin) {
+    return;
+  }
+  const options = {
+    matches: [origin + "/*"],
+    js: [{ file: "contentScript.js" }],
+    runAt: "document_idle",
+    allFrames: false
+  };
+  let registered = false;
+  if (browser.scripting && browser.scripting.registerContentScripts) {
+    try {
+      await browser.scripting.registerContentScripts([
+        Object.assign({ id: CONTENT_SCRIPT_ID }, options)
+      ]);
+      registeredContentScript = { type: "scripting" };
+      registered = true;
+    } catch (e) {
+      registeredContentScript = null;
+    }
+  }
+  if (!registered && browser.contentScripts && browser.contentScripts.register) {
+    try {
+      registeredContentScript = await browser.contentScripts.register(options);
+    } catch (e) {
+      registeredContentScript = null;
+    }
   }
 }
 

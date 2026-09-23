@@ -6,7 +6,10 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "{a2e56c6f-cb50-4757-98eb-3116cb75d250}",
-      "strict_min_version": "109.0"
+      "strict_min_version": "109.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
     }
   },
   "icons": {
@@ -17,7 +20,8 @@
   "permissions": [
     "storage",
     "alarms",
-    "notifications"
+    "notifications",
+    "scripting"
   ],
   "host_permissions": [
     "<all_urls>"
