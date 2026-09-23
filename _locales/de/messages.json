@@ -380,6 +380,9 @@
   "stat_waiting": {
     "message": "Warten auf die erste Prüfung"
   },
+  "stat_offline": {
+    "message": "Offline — Überwachung pausiert"
+  },
   "btn_checking": {
     "message": "Prüfung…"
   },
@@ -427,5 +430,8 @@
   },
   "err_http": {
     "message": "HTTP {0}"
+  },
+  "kofi_label": {
+    "message": "Unterstütze mich auf Ko-fi"
   }
 }

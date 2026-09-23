@@ -45,6 +45,10 @@ const DEFAULT_SETTINGS = {
 const RETRY_BASE_MIN = 0.5;
 const RETRY_CAP_MIN = 15;
 
+function retryDelay(failCount) {
+  return Math.min(RETRY_CAP_MIN, RETRY_BASE_MIN * Math.pow(2, failCount - 1));
+}
+
 function mergeDeep(base, override) {
   const out = Array.isArray(base) ? base.slice() : Object.assign({}, base);
   for (const key of Object.keys(override || {})) {
@@ -65,7 +69,37 @@ function mergeDeep(base, override) {
   return out;
 }
 
+const extAction = browser.action || browser.browserAction || null;
+
 const notificationUrls = new Map();
+
+function saveNotificationUrls() {
+  const obj = {};
+  for (const [key, value] of notificationUrls) {
+    obj[key] = value;
+  }
+  browser.storage.local.set({ notificationUrls: obj }).catch(() => {});
+}
+
+function setNotificationUrl(id, url) {
+  notificationUrls.set(id, url);
+  saveNotificationUrls();
+}
+
+function removeNotificationUrl(id) {
+  notificationUrls.delete(id);
+  saveNotificationUrls();
+}
+
+async function getNotificationUrl(id) {
+  if (notificationUrls.has(id)) {
+    return notificationUrls.get(id);
+  }
+  const { notificationUrls: stored } = await browser.storage.local
+    .get("notificationUrls")
+    .catch(() => ({}));
+  return stored ? stored[id] || null : null;
+}
 
 async function getSettings() {
   const { settings } = await browser.storage.local.get("settings");
@@ -80,7 +114,8 @@ async function getState() {
       seen: [],
       lastPollTime: null,
       lastDetection: null,
-      lastDetected: []
+      lastDetected: [],
+      offline: false
     }
   );
 }
@@ -232,16 +267,44 @@ async function searchBugs(settings, since) {
 }
 
 function setBadge(text) {
+  if (!extAction) {
+    return;
+  }
   try {
-    browser.browserAction.setBadgeText({ text });
-    browser.browserAction.setBadgeBackgroundColor({ color: "#d32f2f" });
+    extAction.setBadgeText({ text });
+    extAction.setBadgeBackgroundColor({ color: "#d32f2f" });
   } catch (e) {}
+}
+
+function isOnline() {
+  try {
+    return typeof navigator === "undefined" || navigator.onLine !== false;
+  } catch (e) {
+    return true;
+  }
+}
+
+async function handleOffline(state, settings) {
+  await setState(
+    Object.assign({}, state, {
+      offline: true,
+      lastOfflineTime: isoNow(),
+      failCount: 0,
+      lastError: null,
+      lastErrorTime: null
+    })
+  );
+  try {
+    await browser.alarms.clear("retry");
+  } catch (e) {}
+  schedulePolling(settings.pollInterval);
+  setBadge("");
 }
 
 async function handlePollError(e, settings) {
   const state = await getState();
   const failCount = (state.failCount || 0) + 1;
-  const delay = Math.min(RETRY_CAP_MIN, RETRY_BASE_MIN * Math.pow(2, failCount - 1));
+  const delay = retryDelay(failCount);
   await setState(
     Object.assign({}, state, {
       failCount: failCount,
@@ -278,7 +341,7 @@ async function notifyNewBugs(bugs, settings) {
     if (bugs.length <= 3) {
       for (const bug of bugs) {
         const nid = "bz-" + bug.id;
-        notificationUrls.set(nid, cleanUrl + "/show_bug.cgi?id=" + bug.id);
+        setNotificationUrl(nid, cleanUrl + "/show_bug.cgi?id=" + bug.id);
         await browser.notifications.create(nid, {
           type: "basic",
           iconUrl: icon,
@@ -288,7 +351,7 @@ async function notifyNewBugs(bugs, settings) {
       }
     } else {
       const nid = "bz-summary";
-      notificationUrls.set(
+      setNotificationUrl(
         nid,
         cleanUrl + "/buglist.cgi?bug_id=" + bugs.map((b) => b.id).join(",")
       );
@@ -383,7 +446,19 @@ async function registerContentScript(settings) {
   }
 }
 
-async function poll() {
+let polling = false;
+
+function poll() {
+  if (polling) {
+    return Promise.resolve();
+  }
+  polling = true;
+  return pollNow().finally(() => {
+    polling = false;
+  });
+}
+
+async function pollNow() {
   let settings;
   try {
     settings = await getSettings();
@@ -400,6 +475,14 @@ async function poll() {
     return;
   }
   const state = await getState();
+  if (!isOnline()) {
+    await handleOffline(state, settings);
+    return;
+  }
+  if (state.offline) {
+    await setState(Object.assign({}, state, { offline: false, lastOfflineTime: null }));
+    state.offline = false;
+  }
   const baselineDone = state.baselineDone;
   const since = baselineDone ? state.lastPollTime : null;
   let bugs;
@@ -515,15 +598,15 @@ browser.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name === "poll" || alarm.name === "retry") poll();
 });
 
-browser.notifications.onClicked.addListener((id) => {
-  const url = notificationUrls.get(id);
-  notificationUrls.delete(id);
+browser.notifications.onClicked.addListener(async (id) => {
+  const url = await getNotificationUrl(id);
+  removeNotificationUrl(id);
   browser.notifications.clear(id).catch(() => {});
   if (url) openBugUrl(url);
 });
 
 browser.notifications.onClosed.addListener((id) => {
-  notificationUrls.delete(id);
+  removeNotificationUrl(id);
 });
 
 browser.storage.onChanged.addListener(async (changes, area) => {
@@ -598,6 +681,15 @@ function publishSystemTheme() {
 
 if (systemThemeMq && systemThemeMq.addEventListener) {
   systemThemeMq.addEventListener("change", publishSystemTheme);
+}
+
+if (typeof window !== "undefined" && window.addEventListener) {
+  window.addEventListener("online", () => {
+    poll();
+  });
+  window.addEventListener("offline", () => {
+    setBadge("");
+  });
 }
 
 async function init() {

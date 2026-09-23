@@ -24,6 +24,7 @@
 - **Export / Import (JSON)**: save your whole configuration (criteria, auth, notification, language, theme) to a JSON file and restore it on another machine.
 - **Dark theme**: choose Automatic (follows the system), Light or Dark for the popup and the settings page.
 - **Retry with exponential backoff & visible errors**: on failure (unreachable instance, expired session…) the plugin retries with a growing delay from 30 s up to 15 min, pauses the normal cadence, and shows the last error (with timestamp) in the popup.
+- **Offline auto-pause**: when the browser reports no network, polling is paused (no failed request, no backoff, no error badge) and an "Offline — monitoring paused" status is shown; monitoring resumes immediately when the connection comes back.
 - **Two authentication modes**:
   - *Open tab session*: the request is made same-origin through a content script (no CORS issues) and your Bugzilla session is reused;
   - *API key*: the key (`api_key`) is sent in the request, without needing an open tab.
@@ -46,6 +47,7 @@
 - **Export / Import (JSON)** : sauvegardez toute votre configuration (critères, authentification, notifications, langue, thème) dans un fichier JSON et restaurez-la sur une autre machine.
 - **Thème sombre** : choisissez Automatique (selon le système), Clair ou Sombre pour le popup et la page de paramètres.
 - **Réessai avec backoff exponentiel et erreurs visibles** : en cas d'échec (instance injoignable, session expirée…), le plugin réessaie avec un délai croissant de 30 s à 15 min, met la cadence normale en pause et affiche la dernière erreur (avec horodatage) dans le popup.
+- **Pause automatique hors ligne** : lorsque le navigateur n'a plus de réseau, le polling est mis en pause (aucune requête échouée, pas de backoff, pas de badge d'erreur) et le statut « Hors ligne — monitoring en pause » est affiché ; la surveillance reprend immédiatement au retour de la connexion.
 - **Deux modes d'authentification** :
   - *Session d'un onglet ouvert* : la requête est faite en même origine via un script de contenu (aucun problème de CORS) et votre session Bugzilla est réutilisée ;
   - *Clé API* : la clé (`api_key`) est envoyée dans la requête, sans avoir besoin d'un onglet ouvert.
@@ -61,26 +63,24 @@
 **English**
 
 1. Open `about:debugging#/runtime/this-firefox` in Firefox.
-2. Click **Load Temporary Add-on** and select the `manifest.json` file.
+2. Click **Load Temporary Add-on** and select the `manifest.json` file (root = MV3), or `dist/mv2/manifest.json` after running `node build.js` to test the MV2 build.
 3. At installation, grant the "Access your data for all websites" permission.
 
 **Français**
 
 1. Ouvrez `about:debugging#/runtime/this-firefox` dans Firefox.
-2. Cliquez sur **Charger un module temporaire** et sélectionnez le fichier `manifest.json`.
+2. Cliquez sur **Charger un module temporaire** et sélectionnez le fichier `manifest.json` (racine = MV3), ou `dist/mv2/manifest.json` après `node build.js` pour tester la version MV2.
 3. À l'installation, accordez la permission « Accéder à vos données pour tous les sites ».
 
 ### Permanent / Installation permanente
 
 **English**
 
-1. Commit the folder's files to the repository; the extension uses **Manifest V2** (required for Firefox).
-2. To distribute, package the files as a ZIP and submit them to [AMO](https://addons.mozilla.org/) for signing (the `gecko` ID is defined in `browser_specific_settings`).
+The extension's validation is currently in progress with Firefox: it is being reviewed on [AMO](https://addons.mozilla.org/). It therefore cannot be installed permanently yet. In the meantime, use the temporary installation above. The link to the store listing will be added here once validation is complete.
 
 **Français**
 
-1. Commitez les fichiers du dossier dans le dépôt ; l'extension est en **Manifest V2** (obligatoire pour Firefox).
-2. Pour distribuer, empaquetez les fichiers en ZIP et soumettez-les sur [AMO](https://addons.mozilla.org/) pour signature (l'ID `gecko` est défini dans `browser_specific_settings`).
+La validation du plugin est en cours auprès de Firefox : l'extension est actuellement en cours de révision sur [AMO](https://addons.mozilla.org/). Elle n'est donc pas encore installable de manière permanente. En attendant, utilisez le chargement à la volée ci-dessus. Le lien vers la fiche du store sera ajouté ici à l'issue de la validation.
 
 ---
 
@@ -122,11 +122,16 @@ Le monitoring démarre automatiquement. Un badge sur l'icône affiche le nombre 
 
 ```
 bugzilla-watcher-plugin/
-├── manifest.json          # Manifest V2, permissions, gecko ID
+├── manifest.json          # Manifest V3 (MV3, primary), permissions, gecko ID
+├── manifest.v2.json       # Manifest V2 (legacy)
+├── build.js               # Generates dist/mv3 and dist/mv2 (shared code)
+├── test/run-tests.js      # Non-regression tests (node, zero-dependency)
 ├── background.js          # Polling (alarms), detection, notifications, sound
 ├── contentScript.js       # Same-origin requests to /rest (session mode)
+├── i18n.js                # Localization loader (6 languages)
+├── theme.js               # Light / dark / auto theme resolution
 ├── icons/                 # SVG icons
-├── options/               # Settings page (criteria, auth, notifications)
+├── options/               # Settings page (criteria, auth, notifications, theme)
 └── popup/                 # Status and action popup
 ```
 
@@ -134,12 +139,37 @@ bugzilla-watcher-plugin/
 
 ```
 bugzilla-watcher-plugin/
-├── manifest.json          # Manifest V2, permissions, ID gecko
+├── manifest.json          # Manifest V3 (MV3, principal), permissions, ID gecko
+├── manifest.v2.json       # Manifest V2 (héritage)
+├── build.js               # Génère dist/mv3 et dist/mv2 (code partagé)
+├── test/run-tests.js      # Tests de non-régression (node, sans dépendance)
 ├── background.js          # Polling (alarms), détection, notifications, son
 ├── contentScript.js       # Requêtes même-origine vers /rest (mode session)
+├── i18n.js                # Chargeur de localisation (6 langues)
+├── theme.js               # Résolution du thème clair / sombre / auto
 ├── icons/                 # Icônes SVG
-├── options/               # Page de configuration (critères, auth, notifications)
+├── options/               # Page de configuration (critères, auth, notifications, thème)
 └── popup/                 # Popup de statut et d'actions
+```
+
+---
+
+## Tests
+
+**English**
+
+Zero-dependency non-regression tests load the real sources (`background.js`, `popup.js`, `i18n.js`) in a Node `vm` sandbox with stubs for `browser`/DOM, and check detection helpers, backoff, i18n parity/fallback and the MV2/MV3 manifests.
+
+```
+node test/run-tests.js
+```
+
+**Français**
+
+Les tests de non-régression, sans dépendance, chargent les vraies sources (`background.js`, `popup.js`, `i18n.js`) dans un bac à sable `vm` de Node avec des stubs `browser`/DOM, et vérifient les helpers de détection, le backoff, la parité/repli i18n et les manifestes MV2/MV3.
+
+```
+node test/run-tests.js
 ```
 
 ---

@@ -289,3 +289,33 @@ select:focus {
 [data-theme="dark"] .help summary { color: #9ec5ff; }
 [data-theme="dark"] .help ul { color: #b0b6c0; }
 [data-theme="dark"] .help code { background: #2a2f36; }
+
+.kofi {
+  margin-top: 24px;
+  padding-top: 14px;
+  border-top: 1px solid #e8ebef;
+  text-align: center;
+}
+
+.kofi-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #777;
+  font-size: 12.5px;
+  text-decoration: none;
+}
+
+.kofi-link:hover {
+  color: #ff5e5b;
+}
+
+.kofi-icon {
+  width: 16px;
+  height: 16px;
+  color: #ff5e5b;
+  flex-shrink: 0;
+}
+
+[data-theme="dark"] .kofi { border-top-color: #343a42; }
+[data-theme="dark"] .kofi-link { color: #9aa4b2; }
