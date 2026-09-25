@@ -144,10 +144,15 @@
     setSelect("selLang", document.documentElement.lang);
     setSelect("selTheme", document.documentElement.dataset.theme);
 
+    let lastBadge = { text: "", color: "#d32f2f" };
+    const applyBadge = () => {
+      const el = document.getElementById("badge");
+      el.textContent = lastBadge.text;
+      el.hidden = !lastBadge.text;
+      el.style.background = lastBadge.color || "#d32f2f";
+    };
     const relayout = () => {
-      if (typeof window.refresh === "function") {
-        window.refresh();
-      }
+      return Promise.resolve(typeof window.refresh === "function" ? window.refresh() : null).then(applyBadge);
     };
 
     document.getElementById("selWatch").addEventListener("change", (e) => {
@@ -159,6 +164,7 @@
 
     document.getElementById("selCycle").addEventListener("change", (e) => {
       STORE.setAlarmScale(Number(e.target.value) || 5);
+      startCadence();
     });
 
     document.getElementById("chkErr").addEventListener("change", (e) => {
@@ -199,23 +205,36 @@
           STORE.log("det", "état remis à zéro → détection initiale de tous les tickets");
           return STORE.pollOnce();
         })
-        .then(() => {
-          if (typeof window.refresh === "function") window.refresh();
-        });
+        .then(relayout);
     });
 
+    // actualisation automatique de la popup après chaque cycle
+    STORE.onStateRefresh(relayout);
+
+    // poll périodique piloté par la page (indépendant des alarmes du background)
+    const CYCLE_MS = { 5: 5000, 15: 15000, 30: 30000 };
+    let cycleTimer = null;
+    const startCadence = () => {
+      if (cycleTimer) clearInterval(cycleTimer);
+      const sec = Number(document.getElementById("selCycle").value) || 5;
+      cycleTimer = setInterval(() => {
+        STORE.pollOnce().then(relayout).catch(() => {});
+      }, CYCLE_MS[sec] || 5000);
+    };
+
     // badge "live" (comme l'icône de la barre d'outils)
-    let lastBadge = "";
+    let prevBadgeText = "";
     STORE.onBadge(({ text, color }) => {
-      const el = document.getElementById("badge");
-      el.textContent = text;
-      el.hidden = !text;
-      el.style.background = color || "#d32f2f";
-      if (text && text !== lastBadge) {
-        STORE.log("badge", "badge → " + text);
+      lastBadge = { text: text || "", color: color };
+      applyBadge();
+      if (lastBadge.text && lastBadge.text !== prevBadgeText) {
+        STORE.log("badge", "badge → " + lastBadge.text);
       }
-      lastBadge = text;
+      prevBadgeText = lastBadge.text;
     });
+
+    startCadence();
+    STORE.pollOnce().then(relayout);
   }
 
   boot().catch((e) => {

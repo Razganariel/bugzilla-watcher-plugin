@@ -169,7 +169,7 @@ html[data-theme="dark"] .pp-flash {
 
 .table-wrap {
   overflow: auto;
-  max-height: 56vh;
+  max-height: 48vh;
   border: 1px solid #e3e8ef;
   border-radius: 10px;
 }

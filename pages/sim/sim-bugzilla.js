@@ -305,7 +305,7 @@
 
   function setSelect(id, value) {
     const el = document.getElementById(id);
-    if (!el) return;
+    if (!el || !el.options) return;
     const opt = Array.prototype.find.call(el.options, (o) => o.value === value || o.text === value);
     if (opt) el.value = opt.value;
   }

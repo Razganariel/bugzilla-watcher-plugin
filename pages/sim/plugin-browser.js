@@ -21,6 +21,7 @@
   const feed = document.getElementById("feed");
   let alarmScaleSec = 5; // 1 "minute" d'alarme = 5 s réelles
   let badgeCb = null;
+  let stateCb = null;
   let storageData = {};
   let listeners = {};
 
@@ -98,6 +99,7 @@
       } else if (listeners.changed) {
         listeners.changed.emit({ [k]: { oldValue: oldValue, newValue: obj[k] } }, "local");
       }
+      if (k === "state" && stateCb) queueMicrotask(stateCb);
     }
   }
 
@@ -357,6 +359,9 @@
     },
     onBadge(cb) {
       badgeCb = cb;
+    },
+    onStateRefresh(cb) {
+      stateCb = cb;
     },
     async armPoll() {
       await alarmClear("poll");
