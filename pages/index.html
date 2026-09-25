@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bugzilla Watch — simulateur</title>
+  <link rel="stylesheet" href="../popup/popup.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-layout="sim">
+
+  <header class="sim-header">
+    <img src="../icons/icon.svg" alt="" class="sim-logo">
+    <div>
+      <div class="sim-title">Bugzilla Watch — simulateur</div>
+      <div class="sim-sub">Recrée un Bugzilla fictif et observe la réaction du plugin en live. Aucune donnée réelle.</div>
+    </div>
+    <a class="sim-gh" href="https://github.com/Razganariel/bugzilla-watcher-plugin" target="_blank" rel="noopener">
+      bugzilla-watcher-plugin ↗
+    </a>
+  </header>
+
+  <main class="sim-main">
+
+    <!-- ===== panneau gauche : le Bugzilla simulé ===== -->
+    <section class="sim-pane left">
+      <div class="pane-head">
+        <h2>Bugzilla simulé</h2>
+        <span class="pane-sub"><span id="ticketCount">0</span> tickets · <code>bugzilla.sim</code></span>
+      </div>
+      <div class="sim-legend">Créez ou modifiez un ticket : le changement est aussitôt détecté par le plugin (pastilles de sévérité, liste, notification) au cycle suivant.</div>
+      <div class="sim-toolbar">
+        <button type="button" class="pp-btn pp-primary" id="btnNew">+ Nouveau ticket</button>
+        <button type="button" class="pp-btn" id="btnReset">Réinitialiser</button>
+        <span class="pp-flash" id="flash"></span>
+      </div>
+      <div class="table-wrap">
+        <table class="sim-table">
+          <thead>
+            <tr><th>ID</th><th>Résumé</th><th>Sévérité</th><th>Statut</th><th>Produit</th><th>Composant</th><th>Prio</th><th></th></tr>
+          </thead>
+          <tbody id="ticketRows"></tbody>
+        </table>
+      </div>
+      <div class="feed-head">Flux d'activité du plugin</div>
+      <div id="feed" class="feed"></div>
+    </section>
+
+    <!-- ===== panneau droit : le plugin (vraie UI) ===== -->
+    <section class="sim-pane right">
+      <div class="pane-head">
+        <h2>Extension — UI réelle</h2>
+      </div>
+
+      <div class="plugin-stage-wrap">
+        <div id="pluginStage" class="plugin-stage"></div>
+        <div class="plugin-badge" id="badge" hidden></div>
+      </div>
+
+      <div class="sim-controls">
+          <label>Mode
+            <select id="selWatch">
+              <option value="all">Tous (all)</option>
+              <option value="new">Nouveaux (new)</option>
+            </select>
+          </label>
+          <label>Cycle
+            <select id="selCycle">
+              <option value="5" selected>5 s</option>
+              <option value="15">15 s</option>
+              <option value="30">30 s</option>
+            </select>
+          </label>
+          <label class="sim-check">
+            <input type="checkbox" id="chkErr"> Simuler une panne
+          </label>
+          <label>Thème
+            <select id="selTheme">
+              <option value="auto">Auto</option>
+              <option value="light">Clair</option>
+              <option value="dark">Sombre</option>
+            </select>
+          </label>
+          <label>Langue
+            <select id="selLang">
+              <option value="fr">Français</option>
+              <option value="en">English</option>
+              <option value="de">Deutsch</option>
+              <option value="es">Español</option>
+              <option value="it">Italiano</option>
+              <option value="nl">Nederlands</option>
+            </select>
+          </label>
+          <button type="button" class="pp-btn" id="btnBaseline">Repartir de zéro (détection initiale)</button>
+        </div>
+      </section>
+    </main>
+
+  <!-- ===== modal de création / édition ===== -->
+  <div id="modal" class="sim-modal">
+    <div class="sim-modal-box">
+      <div class="sim-modal-head"><span id="mTitle">Nouveau ticket</span><button type="button" class="pp-btn" id="btnCancel">✕</button></div>
+      <div class="sim-modal-body">
+        <label>Résumé
+          <input type="text" id="mSummary" class="pp-input" placeholder="Description du problème">
+        </label>
+        <div class="pp-grid">
+          <label>Produit
+            <select id="mProduct" class="pp-input"></select>
+          </label>
+          <label>Composant
+            <input type="text" id="mComponent" class="pp-input" placeholder="General">
+          </label>
+        </div>
+        <div class="pp-grid">
+          <label>Sévérité
+            <select id="mSeverity" class="pp-input">
+              <option>bloquante</option><option>critique</option><option>majeure</option>
+              <option>normale</option><option>mineure</option><option>évolution</option>
+            </select>
+          </label>
+          <label>Priorité
+            <select id="mPriority" class="pp-input">
+              <option>P1</option><option>P2</option><option>P3</option><option>P4</option>
+            </select>
+          </label>
+          <label>Statut
+            <select id="mStatus" class="pp-input">
+              <option>NEW</option><option>ASSIGNED</option><option>IN_PROGRESS</option>
+              <option>CONFIRMED</option><option>REOPENED</option><option>RESOLVED</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div class="sim-modal-foot">
+        <button type="button" class="pp-btn pp-primary" id="btnSave">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toasts" class="sim-toasts"></div>
+
+  <script src="sim/sim-bugzilla.js"></script>
+  <script src="sim/plugin-browser.js"></script>
+  <script src="sim/main.js"></script>
+</body>
+</html>

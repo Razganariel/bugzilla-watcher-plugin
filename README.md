@@ -126,6 +126,9 @@ bugzilla-watcher-plugin/
 ├── manifest.v2.json       # Manifest V2 (legacy)
 ├── build.js               # Generates dist/mv3 and dist/mv2 (shared code)
 ├── test/run-tests.js      # Non-regression tests (node, zero-dependency)
+├── test/sim-smoke.js      # Smoke test of the web simulator (pages/)
+├── mock/                  # Screenshots demo (never shipped)
+├── pages/                 # Web simulator (Bugzilla + plugin, GitHub Pages)
 ├── background.js          # Polling (alarms), detection, notifications, sound
 ├── contentScript.js       # Same-origin requests to /rest (session mode)
 ├── i18n.js                # Localization loader (6 languages)
@@ -143,6 +146,9 @@ bugzilla-watcher-plugin/
 ├── manifest.v2.json       # Manifest V2 (héritage)
 ├── build.js               # Génère dist/mv3 et dist/mv2 (code partagé)
 ├── test/run-tests.js      # Tests de non-régression (node, sans dépendance)
+├── test/sim-smoke.js      # Smoke test du simulateur web (pages/)
+├── mock/                  # Démo pour captures d'écran (jamais livrée)
+├── pages/                 # Simulateur web (Bugzilla + plugin, GitHub Pages)
 ├── background.js          # Polling (alarms), détection, notifications, son
 ├── contentScript.js       # Requêtes même-origine vers /rest (mode session)
 ├── i18n.js                # Chargeur de localisation (6 langues)
@@ -171,6 +177,61 @@ Les tests de non-régression, sans dépendance, chargent les vraies sources (`ba
 ```
 node test/run-tests.js
 ```
+
+---
+
+## Web simulator / Simulateur web (GitHub Pages)
+
+**English**
+
+A pure-front, static demo in `pages/` simulates a Bugzilla instance
+(localStorage — fictitious tickets) and runs the **real** plugin code
+(`background.js`, `popup.js`, `i18n.js`, `theme.js`) in the page. Create or
+edit a ticket on the left, and watch the plugin react (severity pills, list,
+badge, notification) on the next poll cycle — no extension or backend needed.
+
+Run it locally from the repository root:
+
+```
+python -m http.server 8000
+# then open http://localhost:8000/pages/
+```
+
+Deploy to GitHub Pages (free, static):
+
+```
+git switch feature/gh-pages   # or any branch you want to serve
+gh-pages -d .                  # or a simple Actions workflow copying the repo
+```
+
+Then visit `https://razganariel.github.io/bugzilla-watcher-plugin/pages/`.
+`pages/` and `mock/` are never included in the built add-on (`dist/`).
+
+**Français**
+
+Démo 100 % statique dans `pages/` : elle simule une instance Bugzilla
+(localStorage, tickets fictifs) et exécute le **vrai** code du plugin
+(`background.js`, `popup.js`, `i18n.js`, `theme.js`) dans la page. Créez ou
+modifiez un ticket à gauche et observez la réaction du plugin (pastilles de
+sévérité, liste, badge, notification) au cycle suivant — sans extension ni
+serveur.
+
+Lancement local depuis la racine :
+
+```
+python -m http.server 8000
+# puis ouvrir http://localhost:8000/pages/
+```
+
+Déploiement sur GitHub Pages (gratuit, statique) :
+
+```
+git switch feature/gh-pages   # ou toute branche à servir
+gh-pages -d .                  # ou un workflow Actions qui copie le dépôt
+```
+
+Site : `https://razganariel.github.io/bugzilla-watcher-plugin/pages/`.
+`pages/` et `mock/` ne sont jamais inclus dans l'extension construite (`dist/`).
 
 ---
 

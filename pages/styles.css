@@ -1,0 +1,542 @@
+/* Styles propres au simulateur (complètent popup.css, réutilisée sans la toucher). */
+* {
+  box-sizing: border-box;
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+body[data-layout="sim"] {
+  margin: 0;
+  padding: 0;
+  width: auto;
+  max-height: none;
+  overflow: visible;
+  display: block;
+  font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: #eef1f6;
+  color: #1c2430;
+}
+html[data-theme="dark"] body[data-layout="sim"] {
+  background: #16191d;
+  color: #c7ccd4;
+}
+
+.sim-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 2px 18px;
+  background: #1a3e6e;
+  color: #fff;
+}
+html[data-theme="dark"] .sim-header {
+  background: #0f243f;
+}
+.sim-logo {
+  width: 34px;
+  height: 34px;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
+}
+.sim-title {
+  font-weight: 700;
+  font-size: 17px;
+}
+.sim-sub {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 12.5px;
+}
+.sim-gh {
+  margin-left: auto;
+  color: #fff;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 12.5px;
+  white-space: nowrap;
+}
+.sim-gh:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.sim-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  padding: 16px 18px 28px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+@media (max-width: 900px) {
+  .sim-main {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sim-pane {
+  background: #fff;
+  border: 1px solid #dce2ea;
+  border-radius: 12px;
+  padding: 14px;
+  min-width: 0;
+}
+.sim-pane.right {
+  width: auto;
+}
+html[data-theme="dark"] .sim-pane {
+  background: #1c1f24;
+  border-color: #343a42;
+}
+
+.pane-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.pane-head h2 {
+  margin: 0;
+  font-size: 15px;
+}
+.pane-sub {
+  color: #64748b;
+  font-size: 12px;
+}
+html[data-theme="dark"] .pane-sub {
+  color: #8a929e;
+}
+.pane-sub code,
+.sim-legend code {
+  background: #eef1f6;
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+html[data-theme="dark"] .pane-sub code {
+  background: #24282e;
+}
+
+.sim-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.pp-btn {
+  border: 1px solid #c3ccd8;
+  background: #f6f8fb;
+  color: #223;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font: inherit;
+  cursor: pointer;
+}
+.pp-btn:hover {
+  background: #eef1f6;
+}
+.pp-btn.pp-primary {
+  background: #1a3e6e;
+  border-color: #1a3e6e;
+  color: #fff;
+}
+.pp-btn.pp-primary:hover {
+  background: #22487d;
+}
+html[data-theme="dark"] .pp-btn {
+  background: #24282e;
+  border-color: #3c4450;
+  color: #dde3ea;
+}
+html[data-theme="dark"] .pp-btn:hover {
+  background: #2c323a;
+}
+html[data-theme="dark"] .pp-btn.pp-primary {
+  background: #2f6fd0;
+  border-color: #2f6fd0;
+}
+html[data-theme="dark"] .pp-btn.pp-primary:hover {
+  background: #3f7fe0;
+}
+
+.pp-flash {
+  color: #1a3e6e;
+  font-size: 12.5px;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+html[data-theme="dark"] .pp-flash {
+  color: #9ec5ff;
+}
+
+.table-wrap {
+  overflow: auto;
+  max-height: 56vh;
+  border: 1px solid #e3e8ef;
+  border-radius: 10px;
+}
+html[data-theme="dark"] .table-wrap {
+  border-color: #343a42;
+}
+.sim-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.sim-table th {
+  position: sticky;
+  top: 0;
+  background: #f2f5f9;
+  text-align: left;
+  padding: 7px 9px;
+  font-weight: 600;
+  color: #475569;
+  border-bottom: 1px solid #e3e8ef;
+  white-space: nowrap;
+}
+html[data-theme="dark"] .sim-table th {
+  background: #24282e;
+  color: #9aa4b2;
+  border-bottom-color: #343a42;
+}
+.sim-table td {
+  padding: 7px 9px;
+  border-bottom: 1px solid #eef1f6;
+  vertical-align: top;
+}
+html[data-theme="dark"] .sim-table td {
+  border-bottom-color: #24282e;
+}
+.sim-table tr:hover td {
+  background: #f7fafc;
+}
+html[data-theme="dark"] .sim-table tr:hover td {
+  background: #22262c;
+}
+.sim-id a {
+  color: #1a3e6e;
+  font-weight: 700;
+  text-decoration: none;
+}
+html[data-theme="dark"] .sim-id a {
+  color: #9ec5ff;
+}
+.sim-sum {
+  max-width: 320px;
+}
+.sim-sev {
+  display: inline-block;
+  color: #fff;
+  border-radius: 20px;
+  font-size: 11.5px;
+  padding: 1px 9px;
+  white-space: nowrap;
+}
+.sim-actions {
+  white-space: nowrap;
+}
+.sim-btn {
+  border: 1px solid #c3ccd8;
+  background: #fff;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 12px;
+  padding: 2px 8px;
+  cursor: pointer;
+}
+html[data-theme="dark"] .sim-btn {
+  background: #24282e;
+  border-color: #3c4450;
+  color: #dde3ea;
+}
+.sim-btn:hover {
+  background: #eef1f6;
+}
+html[data-theme="dark"] .sim-btn:hover {
+  background: #2c323a;
+}
+.sim-btn-danger:hover {
+  background: #fdecea;
+  color: #b71c1c;
+  border-color: #f5c6c0;
+}
+html[data-theme="dark"] .sim-btn-danger:hover {
+  background: #3a2326;
+  color: #ffb4a8;
+}
+
+.sim-legend {
+  color: #64748b;
+  font-size: 12.5px;
+  margin: 10px 2px 0;
+}
+html[data-theme="dark"] .sim-legend {
+  color: #8a929e;
+}
+
+/* ---- plugin stage (conteneur de la vraie popup) -------------------------- */
+.plugin-stage-wrap {
+  position: relative;
+  display: inline-block;
+}
+.plugin-stage {
+  width: 340px;
+  min-height: 60px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(16, 42, 84, 0.15);
+}
+/* popup.css applique son layout au `body` (340px / 560px / flex, etc.) —
+   chargée globalement, elle ne doit pas contraindre la page entière,
+   donc on transpose la même recette sur le conteneur injecté. */
+.plugin-stage .stage-body {
+  width: 340px;
+  max-height: 560px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+  font-size: 13px;
+  padding: 12px;
+  background: #f7f9fc;
+  color: #222;
+}
+html[data-theme="dark"] .plugin-stage .stage-body {
+  background: #1c1f24;
+  color: #c7ccd4;
+}
+.plugin-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: #d32f2f;
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  border-radius: 20px;
+  min-width: 24px;
+  text-align: center;
+  padding: 2px 7px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  z-index: 5;
+}
+
+.sim-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
+  margin: 14px 0;
+  padding: 12px;
+  background: #f7f9fc;
+  border: 1px solid #e3e8ef;
+  border-radius: 10px;
+  width: 340px;
+}
+html[data-theme="dark"] .sim-controls {
+  background: #24282e;
+  border-color: #343a42;
+}
+.sim-controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: #475569;
+}
+html[data-theme="dark"] .sim-controls label {
+  color: #9aa4b2;
+}
+.sim-controls select,
+.pp-input {
+  font: inherit;
+  border: 1px solid #c8d1dd;
+  border-radius: 7px;
+  padding: 5px 7px;
+  background: #fff;
+  color: #1c2430;
+}
+html[data-theme="dark"] .sim-controls select,
+html[data-theme="dark"] .pp-input {
+  background: #1c1f24;
+  border-color: #3c4450;
+  color: #dde3ea;
+}
+.sim-controls .sim-check {
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  padding-top: 4px;
+  grid-column: 1 / -1;
+}
+.sim-controls .pp-btn {
+  grid-column: 1 / -1;
+}
+
+.feed-head {
+  font-weight: 600;
+  font-size: 12.5px;
+  color: #475569;
+  margin: 14px 0 6px;
+}
+html[data-theme="dark"] .feed-head {
+  color: #9aa4b2;
+}
+.feed {
+  font: 11.5px/1.6 ui-monospace, Consolas, monospace;
+  background: #0f1826;
+  color: #c8d6ea;
+  border-radius: 10px;
+  padding: 8px 10px;
+  height: 230px;
+  overflow: auto;
+}
+.log-line {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.log-time {
+  color: #5c7089;
+}
+.log-poll {
+  color: #9ec5ff;
+}
+.log-det {
+  color: #ffd54f;
+}
+.log-notif {
+  color: #a5d6a7;
+}
+.log-err {
+  color: #ff8a80;
+}
+.log-sys {
+  color: #cfd8dc;
+}
+.log-badge {
+  color: #ff8a80;
+}
+
+/* ---- modal + toasts ------------------------------------------------------- */
+.sim-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 18, 30, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 40;
+}
+.sim-modal.open {
+  display: flex;
+}
+.sim-modal-box {
+  width: min(560px, 92vw);
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.3);
+}
+html[data-theme="dark"] .sim-modal-box {
+  background: #1c1f24;
+}
+.sim-modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #1a3e6e;
+  color: #fff;
+  font-weight: 700;
+}
+html[data-theme="dark"] .sim-modal-head {
+  background: #0f243f;
+}
+.sim-modal-head .pp-btn {
+  border: none;
+  background: transparent;
+  color: #fff;
+  padding: 2px 6px;
+}
+.sim-modal-body {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sim-modal-body label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12.5px;
+  color: #475569;
+}
+html[data-theme="dark"] .sim-modal-body label {
+  color: #9aa4b2;
+}
+.pp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+@media (max-width: 560px) {
+  .pp-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.sim-modal-foot {
+  padding: 10px 16px 14px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sim-toasts {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 50;
+  max-width: 340px;
+}
+.sim-toast {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  background: #fff;
+  border: 1px solid #dce2ea;
+  border-left: 4px solid #d32f2f;
+  border-radius: 10px;
+  padding: 10px 12px;
+  box-shadow: 0 6px 18px rgba(16, 42, 84, 0.18);
+  cursor: pointer;
+  animation: toastIn 0.25s ease-out;
+}
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+.sim-toast-out {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.sim-toast-icon {
+  width: 28px;
+  height: 28px;
+}
+.sim-toast-title {
+  font-weight: 700;
+  font-size: 13px;
+}
+.sim-toast-msg {
+  font-size: 12px;
+  color: #475569;
+}
+html[data-theme="dark"] .sim-toast {
+  background: #1c1f24;
+  border-color: #343a42;
+}
+html[data-theme="dark"] .sim-toast-msg {
+  color: #9aa4b2;
+}
