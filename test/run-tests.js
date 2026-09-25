@@ -480,6 +480,115 @@ async function testOffline() {
   ok("retour en ligne → offline effacé", (await bg3.getState()).offline === false);
 }
 
+// ---- mock démo (captures d'écran) ----------------------------------------
+async function testMock() {
+  section("mock démo (captures d'écran)");
+
+  function loadMock(search) {
+    const fakeBrowser = {
+      storage: {
+        local: { get: async () => ({}) },
+        onChanged: { addListener() {} }
+      },
+      runtime: {}
+    };
+    const ctx = {
+      console,
+      Date,
+      Object,
+      Array,
+      JSON,
+      Math,
+      RegExp,
+      String,
+      Number,
+      URLSearchParams,
+      location: { pathname: "/mock/popup-demo.html", search: search },
+      browser: fakeBrowser
+    };
+    ctx.window = ctx;
+    vm.createContext(ctx);
+    const src = fs.readFileSync(path.join(ROOT, "mock", "mock-browser.js"), "utf8");
+    vm.runInContext(src, ctx, { filename: "mock/mock-browser.js" });
+    return fakeBrowser;
+  }
+
+  const popup = loadInto(makeContext(makeBrowser()), ["i18n.js", "popup/popup.js"], ["severityBucket"]);
+  const fakeIds = { 4821: 1, 4819: 1, 4817: 1, 4814: 1, 4809: 1, 4805: 1, 4801: 1, 4798: 1 };
+
+  const demo = loadMock("?state=demo");
+  const state = await demo.runtime.sendMessage({ action: "getState" });
+  ok("demo → 8 tickets", state.lastDetected && state.lastDetected.length === 8);
+  ok("demo → IDs factices uniquement", state.lastDetected.every((t) => fakeIds[t.id]));
+  ok("demo → pas d'erreur ni offline", state.offline === false && state.lastError === null);
+  const ds = (await demo.storage.local.get("settings")).settings;
+  ok("demo → URL factice (.example.com)", /example\.com$/.test(ds.bugzillaUrl));
+  ok("demo → watchMode all (filtre visible)", ds.watchMode === "all");
+
+  const counts = { bloquant: 0, critique: 0, majeur: 0, mineur: 0, evolution: 0, normal: 0, autre: 0 };
+  state.lastDetected.forEach((t) => {
+    const b = popup.severityBucket(t.severity);
+    counts[b] = (counts[b] || 0) + 1;
+  });
+  eq("demo → compteurs sévérité (1 pill par bucket)", counts, {
+    bloquant: 1,
+    critique: 1,
+    majeur: 2,
+    mineur: 1,
+    evolution: 1,
+    normal: 2,
+    autre: 0
+  });
+
+  const off = loadMock("?state=offline");
+  const offState = await off.runtime.sendMessage({ action: "getState" });
+  ok("offline → état offline sans erreur", offState.offline === true && offState.lastError === null);
+  ok("offline → chronologie notée", !!offState.lastOfflineTime);
+
+  const err = loadMock("?state=error&lang=en");
+  const errState = await err.runtime.sendMessage({ action: "getState" });
+  ok("error → lastError présent, pas offline", !!errState.lastError && errState.offline === false);
+  eq("mock → lang=en appliqué", (await err.storage.local.get("settings")).settings.lang, "en");
+
+  const empty = loadMock("?state=empty");
+  const emptyState = await empty.runtime.sendMessage({ action: "getState" });
+  ok("empty → liste vide", Array.isArray(emptyState.lastDetected) && emptyState.lastDetected.length === 0);
+
+  // stub mode: pas de `browser` natif (serveur HTTP local)
+  const srcStub = fs.readFileSync(path.join(ROOT, "mock", "mock-browser.js"), "utf8");
+  const ctxStub = vm.createContext({
+    console,
+    Date,
+    Object,
+    Array,
+    JSON,
+    Math,
+    RegExp,
+    String,
+    Number,
+    URLSearchParams,
+    window: {},
+    location: { pathname: "/mock/popup-demo.html", search: "?state=demo&lang=de" }
+  });
+  vm.runInContext(srcStub, ctxStub, { filename: "mock/mock-browser.js" });
+  ok("stub → browser créé", !!(ctxStub.window.browser && ctxStub.window.browser.runtime));
+  ok(
+    "stub → getURL renvoie le chemin",
+    ctxStub.window.browser.runtime.getURL("_locales/de/messages.json") === "_locales/de/messages.json"
+  );
+  eq("stub → getUILanguage = lang", ctxStub.window.browser.i18n.getUILanguage(), "de");
+  const stubState = await ctxStub.window.browser.runtime.sendMessage({ action: "getState" });
+  ok("stub → getState fonctionne", stubState && stubState.lastDetected.length === 8);
+  const stubSettings = (await ctxStub.window.browser.storage.local.get("settings")).settings;
+  ok("stub → settings fictifs", stubSettings.bugzillaUrl === "https://bugzilla.example.com");
+
+  ok(
+    "mock non empaqueté dans dist (build)",
+    !fs.existsSync(path.join(ROOT, "dist", "mv3", "mock")) &&
+      !fs.existsSync(path.join(ROOT, "dist", "mv2", "mock"))
+  );
+}
+
 // ---- severityBucket / SEV_RANK -------------------------------------------
 section("severityBucket / SEV_RANK");
 {
@@ -569,6 +678,7 @@ section("i18n : parité et résolution");
     await buildQueryTests;
     await testOffline();
     await testPollHandlers();
+    await testMock();
     finish();
   })();
 }
